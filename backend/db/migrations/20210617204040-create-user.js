@@ -6,12 +6,15 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.UUIDV4,
       },
-      username: {
-        allowNull: false,
-        type: Sequelize.STRING(30),
-        unique: true,
+      name: {
+        allowNull:false,
+        type: Sequelize.STRING(75),
+      },
+      admin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false,
       },
       email: {
         unique: true,

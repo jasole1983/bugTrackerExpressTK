@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    username: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [3, 256]
       },
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     hashedPassword: {
       type: DataTypes.STRING.BINARY,
@@ -51,8 +55,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   
   User.prototype.toSafeObject = function() { 
-    const { id, username, email } = this;
-    return { id, username, email };
+    const { id, name, email } = this;
+    return { id, name, email };
   };
 
   User.prototype.validatePassword = function (password) {
@@ -68,7 +72,7 @@ module.exports = (sequelize, DataTypes) => {
     const user = await User.scope('loginUser').findOne({
       where: {
         [Op.or]: {
-          username: credential,
+          name: credential,
           email: credential,
         },
       },
@@ -78,10 +82,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-  User.signup = async function ({ username, email, password }) {
+  User.signup = async function ({ name, email, password }) {
     const hashedPassword = bcrypt.hashSync(password);
     const user = await User.create({
-      username,
+      name,
       email,
       hashedPassword,
     });
@@ -89,7 +93,9 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   User.associate = function(models) {
-    // associations can be defined here
+    
+    User.hasMany( models.Bug, { foreignKey: 'assignedBy' })
+    User.hasMany( models.Bug, { foreignKey: 'createdBy' })
   };
 
 return User;
