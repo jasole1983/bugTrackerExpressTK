@@ -6,7 +6,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.UUIDV4
+        type: Sequelize.INTEGER,
       },
       name: {
         type: Sequelize.STRING(255),
@@ -28,7 +28,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      assignedBy: {
+      assignedTo: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: { model: 'Users' }
@@ -40,11 +40,13 @@ module.exports = {
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
       }
     });
   },

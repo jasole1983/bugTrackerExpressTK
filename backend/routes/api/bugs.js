@@ -15,3 +15,5 @@ router.get("/priority/:id", asyncHandler(async (req, res) => {
     const priorityBugs = await Bug.findAll({where:{priority: {[Op.gt]: minPriorityLevel}}})
     res.json({ priorityBugs })
 }))
+
+module.exports = router
