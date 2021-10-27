@@ -37,24 +37,24 @@ module.exports = (sequelize, DataTypes) => {
           max: 10,
         },
       },
-    assignedBy: {
+    assignedTo: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isUUID: 4
+        isInteger: true,
       },
     },
     createdBy: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isUUID: 4
+        isInteger: true,
       },
     },
   }, {});
   Bug.associate = function(models) {
     
-    Bug.belongsTo( models.User, { foreignKey: 'assignedBy' })
+    Bug.belongsTo( models.User, { foreignKey: 'assignedTo' })
     Bug.belongsTo( models.User, { foreignKey: 'createdBy' })
     
   };

@@ -1,0 +1,23 @@
+.navbar {
+    width: 80vw;
+    height: 50px;
+    display: flex;
+    background-color: var(--prime-color);
+    justify-content: space-between;
+}
+
+.navbar-logo {
+    justify-self: flex-start;
+    width: 15%
+}
+
+.navbar-main {
+    display: flex;
+    width: 65%;
+    justify-content: space-evenly;
+}
+
+.navbar-dropdown {
+    width: 20%;
+    justify-self: flex-end;
+}

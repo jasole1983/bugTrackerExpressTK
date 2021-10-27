@@ -6,8 +6,8 @@ const { csrfProtection, asyncHandler } = require("../../utils/asynccsurf")
 
 
 router.get("/", asyncHandler(async (req, res) => {
-    const allBugs = await Bug.findAll()
-    res.json({ allBugs })
+    const bugs = await Bug.findAll()
+    res.json({ bugs })
 }))
 
 router.get("/priority/:id", asyncHandler(async (req, res) => {

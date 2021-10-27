@@ -94,7 +94,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.associate = function(models) {
     
-    User.hasMany( models.Bug, { foreignKey: 'assignedBy' })
+    User.hasMany( models.Bug, { foreignKey: 'assignedTo' })
     User.hasMany( models.Bug, { foreignKey: 'createdBy' })
   };
 
