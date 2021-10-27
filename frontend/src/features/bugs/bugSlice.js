@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-import { csrfFetch } from "../../store/csrf";
+// import { csrfFetch } from "../../store/csrf";
 
 export const fetchBugs = createAsyncThunk(
     'bugs/fetchBugs',
     async (_, { dispatch }) => {
-        const res = await csrfFetch('/api/bugs/').then((result) => result.json())
+        const res = await fetch('/api/bugs').then((result) => result.json())
         dispatch(getBugs(res.bugs))
     }
 )
@@ -30,7 +30,7 @@ const bugSlice = createSlice({
     }
 })
 
-
+fetchBugs()
 
 export default bugSlice.reducer
 

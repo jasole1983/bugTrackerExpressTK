@@ -7,13 +7,13 @@ const { csrfProtection, asyncHandler } = require("../../utils/asynccsurf")
 
 router.get("/", asyncHandler(async (req, res) => {
     const bugs = await Bug.findAll()
-    res.json({ bugs })
+    return res.json({ bugs })
 }))
 
 router.get("/priority/:id", asyncHandler(async (req, res) => {
     const minPriorityLevel = parseInt(req.params.id, 10);
     const priorityBugs = await Bug.findAll({where:{priority: {[Op.gt]: minPriorityLevel}}})
-    res.json({ priorityBugs })
+    return res.json({ priorityBugs })
 }))
 
 module.exports = router

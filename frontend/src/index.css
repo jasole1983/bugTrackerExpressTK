@@ -1,16 +1,38 @@
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 html {
-    margin-left: 20vw;
-    --prime-color: 1B262C;
-    --second-color: 0F4C75;
-    --third-color: 3282B8;
-    --fourth-color: BBE1FA;
-    color: white;
-    background-color: black;
+    
+    --prime-color: #1B262C;
+    --second-color: #0F4C75;
+    --third-color: #3282B8;
+    --fourth-color: #BBE1FA;
+    color: black;
+    background-color: white;
+    font-family: "Lucida Console", "Courier New", monospace;
+}
+
+#root {
+    display: grid;
+    grid-template-columns: 80% 20%;
+}
+
+a {
+    text-decoration: none;
+    color: var(--prime-color)
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .btn {
-    background: var(--second-color);
+    background: var(--fourth-color);
     border-radius: 5px;
     padding: 5px 20px;
     color: white;
@@ -20,7 +42,15 @@ html {
 
 .btn-link {
     text-decoration: none;
-    
+    color: var(--prime-color)
 }
 
-@import "./components/NavBar/NavBar.css";
+
+
+.page-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    grid-column: 2;
+}
