@@ -21,13 +21,13 @@ export default function LargeBugCard({ bug }) {
         if (icons < priority){
           iconList.push(
             <div className="bug-icon-container" id={icons} key={icons} onClick={(e) => setPriority(e.target.id)} >
-              <i className="bi bi-bug"></i>
+              <i className="bi bi-bug-fill"></i>
             </div>
           )
         } else {
           iconList.push(
             <div className="bug-icon-container" id={icons} key={icons} onClick={(e) => setPriority(e.target.id)} >
-              <i className="bi bi-bug-fill"></i>
+              <i className="bi bi-bug"></i>
             </div>
           )
         }
@@ -68,33 +68,35 @@ export default function LargeBugCard({ bug }) {
             <input 
                 className="bug-input"
                 name="name"
-                type="text"
+                type="textarea"
                 placeholder={bug.name}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             /> 
           </div>
           <div className="lb-col1 lb-col">
-            <label className="bug-form-label">Details:</label>
-            <input
+            <label className="bug-form-label left-labels">Details:</label>
+            <textarea
               className="bug-input"
               name="details"
-              type="text"
+              type="textarea"
               placeholder={bug.details}
+              row="2"
               value={details}
               onChange={(e) => setDetails(e.target.value)}
-            />
+            ></textarea>
           </div>
           <div className="lb-col2 lb-col">
-            <label className="bug-form-label">Steps:</label>
-            <input
+            <label className="bug-form-label left-labels">Steps:</label>
+            <textarea
               className="bug-input"
               name="steps"
-              type="text"
+              row="2"
+              type="textarea"
               placeholder={bug.steps}
               value={steps}
               onChange={(e) => setSteps(e.target.value)}
-            />
+            ></textarea>
           </div>
           <div className="lb-col3 lb-col">
             <label className="bug-form-label">Version:</label>
@@ -119,7 +121,7 @@ export default function LargeBugCard({ bug }) {
           </div>
           <div className="lb-col5 lb-col">
             <label className="bug-form-label">Assign To:</label>
-            <select className="user-dropdown" name="assignedto" id="assignedto" form="bugform" value={assignedTo}>
+            <select className="user-dropdown bug-input" name="assignedto" id="assignedto" form="bugform" value={assignedTo}>
               {users.map((user)=>(
                 <option key={user.id} value={user.name} >{user.name}</option>
               ))}

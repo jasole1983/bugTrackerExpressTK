@@ -48,22 +48,34 @@
     border-radius: 3rem;    
     justify-content: space-between;
     padding-top: 15px;
+    box-shadow: 5px 5px 5px  #3C8DAD;
 }
 
 .bug-form-label {
     font: 1.75rem bolder;
     margin-left: 20px;
+    }
+
+.left-labels {
+    display: inline-flex;
+    align-items: flex-start;
 }
 
 .lb-col {
+    display: flex;
+    flex-direction: row;
     height: 75px;
+    align-items: center;
 } 
 .bug-input {
-    background-color: #1B262C;
-    word-wrap: normal;
+    background-color: #387392;
     width: 80%;
     padding: 3px;
+    color: black;
+    font-size: 1.25rem;
+    font-weight: 900;
     margin-left: 10px;
+    border-radius: .8rem;
 }
 
 .large-bug-title {
@@ -80,9 +92,19 @@
     flex-direction: row;
 }
 
+.bug-form-priority-label {
+    margin-left: 12px;
+    margin-right: 12px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    opacity: .5;
+
+}
+
 .bug-form-priority-icons {
     display: flex;
     flex-direction: row;
+    font-size: 1.25rem;
 }
 
 #version-input {
@@ -91,6 +113,8 @@
 
 .user-dropdown {
     margin-left: 15px;
+    width: 55%;
+    height: 3rem;
 }
 
 .lb-col1 {
@@ -99,7 +123,12 @@
 }
 .lb-col2 {
     grid-area: col2;
+    width: 100%;
 }
+.lb-col2 .left-labels{
+    margin-left: 2.5rem;
+}
+
 .lb-col3 {
     grid-area: col3;
 }
@@ -134,5 +163,6 @@
     justify-content: center;
     font-size: xx-large;
     font-weight: 900;
+    border-radius: .9rem;
 }
 
