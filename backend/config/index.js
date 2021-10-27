@@ -8,7 +8,7 @@ module.exports = {
       host: process.env.DB_HOST,
     },
     jwtConfig: {
-      secret: process.env.JWT_SECRET,
-      expiresIn: process.env.JWT_EXPIRES_IN,
+      secret: 'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTYzNTMxNDkwOCwiaWF0IjoxNjM1MzE0OTA4fQ.PWH75J0Dy--TOALEg2DpV-JFRvwkZTgtzEZ_YlBcQpM',
+      expiresIn: 3600,
     },
   };

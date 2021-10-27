@@ -1,0 +1,31 @@
+.bug-card {
+    background-color: var(--prime-color);
+    min-width: 400px;
+    min-height: 200px;
+    border-radius: 3rem;
+    box-shadow: 1em 1em 1em rgb(85, 84, 84);
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 1.3rem;
+    margin: 5px;
+    text-shadow: white;
+}
+
+.bug-card-container {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.bug-card-text {
+    text-justify: auto;
+}
+
+.bug-card:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+}

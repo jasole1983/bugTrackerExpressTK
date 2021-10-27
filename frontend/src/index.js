@@ -4,19 +4,19 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { restoreCSRF, csrfFetch } from './store/csrf';
+// import { restoreCSRF, csrfFetch } from './store/csrf';
 import store from './store';
-import * as sessionActions from './store/session';
+// import * as sessionActions from './store/session';
 
 
 
-if (process.env.NODE_ENV !== 'production') {
-  restoreCSRF();
+// if (process.env.NODE_ENV !== 'production') {
+//   restoreCSRF();
 
-  window.csrfFetch = csrfFetch;
-  window.store = store;
-  window.sessionActions = sessionActions;
-}
+//   window.csrfFetch = csrfFetch;
+//   window.store = store;
+//   window.sessionActions = sessionActions;
+// }
 
 function Root() {
   return (

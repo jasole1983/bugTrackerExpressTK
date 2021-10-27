@@ -10,13 +10,13 @@ export const fetchBugs = createAsyncThunk(
 )
 
 const bugAdapter = createEntityAdapter({
-    selectId: ({id}) => id,
+    selectId: (bug) => bug.id,
     sortComparer: (a, b) => b.priority - a.priority
 })
 
 const bugSlice = createSlice({
     name: "bugs",
-    initialState: [],
+    initialState: bugAdapter.getInitialState(),
     reducers: {
         getBugs: bugAdapter.setAll,
         createBugs: bugAdapter.addMany,
@@ -26,12 +26,21 @@ const bugSlice = createSlice({
         },
     },
     extraReducers: {
-
+        [fetchBugs.pending](state){
+            state.status = "Loading"
+        },
+        [fetchBugs.fulfilled](state, { payload }){
+            state.status = "Successful"
+            getBugs(payload)
+        },
+        [fetchBugs.rejected](state){
+            state.status = "Failed"
+        }
     }
 })
-
-fetchBugs()
 
 export default bugSlice.reducer
 
 export const { getBugs, createBugs, updateBug, completeBug } = bugSlice.actions
+
+export const bugSelectors = bugAdapter.getSelectors((state) => state.bugs)

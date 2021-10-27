@@ -4,12 +4,12 @@ export const fetchUsers = createAsyncThunk(
     'user/fetchUsers',
     async (_, { dispatch }) => {
         const res = await fetch('/api/users/').then((result) => result.json())
-        dispatch(setUsers(res))
+        dispatch(setUsers(res.users))
     }) 
     
 
 const userAdapter = createEntityAdapter({
-    selectId: ({id}) => id,
+    selectId: (user) => user.id,
     })
 
 const userSlice = createSlice({

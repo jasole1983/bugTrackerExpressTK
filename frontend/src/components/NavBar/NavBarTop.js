@@ -39,7 +39,7 @@ export default function NavBar() {
     <div className="navbar">
       <div className="navbar-logo logo app-name">
         <NavLink exact to="#" className="btn-link navbar-btn">
-          <i class="bi bi-bug-fill"></i>
+          <i className="bi bi-bug-fill"></i>
             YER BUGGIN ME!      
         </NavLink>
       </div>
@@ -55,7 +55,7 @@ export default function NavBar() {
         </li>  
         <li className="navbar-main-item navbar-btn">
           <div className="navbar-main-item-btn">
-            <NavLink exact to="#" className="navbar-btn">
+            <NavLink exact to="/viewbugs" className="navbar-btn">
               View Bugs
             </NavLink>
           </div>
