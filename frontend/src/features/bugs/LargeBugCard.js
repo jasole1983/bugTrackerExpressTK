@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeNewBug } from './bugSlice'
+import getPriorities from './priorityController'
 import './bugs.css'
 
 export default function LargeBugCard({ bug }) {
@@ -11,21 +12,21 @@ export default function LargeBugCard({ bug }) {
     const [version, setVersion] = useState('')
     const [priority, setPriority] = useState(0)
     const [assignedTo, setAssignedTo] = useState('')
-    const [createdBy, setCreatedBy] = useState('')
-
+    const [createdBy, setCreatedBy] = useState(0)
+    const {color, level} = getPriorities(priority)
     const setBugIcons = () => {
       const iconList = []
       let icons = 0
       while(icons < 4){
         if (icons < priority){
           iconList.push(
-            <div className="bug-icon-container" id={icons} onClick={(e) => setPriority(icons)} >
+            <div className="bug-icon-container" id={icons} key={icons} onClick={(e) => setPriority(e.target.id)} >
               <i className="bi bi-bug"></i>
             </div>
           )
         } else {
           iconList.push(
-            <div className="bug-icon-container" id={icons} onClick={(e) => setPriority(icons)} >
+            <div className="bug-icon-container" id={icons} key={icons} onClick={(e) => setPriority(e.target.id)} >
               <i className="bi bi-bug-fill"></i>
             </div>
           )
@@ -42,13 +43,14 @@ export default function LargeBugCard({ bug }) {
     //   }, 60000)
     
     const users = Object.values(useSelector((state)=>state.users.entities))
+    const creator = users[bug.createdBy-1].name
 
     const submitBug = (e) => {
       const newBug = {name, details, steps, version, assignedTo, createdBy, priority}
       e.target.preventDefault()
       dispatch(makeNewBug(newBug))
     }
-
+     
     useEffect(()=>{
       setName(bug.name)
       setDetails(bug.details)
@@ -59,20 +61,18 @@ export default function LargeBugCard({ bug }) {
       setCreatedBy(bug.createdBy)
     }, [])
     return (
-      <div className="large-bug-card">
-        <form onSubmit={(e) => submitBug(e)} id="bugform">
-          <div className="large-bug-title">
-            <h1>
-              <label className="bug-form-label" htmlFor='name'>Name:</label>
-              <input 
-                  className="bug-input"
-                  name="name"
-                  type="text"
-                  placeholder={bug.name}
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-              /> 
-            </h1>
+      <form onSubmit={(e) => submitBug(e)} id="bugform">
+        <div className="large-bug-card" style={{color}}>
+          <div className="large-bug-title lb-col">
+            <label className="bug-form-label" htmlFor='name'>Name:</label>
+            <input 
+                className="bug-input"
+                name="name"
+                type="text"
+                placeholder={bug.name}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            /> 
           </div>
           <div className="lb-col1 lb-col">
             <label className="bug-form-label">Details:</label>
@@ -102,6 +102,7 @@ export default function LargeBugCard({ bug }) {
               className="bug-input"
               name="version"
               type="text"
+              id="version-input"
               placeholder={bug.version}
               value={version}
               onChange={(e) => setVersion(e.target.value)}
@@ -110,42 +111,37 @@ export default function LargeBugCard({ bug }) {
           <div className="lb-col4 lb-col">
             <label className="bug-form-label">Priority:</label>
             <div className="bug-form-priority-container">
-              {setBugIcons()}
-           
-              <input
-                className="bug-input"
-                name="priority"
-                type="hidden"
-                value={priority}
-              />
+              <div className="bug-form-priority-label">{level}</div>
+              <div className="bug-form-priority-icons">
+                {setBugIcons()}
+              </div>
             </div>
           </div>
           <div className="lb-col5 lb-col">
             <label className="bug-form-label">Assign To:</label>
             <select className="user-dropdown" name="assignedto" id="assignedto" form="bugform" value={assignedTo}>
               {users.map((user)=>(
-                <option key={user.id} value={user.name} selected={user.name === bug.assignedTo}>{user.name}</option>
+                <option key={user.id} value={user.name} >{user.name}</option>
               ))}
             </select>
           </div>
           <div className="lb-col6 lb-col">
-            <label className="bug-form-label">Created By:</label>
+            <label className="bug-form-label">Created By: {creator}</label>
             <input
               className="bug-input"
               name="createdBy"
-              type="text"
+              type="hidden"
               disabled="true"
               value={createdBy}              
             />
           </div>
           <div className="lb-col7 lb-col">
-             
-            <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=medium&timezone=America%2FLos_Angeles" width="100%" height="115" frameborder="0" seamless title="time"></iframe>
-         
+          <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=medium&timezone=America%2FLos_Angeles&show=hour_minute" width="100%" height="115" frameborder="0" seamless></iframe>
           </div>
-          <button className="large-bug-submit btn lb-footer" type="submit"></button>
-        </form>
-          
-      </div>
+        </div>
+        <div className="lb-footer lb-col">
+          <button className="large-bug-submit-btn lb-footer" type="submit">CREATE / UPDATE BUG</button>
+        </div>
+      </form>    
     )
 }

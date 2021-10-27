@@ -32,40 +32,107 @@
 
 .large-bug-card {
     display: grid;
+    margin-top: 25px;
+    background-color: var(--prime-color);
+    min-width: 75vw;
+    height: 70vh;
+    gap: 20px;
+    grid-template-columns: (3, 1fr);
+    grid-template-rows: 1.5fr 1fr 1fr 1fr .5fr;
     grid-template-areas: 
-                'title'
-                'col1 col1 col1 col3'
-                'col2 col2 col2 col4'
-                'col5 col6 col7'
-                'footer'    
+    "titl titl titl titl titl titl"
+    "col1 col1 col1 col1 col1 col3"
+    "col2 col2 col2 col2 col2 col4"
+    "col5 col5 col6 col6 col7 col7"
+    "foot foot foot foot col7 col7";
+    border-radius: 3rem;    
+    justify-content: space-between;
+    padding-top: 15px;
+}
+
+.bug-form-label {
+    font: 1.75rem bolder;
+    margin-left: 20px;
+}
+
+.lb-col {
+    height: 75px;
+} 
+.bug-input {
+    background-color: #1B262C;
+    word-wrap: normal;
+    width: 80%;
+    padding: 3px;
+    margin-left: 10px;
 }
 
 .large-bug-title {
-    grid-area: 'title';
+    grid-area: titl;
+    display: flex;
+    width: 100%;
+    margin-top: 15px;
+    justify-content: center;
+    align-content: space-between;
+}
+
+.bug-form-priority-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.bug-form-priority-icons {
+    display: flex;
+    flex-direction: row;
+}
+
+#version-input {
+    width:50%;
+}
+
+.user-dropdown {
+    margin-left: 15px;
 }
 
 .lb-col1 {
-    grid-area: 'col1';
+    grid-area: col1;
+    width: 100%;
 }
 .lb-col2 {
-    grid-area: 'col2';
+    grid-area: col2;
 }
 .lb-col3 {
-    grid-area: 'col3';
+    grid-area: col3;
 }
 .lb-col4 {
-    grid-area: 'col4';
+    grid-area: col4;
+    display:flex;
+    flex-direction: row;
 }
 .lb-col5 {
-    grid-area: 'col5';
+    grid-area: col5;
 }
 .lb-col6 {
-    grid-area: 'col6';
+    grid-area: col6;
 }
 .lb-col7 {
-    grid-area: 'col7';
+    grid-area: col7;
 }
 .lb-footer {
-    grid-area: 'footer';
+    display: flex;
+    grid-area: foot;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 5rem;
+    margin-top: -3rem;
+}
+
+.large-bug-submit-btn {
+    background-color: var(--third-color);
+    width: 50%;
+    height: 3rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+    font-size: xx-large;
+    font-weight: 900;
 }
 

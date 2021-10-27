@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import './bugs.css'
+import getPriorities from './priorityController'
 
 export default function BugCard({ bug, setShowModal, setModalBug }) {
-    const colors = ["green", "yellow", "orange", "red"]
-    const getColor = () => colors[bug.priority-1]
-    const color = getColor()
+
+    const {color, level} = getPriorities(bug.priority)
     const bugCardText = {
         color
     }
@@ -26,6 +26,7 @@ export default function BugCard({ bug, setShowModal, setModalBug }) {
     return (
         <div className="bug-card" onClick={() => clicked()}>
             <div className="bug-card-text card-title" style={bugCardText}>{bug.name}</div>
+            <div className="bug-card-text card-priority-lvl" style={bugCardText}>{level}</div>
             <div className="bug-card-text card-priority" style={bugCardText}>{priorityLevel()}</div>
             <div className="bug-card-text card-assignedto" style={bugCardText}>{user}</div>
         </div>
