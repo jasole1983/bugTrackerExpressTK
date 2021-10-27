@@ -16,4 +16,20 @@ router.get("/priority/:id", asyncHandler(async (req, res) => {
     return res.json({ priorityBugs })
 }))
 
+router.post("/new", csrfProtection, asyncHandler(async (req, res) => {
+    const { name, details, steps, version, assignedTo, createdBy, priority } = req.body
+    const newBug = {
+                name, 
+                details, 
+                steps, 
+                version, 
+                assignedTo, 
+                createdBy,
+                priority,
+                }
+    const makeNewBug = await Bug.build(newBug)
+    return res.json({ newBug })
+
+}))
+
 module.exports = router

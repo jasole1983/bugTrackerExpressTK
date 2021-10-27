@@ -1,11 +1,23 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-// import { csrfFetch } from "../../store/csrf";
+import { csrfFetch } from "../../store/csrf";
 
 export const fetchBugs = createAsyncThunk(
     'bugs/fetchBugs',
     async (_, { dispatch }) => {
         const res = await fetch('/api/bugs').then((result) => result.json())
         dispatch(getBugs(res.bugs))
+    }
+)
+
+export const makeNewBug = createAsyncThunk(
+    'bugs/newBug',
+    async (bug, { dispatch }) => {
+        const res = await csrfFetch('/api/bugs/new', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({bug})
+        }).then((result) => result.json())
+        dispatch(upsertBug(res))
     }
 )
 
@@ -20,7 +32,7 @@ const bugSlice = createSlice({
     reducers: {
         getBugs: bugAdapter.setAll,
         createBugs: bugAdapter.addMany,
-        updateBug: bugAdapter.upsertOne,
+        upsertBug: bugAdapter.upsertOne,
         completeBug: (state, { payload }) => {
             
         },
@@ -41,6 +53,6 @@ const bugSlice = createSlice({
 
 export default bugSlice.reducer
 
-export const { getBugs, createBugs, updateBug, completeBug } = bugSlice.actions
+export const { getBugs, createBugs, upsertBug, completeBug } = bugSlice.actions
 
 export const bugSelectors = bugAdapter.getSelectors((state) => state.bugs)
