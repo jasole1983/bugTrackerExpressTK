@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 export default function BugIcons({ priority, color, setPriority}) {
+    const isChecked = () => {
+        
+    }
+
     return (
         <div>
-            <button className="bug-icon-btn" id={1} style={{color: priority >= 1? color: 'white'}} onClick={(e) => setPriority(e.target.id)} >
+            <input className="bug-icon-btn" type="radio" id="minor"/>
+            <label className="super-label" for="minor" style={myStyle} isChecked={() => isChecked()}>
                 <i className="bi bi-bug"></i>
-            </button>
-            <button className="bug-icon-btn" id={2} style={{color: priority >= 2? color: 'white'}} onClick={(e) => setPriority(e.target.id)} >
+            </label>
+            <input className="bug-icon-btn" type="radio" id="medium"/>
+            <label className="super-label" for="medium" style={myStyle} isChecked={() => isChecked()}>
                 <i className="bi bi-bug"></i>
-            </button>
-            <button className="bug-icon-btn" id={3} style={{color: priority >= 3? color: 'white'}} onClick={(e) => setPriority(e.target.id)} >
+            </label>
+            <input className="bug-icon-btn" type="radio" id="high"/>
+            <label className="super-label" for="high " style={myStyle} isChecked={() => isChecked()}>
                 <i className="bi bi-bug"></i>
-            </button>
-            <button className="bug-icon-btn" id={4} style={{color: priority >= 4? color: 'white'}} onClick={(e) => setPriority(e.target.id)} >
+            </label>
+            <input className="bug-icon-btn" type="radio" id="critical"/>
+            <label className="super-label" for="critical" style={myStyle} isChecked={() => isChecked()}>
                 <i className="bi bi-bug"></i>
-            </button>
+            </label>
             
         </div>
     )

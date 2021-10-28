@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { makeNewBug } from './bugSlice'
 import getPriorities, { getIcons } from './priorityController'
 import './bugs.css'
-import BugIcons from './bugIcons'
+// import BugIcons from './bugIcons'
 
 
 export default function LargeBugCard({ bug }) {
@@ -22,7 +22,7 @@ export default function LargeBugCard({ bug }) {
     //     let currentTime = date.toLocalString('en-US')
     //     return currentTime
     //   }, 60000)
-    
+    // const mystyle = 
     const users = Object.values(useSelector((state)=>state.users.entities))
     const creator = users[bug.createdBy-1].name
     const submitBug = (e) => {
@@ -30,6 +30,10 @@ export default function LargeBugCard({ bug }) {
       e.target.preventDefault()
       dispatch(makeNewBug(newBug))
     }
+    const handleOnClick = (e) => {
+      e.target.preventDefault()
+      setPriority(e.target.id)
+  }
 
     const setBugIcons = getIcons(bug.priority, setPriority)
      
@@ -97,7 +101,7 @@ export default function LargeBugCard({ bug }) {
             <div className="bug-form-priority-container">
               <div className="bug-form-priority-label">{level}</div>
               <div className="bug-form-priority-icons">
-                <BugIcons color={color} priority={priority} setPriority={setPriority}/>
+                
               </div>
             </div>
           </div>
@@ -129,3 +133,10 @@ export default function LargeBugCard({ bug }) {
       </form>    
     )
 }
+                  
+
+                
+
+                
+
+                

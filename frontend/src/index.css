@@ -1,11 +1,12 @@
 
-* {
+*,*::before,*::after {
     margin: 0;
     padding: 0;
+    box-sizing: inherit;
 }
 
 html {
-    
+    box-sizing: border-box;
     --prime-color: #1B262C;
     --second-color: #0F4C75;
     --third-color: #3282B8;
@@ -58,3 +59,4 @@ ul {
     width: 100vw;
     grid-template-rows: 50px 1fr;   
 }
+
