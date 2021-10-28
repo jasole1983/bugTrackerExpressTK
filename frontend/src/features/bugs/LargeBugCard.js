@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { makeNewBug } from './bugSlice'
-import getPriorities from './priorityController'
+import getPriorities, { getIcons } from './priorityController'
 import './bugs.css'
+import BugIcons from './bugIcons'
+
 
 export default function LargeBugCard({ bug }) {
     const dispatch = useDispatch()
@@ -14,28 +16,7 @@ export default function LargeBugCard({ bug }) {
     const [assignedTo, setAssignedTo] = useState('')
     const [createdBy, setCreatedBy] = useState(0)
     const {color, level} = getPriorities(priority)
-    const setBugIcons = () => {
-      const iconList = []
-      let icons = 0
-      while(icons < 4){
-        if (icons < priority){
-          iconList.push(
-            <div className="bug-icon-container" id={icons} key={icons} onClick={(e) => setPriority(e.target.id)} >
-              <i className="bi bi-bug-fill"></i>
-            </div>
-          )
-        } else {
-          iconList.push(
-            <div className="bug-icon-container" id={icons} key={icons} onClick={(e) => setPriority(e.target.id)} >
-              <i className="bi bi-bug"></i>
-            </div>
-          )
-        }
-        icons+=1
-      }
-      return iconList
-    }
-
+    
     // const getTime = setTimeout(() =>{
     //     let date = new Date()
     //     let currentTime = date.toLocalString('en-US')
@@ -44,12 +25,13 @@ export default function LargeBugCard({ bug }) {
     
     const users = Object.values(useSelector((state)=>state.users.entities))
     const creator = users[bug.createdBy-1].name
-
     const submitBug = (e) => {
       const newBug = {name, details, steps, version, assignedTo, createdBy, priority}
       e.target.preventDefault()
       dispatch(makeNewBug(newBug))
     }
+
+    const setBugIcons = getIcons(bug.priority, setPriority)
      
     useEffect(()=>{
       setName(bug.name)
@@ -115,15 +97,15 @@ export default function LargeBugCard({ bug }) {
             <div className="bug-form-priority-container">
               <div className="bug-form-priority-label">{level}</div>
               <div className="bug-form-priority-icons">
-                {setBugIcons()}
+                <BugIcons color={color} priority={priority} setPriority={setPriority}/>
               </div>
             </div>
           </div>
           <div className="lb-col5 lb-col">
             <label className="bug-form-label">Assign To:</label>
-            <select className="user-dropdown bug-input" name="assignedto" id="assignedto" form="bugform" value={assignedTo}>
+            <select className="user-dropdown bug-input" name="assignedto" id="assignedto" form="bugform">
               {users.map((user)=>(
-                <option key={user.id} value={user.name} >{user.name}</option>
+                <option key={user.id} value={user.name} onSelect={(e)=>setAssignedTo(e.target.value)}>{user.name}</option>
               ))}
             </select>
           </div>

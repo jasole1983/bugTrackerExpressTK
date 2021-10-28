@@ -47,7 +47,17 @@
     display: block;
 }
 
-.nabar-btn:hover {
+.navbar-btn:hover {
+    transition: 0.3s;
+    background-color: var(--third-color);
+}
+
+button.navbar-btn {
+    background-color: transparent;
+    border: none;
+}
+
+button.navbar-btn:hover {
     transition: 0.3s;
     background-color: var(--third-color);
 }
