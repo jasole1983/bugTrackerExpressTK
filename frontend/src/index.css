@@ -60,3 +60,35 @@ ul {
     grid-template-rows: 50px 1fr;   
 }
 
+input:hover {
+    transform: scale(1.05);
+    transition: 0.25s;
+}
+
+input[type="textarea"]:hover {
+    transform: scale(1.05);
+    transition: 0.25s;
+}
+
+
+input:focus {
+    border-color: #BBE1FA;
+    border-width: 5px;
+}
+
+/* .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: inherit transparent transparent transparent;
+  } */

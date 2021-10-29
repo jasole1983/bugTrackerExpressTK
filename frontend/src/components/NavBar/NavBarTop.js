@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import "./NavBar.css"
 import { Modal } from '../../store/modal/Modal'
-import LargeBugCard from '../../features/bugs/LargeBugCard'
+import LargeBugCard from '../../features/bugs/BugForm/BugForm'
 // import Bug from '../../images/'
 
 

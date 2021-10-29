@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 // import { bugSelectors } from './bugSlice'
-import BugCard from './bugCard'
+import BugCard from './BugCard/BugCard'
 // import { bugs } from '../../store'
 import './bugs.css'
-import LargeBugCard from './LargeBugCard'
+import BugForm from './BugForm/BugForm'
 import { Modal } from '../../store/modal/Modal'
 
 export default function BugPage() {
@@ -19,7 +19,7 @@ export default function BugPage() {
 
     const closingFunc = () =>{
         setShowModal(false)
-        setModalBug(new Object())
+        setModalBug({})
     }
     
     return (
@@ -33,7 +33,7 @@ export default function BugPage() {
                 ))}
                 {showModal && (
                     <Modal onClose={() => closingFunc()}>
-                        <LargeBugCard bug={modalBug} setShowModal={setShowModal}/>
+                        <BugForm bug={modalBug} setShowModal={setShowModal}/>
                     </Modal>
                 )}
             </div>

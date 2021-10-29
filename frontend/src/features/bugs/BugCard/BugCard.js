@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import './bugs.css'
-import getPriorities from './priorityController'
+import './BugCard.css'
+import getPriorities from '../BugComponents/priorityController'
+
 
 export default function BugCard({ bug, setShowModal, setModalBug }) {
 

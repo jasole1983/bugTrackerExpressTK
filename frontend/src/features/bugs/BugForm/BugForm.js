@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { makeNewBug } from './bugSlice'
-import getPriorities, { getIcons } from './priorityController'
-import './bugs.css'
-// import BugIcons from './bugIcons'
+import { makeNewBug } from '../bugSlice'
+
+import BugRadio from '../BugComponents/BugRadio'
+import './BugForm.css'
+
 
 
 export default function LargeBugCard({ bug }) {
@@ -15,14 +16,6 @@ export default function LargeBugCard({ bug }) {
     const [priority, setPriority] = useState(0)
     const [assignedTo, setAssignedTo] = useState('')
     const [createdBy, setCreatedBy] = useState(0)
-    const {color, level} = getPriorities(priority)
-    
-    // const getTime = setTimeout(() =>{
-    //     let date = new Date()
-    //     let currentTime = date.toLocalString('en-US')
-    //     return currentTime
-    //   }, 60000)
-    // const mystyle = 
     const users = Object.values(useSelector((state)=>state.users.entities))
     const creator = users[bug.createdBy-1].name
     const submitBug = (e) => {
@@ -30,13 +23,15 @@ export default function LargeBugCard({ bug }) {
       e.target.preventDefault()
       dispatch(makeNewBug(newBug))
     }
-    const handleOnClick = (e) => {
-      e.target.preventDefault()
-      setPriority(e.target.id)
-  }
-
-    const setBugIcons = getIcons(bug.priority, setPriority)
-     
+    const makeIcons = () => {
+      const bugIcons = []
+      for(let x=1;x<=4;x++){
+        bugIcons.push(<BugRadio priority={priority} index={x} setPriority={setPriority} key={x}/>)
+      }
+      
+      return bugIcons
+    }
+  
     useEffect(()=>{
       setName(bug.name)
       setDetails(bug.details)
@@ -48,7 +43,7 @@ export default function LargeBugCard({ bug }) {
     }, [])
     return (
       <form onSubmit={(e) => submitBug(e)} id="bugform">
-        <div className="large-bug-card" style={{color}}>
+        <div className="large-bug-card">
           <div className="large-bug-title lb-col">
             <label className="bug-form-label" htmlFor='name'>Name:</label>
             <input 
@@ -99,9 +94,8 @@ export default function LargeBugCard({ bug }) {
           <div className="lb-col4 lb-col">
             <label className="bug-form-label">Priority:</label>
             <div className="bug-form-priority-container">
-              <div className="bug-form-priority-label">{level}</div>
-              <div className="bug-form-priority-icons">
-                
+              <div className="bug-form-priority-icon-container">
+                {makeIcons()}
               </div>
             </div>
           </div>
@@ -124,7 +118,7 @@ export default function LargeBugCard({ bug }) {
             />
           </div>
           <div className="lb-col7 lb-col">
-          <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=medium&timezone=America%2FLos_Angeles&show=hour_minute" width="100%" height="115" frameborder="0" seamless></iframe>
+          <iframe src="https://www.zeitverschiebung.net/clock-widget-iframe-v2?language=en&size=medium&timezone=America%2FLos_Angeles&show=hour_minute" width="100%" height="115" frameborder="0" seamless title="uniquetitle"></iframe>
           </div>
         </div>
         <div className="lb-footer lb-col">
