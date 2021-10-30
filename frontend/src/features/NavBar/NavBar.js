@@ -9,7 +9,7 @@ export default function NavBar({ setIsLoaded }) {
   const currentUser = useSelector(state=>state.session.user)
   const signOut = () => {
     sessionActions.logout()
-    setIsLoaded(true)
+    setIsLoaded(false)
   }
     return (
       <div>
@@ -38,7 +38,7 @@ export default function NavBar({ setIsLoaded }) {
                 {currentUser? currentUser.name:'Demo Miire'}
               </NavLink>
             </Button>
-            <Button className="navbar-usr-ctrl-btn logout-btn" id="logoutbtn">
+            <Button className="navbar-usr-ctrl-btn logout-btn" onClick={()=> signOut()} id="logoutbtn">
               Logout
             </Button>
           </div>       

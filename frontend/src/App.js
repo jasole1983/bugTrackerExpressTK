@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import DashBoard from "./features/DashBoard/DashBoard"
 import UserHistory from "./features/users/UserHistory/UserHistory"
 import LoginPage from "./features/users/Auth/LoginPage/LoginPage";
+import Home from "./features/Home/Home";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function App() {
     dispatch(fetchUsers())
     dispatch(fetchBugs())
   }
+  const customStyle = {}
 
   console.log({isLoaded})
   useEffect(() => {
@@ -31,14 +33,19 @@ function App() {
     ).then(() => refreshState());
   }, [dispatch]);
 
+  isLoaded? (customStyle["zIndex"] = -100):(customStyle["zIndex"] = 100)
+
   return isLoaded && (
     <>
       
+      <NavBar setIsLoaded={setIsLoaded}/>
       <Switch>
-        <Route exact path="/">
-          <LoginPage setIsLoaded={setIsLoaded}/>
+        <Route exact path="/login">
+          <LoginPage style={customStyle} setIsLoaded={setIsLoaded}/>
         </Route>
-        <NavBar setIsLoaded={setIsLoaded}/>
+        <ProtectedRoute exact path="/">
+          <Home />
+        </ProtectedRoute>
         <ProtectedRoute path="/dashboard">
           <DashBoard />
         </ProtectedRoute>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Form, Input, Card, CardFooter, CardHeader, Button, ButtonGroup } from "reactstrap";
+import { Input, Card, CardFooter, CardHeader } from "reactstrap";
 import * as sessionActions from '../../../../store/session'
 
 export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal, isFlipped }) {
@@ -33,7 +33,7 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
   return (
     <Card className="text-center login-form-container" body>
       <CardHeader className="signup-card-header">SIGNUP</CardHeader>
-          <Form onSubmit={(newUser, setNewUser) => handleSignupSubmit(newUser, setNewUser)}>
+          <form onSubmit={handleSignupSubmit}>
           <ul className="error-container">
               {newUser.errors >=1 ? newUser.errors.map((error, idx) => <li key={idx}>{error}</li>):null}
           </ul>
@@ -77,8 +77,11 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               required
               />
           </div>
-          </Form>
-          <CardFooter className="signup-card-footer"><ButtonGroup><Button type="submit">Submit</Button><Button className="debmo-btn">Demo</Button><Button type="button" onClick={()=>setIsFlipped(!isFlipped)}>Login</Button></ButtonGroup></CardFooter>    
+          <CardFooter className="signup-card-footer">
+            <button className="signup-btn-submit" type="submit">Submit</button>
+            <button className="demo-btn">Demo</button>
+            <button className="signup-btn-flip"type="button" onClick={()=>setIsFlipped(!isFlipped)}>Login</button></CardFooter>    
+          </form>
       </Card>
   );
 }

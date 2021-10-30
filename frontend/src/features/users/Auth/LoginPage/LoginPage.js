@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Modal, Card, Button, CardFooter, ButtonGroup } from 'reactstrap'
-import { useDispatch } from 'react-redux'
-import * as sessionActions from '../../../../store/session'
+import { Modal } from 'reactstrap'
+
 import ReactCardFlip from 'react-card-flip'
 import BackgroundSlider from 'react-background-slider'
 import LoginFormPage from '../LoginFormPage'

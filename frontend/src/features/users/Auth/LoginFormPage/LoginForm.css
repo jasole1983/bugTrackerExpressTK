@@ -12,3 +12,8 @@
 .login-card-input-cred {
     border: none;
 }
+
+.login-form-container#loginFormCard {
+    border-radius: 10rem;
+    
+}
