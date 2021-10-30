@@ -31,11 +31,8 @@ module.exports = (sequelize, DataTypes) => {
     },
       priority: {
         type: DataTypes.INTEGER,
+        
         allowNull: false,
-        validate: {
-          min: 1,
-          max: 10,
-        },
       },
     assignedTo: {
       type: DataTypes.INTEGER,

@@ -1,23 +1,19 @@
 
-* {
+*,*::before,*::after {
     margin: 0;
     padding: 0;
+    box-sizing: inherit;
 }
 
 html {
-    
+    box-sizing: border-box;
     --prime-color: #1B262C;
     --second-color: #0F4C75;
     --third-color: #3282B8;
     --fourth-color: #BBE1FA;
     color: black;
-    background-color: white;
+    background-color: var(--fourth-color);
     font-family: "Lucida Console", "Courier New", monospace;
-}
-
-#root {
-    display: grid;
-    grid-template-columns: 80% 20%;
 }
 
 a {
@@ -32,7 +28,7 @@ ul {
 }
 
 .btn {
-    background: var(--fourth-color);
+    background: var(--prime-color);
     border-radius: 5px;
     padding: 5px 20px;
     color: white;
@@ -45,12 +41,54 @@ ul {
     color: var(--prime-color)
 }
 
-
+.page-header {
+    display: flex;
+    font: 3rem bolder;
+    background-color: var(--fourth-color);
+    color: purple;
+    text-shadow: black;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
 
 .page-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    grid-column: 2;
+    display: grid;
+    background-color: var(--fourth-color);
+    width: 100vw;
+    grid-template-rows: 50px 1fr;   
 }
+
+input:hover {
+    transform: scale(1.05);
+    transition: 0.25s;
+}
+
+input[type="textarea"]:hover {
+    transform: scale(1.05);
+    transition: 0.25s;
+}
+
+
+input:focus {
+    border-color: #BBE1FA;
+    border-width: 5px;
+}
+
+/* .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+
+.tooltip .tooltiptext::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: inherit transparent transparent transparent;
+  } */

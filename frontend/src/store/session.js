@@ -1,72 +1,76 @@
-import { csrfFetch } from './csrf';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { csrfFetch } from "./csrf";
 
-const SET_USER = 'session/setUser';
-const REMOVE_USER = 'session/removeUser';
+export const signup = createAsyncThunk(
+    'session/signup',
+    async (user, { dispatch }) => {
+        const { name, email, password } = user;
+        const res = await csrfFetch("/api/users", {
+            method: "POST",
+            body: JSON.stringify({
+                name,
+                email,
+                password,
+            })
+        }).then((result)=>result.json())
+        dispatch(setUser(res.user))
+        return res
+    }
+)
 
-const setUser = (user) => {
-  return {
-    type: SET_USER,
-    payload: user,
-  };
-};
+export const login = createAsyncThunk(
+    'session/login',
+    async (user, { dispatch }) => {
+        const { email, password } = user;
+        const res = await csrfFetch('/api/session', {
+            method: 'POST',
+            body: JSON.stringify({
+                email,
+                password,
+            }),
+        }).then((result)=>result.json());
+        dispatch(setUser(res.user));
+        return res;
+    }
+)
 
-// const removeUser = () => {
-//   return {
-//     type: REMOVE_USER,
-//   };
-// };
-export const signup = (user) => async (dispatch) => {
-  const { username, email, password } = user;
-  const response = await csrfFetch("/api/users", {
-    method: "POST",
-    body: JSON.stringify({
-      username,
-      email,
-      password,
-    }),
-  });
-  const data = await response.json();
-  dispatch(setUser(data.user));
-  return response;
-};
+export const restoreUser = createAsyncThunk(
+    'session/restoreUser',
+    async (_, { dispatch }) => {
+        const res = await csrfFetch('/api/session').then((result)=>result.json());
+        dispatch(setUser(res.user));
+        return res;
+    }
+)
 
-export const login = (user) => async (dispatch) => {
-  const { credential, password } = user;
-  const response = await csrfFetch('/api/session', {
-    method: 'POST',
-    body: JSON.stringify({
-      credential,
-      password,
-    }),
-  });
-  const data = await response.json();
-  dispatch(setUser(data.user));
-  return response;
-};
+export const logout = createAsyncThunk(
+    'session/logout',
+    async (_, { dispatch }) => {
+        const res = await csrfFetch('/api/session', {
+            method: 'DELETE',
+        }).then((result)=>result.json())
+        dispatch(removeUser());
+        return res;
 
-const initialState = { user: null };
+    }
+)
 
-export const restoreUser = () => async dispatch => {
-  const response = await csrfFetch('/api/session');
-  const data = await response.json();
-  dispatch(setUser(data.user));
-  return response;
-};
+const sessionsSlice = createSlice({
+    name: 'session',
+    initialState: {
+        user: null,
+    },
+    reducers: {
+        setUser: (state, { payload }) => {
+            state.user = payload
+        },
+        removeUser: (state) => {
+            state.user = null 
+        }
+    }
 
-const sessionReducer = (state = initialState, action) => {
-  let newState;
-  switch (action.type) {
-    case SET_USER:
-      newState = Object.assign({}, state);
-      newState.user = action.payload;
-      return newState;
-    case REMOVE_USER:
-      newState = Object.assign({}, state);
-      newState.user = null;
-      return newState;
-    default:
-      return state;
-  }
-};
+})
 
-export default sessionReducer;
+export const { setUser, removeUser } = sessionsSlice.actions
+
+export default sessionsSlice.reducer

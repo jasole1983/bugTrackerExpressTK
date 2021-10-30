@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '../features/users/authSlice' 
-import bugReducer from '../features/bugs/bugSlice'
+import authReducer from '../features/users/Auth/authSlice' 
+import bugReducer, { bugSelectors } from '../features/bugs/bugSlice'
 import sessionReducer from './session'
 import userReducer from '../features/users/userSlice'
+
 
 // if (process.env.NODE_ENV === 'production') {
 //   enhancer = applyMiddleware(thunk);
@@ -20,6 +21,8 @@ const store = configureStore({
         users: userReducer,
     }
 })
+
+export const bugs = bugSelectors.selectAll(store.getState())
 
 export default store
 

@@ -1,0 +1,100 @@
+.navbar {
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    background-color: var(--prime-color);
+    justify-content: space-between;
+    font-size: 1.5rem;
+    box-shadow: black; 
+    align-items: center;
+}
+
+.navbar-logo {
+    align-items: center;
+    height: 100%;
+    width: 20%;
+    padding-left: 10px;
+    font-size: 1.3rem;
+
+}
+
+.navbar-main {
+    margin: -6px;
+    height: 100%;
+    display: flex;
+    width: 45%;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.navbar-main-item {
+    display: block;
+    border-color: black;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar-dropdown {
+    width: 30%;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbar-dropdown-title {
+    justify-content: flex-end;
+}
+
+.navbar-btn {
+    height: 100%;
+    display: block;
+}
+
+.navbar-btn:hover {
+    transition: 0.3s;
+    background-color: var(--third-color);
+}
+
+.navbar-btn {
+    background-color: transparent;
+    border: none;
+}
+
+button.navbar-btn:hover {
+    transition: 0.3s;
+    background-color: var(--third-color);
+}
+
+.navbar-toggler {
+    color: var(--fourth-color);
+}
+
+.navbar-main-item-btn.navbar-toggler .btn-link {
+    text-decoration: none;
+    color: var(--fourth-color)
+}
+
+.navbar .navbar-logo {
+    color: var(--fourth-color)
+}
+
+div > .navbar > .navbar-logo > *:hover {
+    transform: scale(1.05);
+    color: var(--third-color);
+    transition: 0.3s;
+}
+
+.navbar-usr-ctrl-btn#userhistory {
+    background-color: transparent;
+    border: none;
+}
+
+.navbar-usr-ctrl-btn#userhistory > .usr-hstry-lnk{
+    text-decoration: none;
+    color: var(--fourth-color);
+}
+
+.navbar-usr-ctrl-btn#logoutbtn {
+    background-color: transparent;
+    border: none;
+    color: var(--fourth-color);
+}

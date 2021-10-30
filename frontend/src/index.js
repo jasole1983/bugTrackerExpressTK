@@ -7,6 +7,11 @@ import App from './App';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import store from './store';
 import * as sessionActions from './store/session';
+import { ModalProvider } from './store/modal/Modal.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import $ from 'jquery';
+import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 
 
@@ -21,9 +26,11 @@ if (process.env.NODE_ENV !== 'production') {
 function Root() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <ModalProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ModalProvider>
     </Provider>
   );
 }

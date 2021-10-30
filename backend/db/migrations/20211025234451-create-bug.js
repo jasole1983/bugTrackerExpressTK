@@ -26,7 +26,7 @@ module.exports = {
       },
       priority: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       assignedTo: {
         allowNull: false,

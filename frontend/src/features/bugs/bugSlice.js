@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createEntityAdapter } from "@reduxjs/toolkit";
-// import { csrfFetch } from "../../store/csrf";
+import { csrfFetch } from "../../store/csrf";
 
 export const fetchBugs = createAsyncThunk(
     'bugs/fetchBugs',
@@ -9,29 +9,50 @@ export const fetchBugs = createAsyncThunk(
     }
 )
 
+export const makeNewBug = createAsyncThunk(
+    'bugs/newBug',
+    async (bug, { dispatch }) => {
+        const res = await csrfFetch('/api/bugs/new', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({bug})
+        }).then((result) => result.json())
+        dispatch(upsertBug(res))
+    }
+)
+
 const bugAdapter = createEntityAdapter({
-    selectId: ({id}) => id,
+    selectId: (bug) => bug.id,
     sortComparer: (a, b) => b.priority - a.priority
 })
 
 const bugSlice = createSlice({
     name: "bugs",
-    initialState: [],
+    initialState: bugAdapter.getInitialState(),
     reducers: {
         getBugs: bugAdapter.setAll,
         createBugs: bugAdapter.addMany,
-        updateBug: bugAdapter.upsertOne,
+        upsertBug: bugAdapter.upsertOne,
         completeBug: (state, { payload }) => {
             
         },
     },
     extraReducers: {
-
+        [fetchBugs.pending](state){
+            state.status = "Loading"
+        },
+        [fetchBugs.fulfilled](state, { payload }){
+            state.status = "Successful"
+            getBugs(payload)
+        },
+        [fetchBugs.rejected](state){
+            state.status = "Failed"
+        }
     }
 })
 
-fetchBugs()
-
 export default bugSlice.reducer
 
-export const { getBugs, createBugs, updateBug, completeBug } = bugSlice.actions
+export const { getBugs, createBugs, upsertBug, completeBug } = bugSlice.actions
+
+export const bugSelectors = bugAdapter.getSelectors((state) => state.bugs)
