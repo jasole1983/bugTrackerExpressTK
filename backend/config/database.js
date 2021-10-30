@@ -1,10 +1,10 @@
 const config = require('./index');
 
 const db = config.db;
-const username = db.username;
-const password = db.password;
-const database = db.database;
-const host = db.host;
+const username = 'bug_tracker_app';
+const password = '8u67r4ck3r';
+const database = 'bug_tracker';
+const host = 'localhost';
 
 module.exports = {
   development: {
