@@ -1,0 +1,14 @@
+
+.login-card-container {
+    display: flex;
+    justify-content: center;
+
+}
+
+#logincard.login-card-container{
+    background-color: var(--second-color)
+}
+
+.login-card-input-cred {
+    border: none;
+}

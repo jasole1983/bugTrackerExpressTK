@@ -113,7 +113,6 @@ export default function LargeBugCard({ bug }) {
               className="bug-input"
               name="createdBy"
               type="hidden"
-              disabled="true"
               value={createdBy}              
             />
           </div>

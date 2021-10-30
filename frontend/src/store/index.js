@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from '../features/users/authSlice' 
+import authReducer from '../features/users/Auth/authSlice' 
 import bugReducer, { bugSelectors } from '../features/bugs/bugSlice'
 import sessionReducer from './session'
 import userReducer from '../features/users/userSlice'
