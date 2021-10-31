@@ -1,0 +1,58 @@
+.page-container.lg-bug {
+    width: 100vw;
+    height: 100vw;
+    display: flex;
+    justify-content: center;
+}
+.lg-bug-card {
+    margin-top: 30px;
+    padding: 35px;
+    width: 80vw;
+    height: 80vh;
+    display: block;
+    background-color: var(--prime-color);
+    border-radius: 3rem;
+    box-shadow: 7px 7px black;
+    color: var(--fourth-color)
+}
+
+.lg-bug-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lg-bug-card-header-title {
+    font-family: 'Spicy Rice', cursive;
+    font-size: 3rem;
+    text-shadow: 2px 2px white;
+}
+
+.lg-bug-card-container {
+
+    display: grid;
+    grid-template-rows: 35fr 35fr 15fr 15fr;
+    grid-template-columns: 60% 40%;
+    
+}
+
+.bug-view-btn {
+    width: 5rem;
+    height: 3rem;
+    margin-left: 4px;
+    margin-right: 4px;
+    font-size: 1.25rem;
+    border-radius: 1rem;
+}
+
+.bug-view-btn:hover {
+    transform: scale(1.05);
+    background-color: blueviolet;
+    color: white;
+    transition: 0.3s;
+}
+
+.lg-bug-card-hdr-btns {
+    display: flex;
+}
+

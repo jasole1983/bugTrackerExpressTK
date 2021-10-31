@@ -6,6 +6,7 @@ import BugCard from './BugCard/BugCard'
 import './bugs.css'
 import BugForm from './BugForm/BugForm'
 import { Modal } from 'reactstrap'
+import { NavLink } from 'react-router-dom'
 
 export default function BugPage() {
     // const dispatch = useDispatch()
@@ -29,7 +30,10 @@ export default function BugPage() {
             </div>
             <div className="bug-card-container">
                 {bugs.map((bug) => (
+                  <NavLink to={`/viewbug/${bug.id}`} className="nav-link">
                     <BugCard bug={bug} key={bug.id} setModalBug={setModalBug} setShowModal={setShowModal}/>
+                  </NavLink>
+
                 ))}
             </div>
               <Modal isOpen={showModal} 

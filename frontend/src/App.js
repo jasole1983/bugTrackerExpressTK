@@ -15,6 +15,7 @@ import DashBoard from "./features/DashBoard/DashBoard"
 import UserHistory from "./features/users/UserHistory/UserHistory"
 import LoginPage from "./features/users/Auth/LoginPage/LoginPage";
 import Home from "./features/Home/Home";
+import BugView from "./features/bugs/BugView/BugView";
 
 function App() {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ function App() {
         <Route path="/dashboard">
           <DashBoard />
         </Route>
-        <Route path="/viewbugs">
+        <Route exact path="/viewbugs">
           <BugPage />
         </Route>
         <Route path="/createbug">
@@ -55,6 +56,9 @@ function App() {
         </Route>
         <Route path="/dashboard">
           <UserHistory />
+        </Route>
+        <Route path="/viewbug/:bugId">
+          <BugView />
         </Route>
         <BlockedRoute path='/'/>
       </Switch>

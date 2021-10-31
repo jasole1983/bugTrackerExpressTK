@@ -75,6 +75,9 @@ input:focus {
     border-width: 5px;
 }
 
+.nav-link {
+    text-decoration: none;
+}
 /* .tooltip {
     position: relative;
     display: inline-block;
