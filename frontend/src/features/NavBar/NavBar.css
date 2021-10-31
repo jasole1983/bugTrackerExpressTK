@@ -66,6 +66,7 @@ button.navbar-btn:hover {
 
 .navbar-toggler {
     color: var(--fourth-color);
+    text-decoration: none;
 }
 
 .navbar-main-item-btn.navbar-toggler .btn-link {

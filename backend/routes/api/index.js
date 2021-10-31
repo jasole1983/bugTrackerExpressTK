@@ -13,7 +13,7 @@ router.use('/bugs', bugsRouter);
 router.get('/set-token-cookie', asyncHandler(async (req, res) => {
     const user = await User.findOne({
         where: {
-            username: 'Demo-lition'
+            name: 'Demo-lition'
         },
     })
     setTokenCookie(res, user);

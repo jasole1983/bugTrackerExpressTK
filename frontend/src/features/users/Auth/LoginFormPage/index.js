@@ -1,32 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import * as sessionActions from '../../../../store/session'
-import { Card, ListGroup, Input, ListGroupItem, CardHeader, CardFooter } from 'reactstrap';
+import { Card, ListGroup, Input, ListGroupItem, CardHeader, CardFooter, Form } from 'reactstrap';
 import './LoginForm.css'
 
-export default function LoginFormPage({ setIsFlipped, setIsLoaded, setShowModal, isFlipped }) {
+export default function LoginFormPage({ setIsFlipped, isFlipped }) {
   const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.session.user)
   const [loginfo, setLoginfo] = useState({})
-  const sessionUser = useSelector(state => state.session.user);
-  const handleLoginSubmit = (loginfo, setLoginfo) => { 
-    dispatch(sessionActions.login(loginfo.email, loginfo.password ))
-    .catch(async (res) => {
-      const data = await res.json();
-        if (data && data.errors) setLoginfo(loginfo.errors = data.errors);
-      });
-  }
-  
-  const loginForm = () => {
-    if (sessionUser){
-      setIsLoaded(true)
-      setShowModal(false)
-      return <Redirect to="/" />
+  const handleLoginSubmit = async (e) => { 
+    e.target.preventDefault()
+    console.log("before dispatch")
+    const res = await dispatch(sessionActions.login(loginfo.email, loginfo.password ))
+    const data = await res.json();
+    if (data.user){
+      return <Redirect to='/' />;
     } else {
-      return (
+      loginfo.errors = data.errors
+    }
+  }
+  useEffect(()=>{
+    setLoginfo(loginfo.errors = [])
+  }, [])
+
+  if (currentUser) {
+    return <Redirect to='/' />;
+  }
+
+  return (
     <Card className="text-center login-form-container" body id="loginFormCard">
       <CardHeader className="login-card-header">LOGIN</CardHeader>
-        <form onSubmit={handleLoginSubmit}>
+        <Form onSubmit={handleLoginSubmit}>
             <ListGroup className="login-card-error-container">    
               {loginfo.errors >= 1? loginfo.errors.map((error, idx) => <ListGroupItem key={idx}>{error}</ListGroupItem>):null}
             </ListGroup>
@@ -55,16 +60,12 @@ export default function LoginFormPage({ setIsFlipped, setIsLoaded, setShowModal,
         <CardFooter className="login-card-footer">
           <button type="submit" className="submit-card-btn">Submit</button>
           <button type="button" className="login-card-btn-flip" onClick={()=>setIsFlipped(!isFlipped)}>Signup</button ></CardFooter>
-        </form>
-    </Card>
-  );
-  }
 
-  }  
-  useEffect(()=>{
-    setLoginfo(loginfo.errors = [])
-  }, [])
-  return loginForm()
+        </Form>
+    </Card>
+
+ 
   
+  )
 }
 

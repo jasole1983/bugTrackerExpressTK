@@ -9,6 +9,7 @@ import { fetchUsers } from "./features/users/userSlice"
 import BlankBug from "./features/bugs/BugComponents/blankBug"
 import BugForm from "./features/bugs/BugForm/BugForm"
 import ProtectedRoute from "./features/users/Auth/ProtectedRoute";
+import BlockedRoute from "./features/users/Auth/BlockedRoute";
 import { useSelector } from "react-redux";
 import DashBoard from "./features/DashBoard/DashBoard"
 import UserHistory from "./features/users/UserHistory/UserHistory"
@@ -18,46 +19,44 @@ import Home from "./features/Home/Home";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
- 
   const currentUser = useSelector(state=>state.session.user)
   const refreshState = () => {
     dispatch(fetchUsers())
     dispatch(fetchBugs())
   }
-  const customStyle = {}
+  
 
   console.log({isLoaded})
   useEffect(() => {
-    dispatch(sessionActions.restoreUser())
-    .then(() => setIsLoaded(true)
-    ).then(() => refreshState());
-  }, [dispatch]);
-
-  isLoaded? (customStyle["zIndex"] = -100):(customStyle["zIndex"] = 100)
+    sessionActions.restoreUser()
+    setIsLoaded(true)
+    refreshState()
+  }, []);
 
   return isLoaded && (
     <>
       
-      <NavBar setIsLoaded={setIsLoaded}/>
+      <NavBar currentUser={currentUser} setIsLoaded={setIsLoaded}/>
       <Switch>
-        <Route exact path="/login">
-          <LoginPage style={customStyle} setIsLoaded={setIsLoaded}/>
+        <Route exact path="/">
+          <LoginPage currentUser={currentUser}/>
         </Route>
-        <ProtectedRoute exact path="/">
+        <Route exact path="/home">
           <Home />
-        </ProtectedRoute>
-        <ProtectedRoute path="/dashboard">
+        </Route>
+        <Route path="/dashboard">
           <DashBoard />
-        </ProtectedRoute>
-        <ProtectedRoute path="/viewbugs">
+        </Route>
+        <Route path="/viewbugs">
           <BugPage />
-        </ProtectedRoute>
-        <ProtectedRoute path="/createbug">
+        </Route>
+        <Route path="/createbug">
           <BugForm blankbug={new BlankBug(currentUser || 5)}/>
-        </ProtectedRoute>
-        <ProtectedRoute path="/dashboard">
+        </Route>
+        <Route path="/dashboard">
           <UserHistory />
-        </ProtectedRoute>
+        </Route>
+        <BlockedRoute path='/'/>
       </Switch>
       
     </>

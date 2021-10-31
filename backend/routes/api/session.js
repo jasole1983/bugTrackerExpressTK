@@ -9,10 +9,10 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 const validateLogin = [
-  check('credential')
+  check('name')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
+    .withMessage('Please provide a valid email or name.'),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a password.'),

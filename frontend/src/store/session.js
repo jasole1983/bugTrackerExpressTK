@@ -29,6 +29,7 @@ export const login = createAsyncThunk(
                 password,
             }),
         }).then((result)=>result.json());
+        console.log(res)
         dispatch(setUser(res.user));
         return res;
     }
@@ -38,6 +39,7 @@ export const restoreUser = createAsyncThunk(
     'session/restoreUser',
     async (_, { dispatch }) => {
         const res = await csrfFetch('/api/session').then((result)=>result.json());
+        console.log(res)
         dispatch(setUser(res.user));
         return res;
     }
@@ -62,7 +64,7 @@ const sessionsSlice = createSlice({
     },
     reducers: {
         setUser: (state, { payload }) => {
-            state.user = payload
+            state.user = payload.user
         },
         removeUser: (state) => {
             state.user = null 

@@ -5,14 +5,14 @@
     box-sizing: inherit;
 }
 
-html {
+#root {
     box-sizing: border-box;
     --prime-color: #1B262C;
     --second-color: #0F4C75;
     --third-color: #3282B8;
     --fourth-color: #BBE1FA;
     color: black;
-    background-color: var(--fourth-color);
+    background-color: white;
     font-family: "Lucida Console", "Courier New", monospace;
 }
 
@@ -55,7 +55,7 @@ ul {
 
 .page-container {
     display: grid;
-    background-color: var(--fourth-color);
+    background-color: white;
     width: 100vw;
     grid-template-rows: 50px 1fr;   
 }

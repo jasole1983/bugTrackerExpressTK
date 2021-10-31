@@ -5,8 +5,7 @@ import { Button, Navbar, NavbarBrand, NavbarToggler } from 'reactstrap'
 import * as sessionActions from '../../store/session'
 import './NavBar.css'
 
-export default function NavBar({ setIsLoaded }) {
-  const currentUser = useSelector(state=>state.session.user)
+export default function NavBar({ setIsLoaded, currentUser }) {
   const signOut = () => {
     sessionActions.logout()
     setIsLoaded(false)
@@ -14,7 +13,7 @@ export default function NavBar({ setIsLoaded }) {
     return (
       <div>
         <Navbar className="navbar">
-          <NavbarBrand className="navbar-logo"><i className="bi bi-bug-fill" ></i>Yer Buggin' Me!</NavbarBrand>
+          <NavbarBrand className="navbar-logo"><NavLink exact to="/home" className="navbar-toggler"><i className="bi bi-bug-fill" ></i>Yer Buggin' Me!</NavLink></NavbarBrand>
           <div className="navbar-main">
             <NavbarToggler className="navbar-main-item-btn navbar-toggler" >
               <NavLink exact to="/dashboard" className="btn-link navbar-btn">
