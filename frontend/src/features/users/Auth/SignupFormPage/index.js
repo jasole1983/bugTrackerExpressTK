@@ -79,7 +79,7 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
           </div>
           <CardFooter className="signup-card-footer">
             <button className="signup-btn-submit" type="submit">Submit</button>
-            <button className="demo-btn">Demo</button>
+            
             <button className="signup-btn-flip"type="button" onClick={()=>setIsFlipped(!isFlipped)}>Login</button></CardFooter>    
           </form>
       </Card>

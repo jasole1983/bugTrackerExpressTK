@@ -18,32 +18,45 @@ export const signup = createAsyncThunk(
     }
 )
 
+// export const login = createAsyncThunk(
+//     'session/login',
+//     async (user, { dispatch }) => {
+//         const { email, password } = user;
+//         const res = await csrfFetch('/api/session', {
+//             method: 'POST',
+//             body: JSON.stringify({
+//                 email,
+//                 password,
+//             }),
+//         }).then((result)=>result.json());
+//         console.log(res)
+//         dispatch(setUser(res.user));
+//         return res;
+//     }
+// )
+const tempUser = {name: "Devon Straight", email: "fake@email.com", id: 99, admin: true}
+
 export const login = createAsyncThunk(
-    'session/login',
-    async (user, { dispatch }) => {
-        const { email, password } = user;
-        const res = await csrfFetch('/api/session', {
-            method: 'POST',
-            body: JSON.stringify({
-                email,
-                password,
-            }),
-        }).then((result)=>result.json());
-        console.log(res)
-        dispatch(setUser(res.user));
-        return res;
-    }
-)
+    'session/login', 
+    async (tempUser, { dispatch }) => {
+        return dispatch(setUser(tempUser))        
+    })
 
 export const restoreUser = createAsyncThunk(
-    'session/restoreUser',
-    async (_, { dispatch }) => {
-        const res = await csrfFetch('/api/session').then((result)=>result.json());
-        console.log(res)
-        dispatch(setUser(res.user));
-        return res;
-    }
-)
+    'session/restoreUser', 
+    async (tempUser, { dispatch }) => {
+        return dispatch(setUser(tempUser))  
+    })
+
+// export const restoreUser = createAsyncThunk(
+//     'session/restoreUser',
+//     async (_, { dispatch }) => {
+//         const res = await csrfFetch('/api/session').then((result)=>result.json());
+//         console.log(res)
+//         dispatch(setUser(res.user));
+//         return res;
+//     }
+// )
 
 export const logout = createAsyncThunk(
     'session/logout',

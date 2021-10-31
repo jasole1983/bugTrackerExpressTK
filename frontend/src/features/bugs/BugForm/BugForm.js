@@ -9,39 +9,34 @@ import './BugForm.css'
 
 export default function LargeBugCard({ bug }) {
     const dispatch = useDispatch()
-    const [name, setName] = useState('')
-    const [details, setDetails] = useState('')
-    const [steps, setSteps] = useState('')
-    const [version, setVersion] = useState('')
-    const [priority, setPriority] = useState(0)
-    const [assignedTo, setAssignedTo] = useState('')
-    const [createdBy, setCreatedBy] = useState(0)
+    const [currentBug, setCurrentBug] = useState({})
     const users = Object.values(useSelector((state)=>state.users.entities))
     const creator = users[bug.createdBy-1].name
     const submitBug = (e) => {
-      const newBug = {name, details, steps, version, assignedTo, createdBy, priority}
+      const newBug = {
+        name: currentBug.name, 
+        details: currentBug.details, 
+        steps: currentBug.steps, 
+        version: currentBug.version, 
+        assignedTo: currentBug.assignedTo, 
+        createdBy: currentBug.createdBy, 
+        priority: currentBug.priority
+      }
       e.target.preventDefault()
       dispatch(makeNewBug(newBug))
     }
     const makeIcons = () => {
       const bugIcons = []
       for(let x=1;x<=4;x++){
-        bugIcons.push(<BugRadio priority={priority} index={x} setPriority={setPriority} key={x}/>)
+        bugIcons.push(<BugRadio priority={currentBug.priority} index={x} key={x}/>)
       }
       
       return bugIcons
     }
-  
     useEffect(()=>{
-      setName(bug.name)
-      setDetails(bug.details)
-      setSteps(bug.steps)
-      setVersion(bug.version)
-      setPriority(bug.priority)
-      setAssignedTo(bug.assignedTo)
-      setCreatedBy(bug.createdBy)
-    }, [])
-    return (
+      setCurrentBug(bug)
+    })
+      return (
       <form onSubmit={(e) => submitBug(e)} id="bugform">
         <div className="large-bug-card">
           <div className="large-bug-title lb-col">
@@ -50,9 +45,9 @@ export default function LargeBugCard({ bug }) {
                 className="bug-input"
                 name="name"
                 type="textarea"
-                placeholder={bug.name}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                placeholder={currentBug.name}
+                value={currentBug.name}
+                onChange={(e) => currentBug.name = e.target.value}
             /> 
           </div>
           <div className="lb-col1 lb-col">
@@ -61,10 +56,10 @@ export default function LargeBugCard({ bug }) {
               className="bug-input"
               name="details"
               type="textarea"
-              placeholder={bug.details}
+              placeholder={currentBug.details}
               row="2"
-              value={details}
-              onChange={(e) => setDetails(e.target.value)}
+              value={currentBug.details}
+              onChange={(e) => currentBug.name = e.target.value}
             ></textarea>
           </div>
           <div className="lb-col2 lb-col">
@@ -74,9 +69,9 @@ export default function LargeBugCard({ bug }) {
               name="steps"
               row="2"
               type="textarea"
-              placeholder={bug.steps}
-              value={steps}
-              onChange={(e) => setSteps(e.target.value)}
+              placeholder={currentBug.steps}
+              value={currentBug.steps}
+              onChange={(e) => currentBug.steps = e.target.value}
             ></textarea>
           </div>
           <div className="lb-col3 lb-col">
@@ -86,9 +81,9 @@ export default function LargeBugCard({ bug }) {
               name="version"
               type="text"
               id="version-input"
-              placeholder={bug.version}
-              value={version}
-              onChange={(e) => setVersion(e.target.value)}
+              placeholder={currentBug.version}
+              value={currentBug.version}
+              onChange={(e) => currentBug.version = e.target.value}
             />
           </div>
           <div className="lb-col4 lb-col">
@@ -103,17 +98,17 @@ export default function LargeBugCard({ bug }) {
             <label className="bug-form-label">Assign To:</label>
             <select className="user-dropdown bug-input" name="assignedto" id="assignedto" form="bugform">
               {users.map((user)=>(
-                <option key={user.id} value={user.name} onSelect={(e)=>setAssignedTo(e.target.value)}>{user.name}</option>
+                <option key={user.id} value={user.name} onSelect={(e)=>currentBug.assignedTo = e.target.value}>{user.name}</option>
               ))}
             </select>
           </div>
           <div className="lb-col6 lb-col">
-            <label className="bug-form-label">Created By: {creator}</label>
+            <label className="bug-form-label">Created By: {currentBug.creator}</label>
             <input
               className="bug-input"
               name="createdBy"
               type="hidden"
-              value={createdBy}              
+              value={currentBug.createdBy}              
             />
           </div>
           <div className="lb-col7 lb-col">

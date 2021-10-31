@@ -1,7 +1,8 @@
 .bug-card {
     background-color: var(--prime-color);
-    min-width: 400px;
-    min-height: 200px;
+    width: 400px;
+    min-height: 300px;
+    
     border-radius: 3rem;
     box-shadow: 1em 1em 1em rgb(85, 84, 84);
     display: flex;
@@ -9,9 +10,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    font-size: 1.3rem;
+    font-size: 1.7rem;
     margin: 5px;
-    text-shadow: white;
+}
+.bug-card-text.card-title {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    word-wrap: break-word;
+    text-align: center;
 }
 
 .bug-card-container {

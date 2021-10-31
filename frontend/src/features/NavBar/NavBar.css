@@ -1,11 +1,11 @@
 .navbar {
     width: 100vw;
-    height: 50px;
+    height: 75px;
     display: flex;
     background-color: var(--prime-color);
     justify-content: space-between;
-    font-size: 1.5rem;
-    box-shadow: black; 
+    font-size: 1.8rem;
+    box-shadow: 5px 5px var(--second-color); 
     align-items: center;
 }
 
@@ -14,10 +14,13 @@
     height: 100%;
     width: 20%;
     padding-left: 10px;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
 
 }
 
+.bi.bi-bug-fill {
+    font-size: 1.8rem
+}
 .navbar-main {
     margin: -6px;
     height: 100%;
@@ -67,6 +70,7 @@ button.navbar-btn:hover {
 .navbar-toggler {
     color: var(--fourth-color);
     text-decoration: none;
+    font-size: 1.8rem;
 }
 
 .navbar-main-item-btn.navbar-toggler .btn-link {
@@ -75,7 +79,9 @@ button.navbar-btn:hover {
 }
 
 .navbar .navbar-logo {
-    color: var(--fourth-color)
+    color: var(--fourth-color);
+    display: flex;
+    align-items: center;
 }
 
 div > .navbar > .navbar-logo > *:hover {
@@ -98,4 +104,8 @@ div > .navbar > .navbar-logo > *:hover {
     background-color: transparent;
     border: none;
     color: var(--fourth-color);
+}
+.navbar-user-control {
+    margin-right: 40px;
+    font-size: large;
 }

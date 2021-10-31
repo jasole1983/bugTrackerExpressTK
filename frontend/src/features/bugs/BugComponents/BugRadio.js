@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './BugRadio.css'
-import getPriorities from './priorityController'
+import { getPriorities } from './priorityController'
 export default function BugRadio({ index, setPriority, priority }) {
     const [checked, setChecked] = useState(false)
     const {color, level} = getPriorities(index)
