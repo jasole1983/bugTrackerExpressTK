@@ -27,7 +27,7 @@ export default function NavBar({ setIsLoaded }) {
               </NavLink>
             </div>
             <div className="navbar-main-item-btn navbar-toggler" >
-              <NavLink exact to="/creatbugs" className="btn-link navbar-toggler">
+              <NavLink exact to={`/createbug/${000}`} className="btn-link navbar-toggler">
                 Create Bug
               </NavLink>
             </div>

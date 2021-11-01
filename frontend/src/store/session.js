@@ -30,30 +30,17 @@ export const signup = createAsyncThunk(
 //             }),
 //         }).then((result)=>result.json());
 //         console.log(res)
-//         dispatch(setUser(res.user));
+//         dispatch(setUser(res.currentUser));
 //         return res;
 //     }
 // )
-const tempUser = {name: "Devon Straight", email: "fake@email.com", id: 99, admin: true}
 
-export const login = createAsyncThunk(
-    'session/login', 
-    async (tempUser, { dispatch }) => {
-        return dispatch(setUser(tempUser))        
-    })
-
-export const restoreUser = createAsyncThunk(
-    'session/restoreUser', 
-    async (tempUser, { dispatch }) => {
-        return dispatch(setUser(tempUser))  
-    })
 
 // export const restoreUser = createAsyncThunk(
 //     'session/restoreUser',
-//     async (_, { dispatch }) => {
-//         const res = await csrfFetch('/api/session').then((result)=>result.json());
+//     async () => {
+//         const res = await csrfFetch('/api/session').then((result)=>result.json())
 //         console.log(res)
-//         dispatch(setUser(res.user));
 //         return res;
 //     }
 // )
@@ -69,7 +56,20 @@ export const logout = createAsyncThunk(
 
     }
 )
+const tempUser = {name: "Devon Straight", email: "fake@email.com", id: 99, admin: true}
 
+export const login = createAsyncThunk(
+    'session/login', 
+    async (_, { dispatch }) => {
+
+        return dispatch(setUser(tempUser))        
+    })
+
+export const restoreUser = createAsyncThunk(
+    'session/restoreUser', 
+    async (_, { dispatch }) => {
+        return dispatch(setUser(tempUser))  
+    })
 const sessionsSlice = createSlice({
     name: 'session',
     initialState: {
@@ -82,6 +82,38 @@ const sessionsSlice = createSlice({
         removeUser: (state) => {
             state.user = null 
         }
+    },
+    extraReducers: {
+        [login.pending](state){
+            state.status = "Loading"
+        },
+        [login.fulfilled](state, { payload }){
+            state.status = "Successful"
+            state.user = payload
+        },
+        [login.rejected](state){
+            state.status = "Rejected"
+        },
+        [logout.pending](state){
+            state.status = "Loading"
+        },
+        [logout.fulfilled](state){
+            state.status = "Successful"
+            state.user = null
+        },
+        [logout.rejected](state){
+            state.status = "Rejected"
+        },
+        [signup.pending](state){
+            state.status = "Loading"
+        },
+        [signup.fulfilled](state, { payload }){
+            state.status = "Successful"
+            state.user = payload
+        },
+        [signup.rejected](state){
+            state.status = "Rejected"
+        },
     }
 
 })
@@ -89,3 +121,4 @@ const sessionsSlice = createSlice({
 export const { setUser, removeUser } = sessionsSlice.actions
 
 export default sessionsSlice.reducer
+

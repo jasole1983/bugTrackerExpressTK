@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createDispatchHook, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
-import { Alert, Card, CardHeader } from 'reactstrap'
+import { Alert } from 'reactstrap'
 import { getPriorities, priorityLevel } from '../BugComponents/priorityController'
 import { delBug } from '../bugSlice'
 import './BugView.css'
@@ -25,18 +25,18 @@ export default function BugView() {
     const time = new Date(bug.createdAt)
     return time.toLocaleDateString() + ' ' + time.toLocaleTimeString()
   }
-  const editBug = (e) => {
-    // e.target.preventDefault()
+  const editBug = () => {
+    
     return <Redirect to={`/createBug/${bugId}`} />
   }
 
-  const closeView = (e) => {
-    // e.target.preventDefault()
+  const closeView = () => {
+    
     return history.push('/viewbugs')
   }
 
   const deleteThisBug = async () => {
-    // e.target.preventDefault()
+    
     const res = await dispatch(delBug(bug))
     if (res.message){
       return history.goBack()
@@ -49,7 +49,7 @@ export default function BugView() {
 
   const handleErrors = (errs) => {
     return (errs.map((error, idx)=> (
-      <Alert color="danger" toggle={alerts} key={idx}>error.error</Alert>
+      <Alert color="danger" toggle={alerts} key={idx}>{error.error}</Alert>
     ))).then((res) => {
       setAlerts(true)
       return res
@@ -64,6 +64,9 @@ export default function BugView() {
             <button className="lg-bug-card-hdr-edit bug-view-btn" onClick={ editBug}>EDIT</button>
             <button className="lg-bug-card-hdr-del bug-view-btn" onClick={deleteThisBug}>DELETE</button>
           </div>
+          <h1 className="lg-bug-card-header-title lg-bug-label">
+            NAME: 
+          </h1>
           <h1 className="lg-bug-card-header-title" style={{color}}>
             {bug.name}
           </h1>

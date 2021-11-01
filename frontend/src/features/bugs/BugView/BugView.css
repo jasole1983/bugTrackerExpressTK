@@ -173,16 +173,18 @@ div.lg-bug-card-long-half.bc3, div.lg-bug-card-long-half.bc4 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 
+    padding-bottom: 3px;
 }
 
-/* .lg-bug-card-long-div-divider.div-bc3, .lg-bug-card-long-div-divider.div-bc4 {
-    font-size: 3.9rem;
-    margin-top: -75px;
-} */
-
-
-
+.lg-bug-card-short-half.div-bc7 {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fourth-color);
+    border-radius: 2rem;
+    align-items: center;
+    box-shadow: 5px 5px black;
+    margin-top: 5px;
+}
 .lg-bug-card-short-half {
     display: flex;
     flex-direction: column;
@@ -227,4 +229,8 @@ div.lg-bug-card-long-half.bc3, div.lg-bug-card-long-half.bc4 {
 
 .lg-bug-card-btn-link.nav-link.navlink {
     color: var(--prime-color)
+}
+
+.lg-bug-card-header-title.lg-bug-label {
+    color: black;
 }
