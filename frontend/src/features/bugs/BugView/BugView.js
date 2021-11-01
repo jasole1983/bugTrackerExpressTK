@@ -30,29 +30,30 @@ export default function BugView() {
         </div>
         <div className="lg-bug-card-container">
           <div className="lg-bug-card-long-div bc1">
+            <h3 className="lg-bug-card-long-div-text">DETAILS</h3>
             <p className="bc1-text">{bug.details}</p>
-          </div>
-          <div className="lg-bug-card-long-div bc2">
-            <p className="bc2-text">{bug.steps}</p>
           </div>
           <div className="lg-bug-card-image">
             feature coming soon
           </div>
-          <div className="lg-bug-card-short-div bc4" style={{color}}>
+          <div className="lg-bug-card-long-div bc2">
+            <p className="bc2-text">{bug.steps}</p>
+          </div>
+          <div className="lg-bug-card-short-div bc3">
+            <p className="bc3-text">{assignedTo.name}</p>
+          </div>
+          <div className="lg-bug-card-short-div bc4">
+            <p className="bc4-text">{createdBy.name}</p>
+          <div className="lg-bug-card-short-div bc5" style={{color}}>
             <h5 className="bc5-text">{level}</h5>
             {bugIcons}
           </div>
-          <div className="lg-bug-card-short-div bc5">
+          <div className="lg-bug-card-short-div bc6">
             <p className="bc4-text">{bug.version}</p>
           </div>
-          <div className="lg-bug-card-short-div bc6">
+          <div className="lg-bug-card-bottom">
 
           </div>
-          <div className="lg-bug-card-bottom">
-            <p className="bc3-text">{assignedTo.name}</p>
-          </div>
-          <div className="lg-bug-card-bottom">
-            <p className="bc3-text">{createdBy.name}</p>
           </div>
         </div>
       </div>

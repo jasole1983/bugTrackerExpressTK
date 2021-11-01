@@ -11,7 +11,7 @@ export function getPriorities(priority){
 export function priorityLevel(priority){
     const bugIcons = []
     for (let n = 0; n < priority; n++){
-        bugIcons.push(<i className="bi bi-bug-fill"></i>)
+        bugIcons.push(<i className="bi bi-bug-fill" key={n*10}></i>)
     }
     return bugIcons
 }

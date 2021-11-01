@@ -29,7 +29,7 @@
     position: relative;
     left: 38vw;
     right: 46vw;
-    top: 50vw;
+    top: 33vw;
     bottom: 150px;
     min-width: 8vw;
     min-height: 8vw;
@@ -40,7 +40,7 @@
     font-weight: 900;
     font-size: 2rem;
     text-align: center;
-    padding-top: 1.5rem;
+    padding-top: 4rem;
     text-decoration: none;
 
 }
