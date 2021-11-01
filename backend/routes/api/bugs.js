@@ -32,4 +32,24 @@ router.post("/new", csrfProtection, asyncHandler(async (req, res) => {
 
 }))
 
+router.delete("/:id", asyncHandler(async (req, res) => {
+    const bugId = parseInt(req.params.id, 10);
+        
+    const rObj = await Bug.destroy({
+        where: {
+            id: bugId
+        }
+    }).then(()=>{
+        const returnObj = {}
+        if (result.err){
+            returnObj[errors] = [...err]
+            return returnObj
+        }
+        returnObj['message']= "Successfully removed Bug record from system";
+        returnObj['ok']= true;
+        return returnObj
+    })
+    return res.json(rObj)
+}))
+
 module.exports = router
