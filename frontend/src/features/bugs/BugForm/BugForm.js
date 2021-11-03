@@ -1,158 +1,122 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect, useHistory, useParams } from 'react-router'
-import { Alert } from 'reactstrap'
-import { makeNewBug } from '../bugSlice'
-import { getPriorities, priorityLevel } from '../BugComponents/priorityController'
 import BugRadio from '../BugComponents/BugRadio'
+import { makeNewBug } from '../bugSlice'
 import './BugForm.css'
 
-
-export default function BugForm() {
+export default function BugForm(props) {
+  const [ newBug, setNewBug ] = useState({})
+  const [ priority, setPriority ] = useState(0)
+  const users = Object.values(useSelector(state=>state.users))
   const dispatch = useDispatch()
-  const history = useHistory()
-  const [errors, setErrors] = useState([])
-  const [alerts, setAlerts] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [bug, setBug] = useState({})
-  const bugs = Object.values(useSelector(state=>state.bugs.entities))
-  const users = Object.values(useSelector(state=>state.users.entities))
-  const currentUser = useSelector(state=>state.session.currentUser)
-  setIsAdmin(currentUser.admin)
-  const { bId } = useParams()
-  const getBug = () => {
-    if (bId===0){
-      return {name: '', details: '', steps: '', priority: '', createdBy: bId, createdAt: new Date.UTC(), updatedAt: new Date.UTC(), version: ''}
-    } else {
-      return bugs[bId - 1]
-    }
+  const filledBug = (e) => {
+    e.target.checked = true
+    
   }
-  setBug(getBug())
-  const createdBy = users[bug.createdBy-1]
-  const {color, level} = getPriorities(bug.priority)
- 
-  const handleSubmit = async (e) => {
-    e.target.preventDefault()
-    const res = await dispatch(makeNewBug(bug))
-    if(res.ok){
-      return (<Redirect to='/home'/>)
-    } else {
-      setErrors(res.errors)
-    }
+  const submitNewBug = () => {
+    dispatch(makeNewBug(newBug))
   }
-
-  const makeIcons = () => {
-    const bugIcons = []
-    for(let x=1;x<=4;x++){
-      bugIcons.push(<BugRadio priority={bug.priority} index={x} key={x}/>)
-    }
-    return bugIcons
-  }
-  
-  const closeView = () => {  
-    return history.push('/viewbugs')
-  }
-
-  const handleErrors = (errs) => {
-    return (errs.map((error, idx)=> (
-      <Alert color="danger" toggle={alerts} key={idx}>{error.error}</Alert>
-    ))).then((res) => {
-      setAlerts(true)
-      return res
-    } )
-  }
-  
+  useEffect(() => {
+    setNewBug({name: '', details: '', steps: '', priority: '', createdBy: props.currentUser, createdAt: Date.UTC(), updatedAt: Date.UTC(), version: ''})
+  }, [props.currentUser])
   return (
-    <form onSubmit={handleSubmit} method='POST'>
-      <div className="page-container lg-bug">
+    <div className="page-container create-bug">
         <div className="lg-bug-card">
-          {(errors.length >= 1) && handleErrors(errors)}
-          <div className="lg-bug-card-header">
-            <div className="lg-bug-card-hdr-btns">
-            </div>
-            <h1 className="lg-bug-card-header-title" style={{color}}>
+          
+          <form onSubmit={submitNewBug} method='POST'>
+          <div className="lg-bug-card-header input-card">
+            <h1 className="lg-bug-card-header-title input-card">NAME</h1>
               <input
-              className="bc-input-form-text b1-name"
+              className="bc-input-form-text"
               type="text"
               name="name"
-              value={bug.name}
-              placeholder={bug.name}
-              onChange={(e) => bug.name = e.target.value}
+              value={newBug.name}
+              placeholder="Brief Description of the Bug"
+              onChange={(e) => newBug.name = e.target.value}
               />
-            </h1>
-            <button className="lg-bug-card-hdr-close bug-view-btn" onClick={(e) => closeView(e)}>X</button>
           </div>
-          <div className="lg-bug-card-container">
-            <div className="lg-bug-card-long-div card-bc2">
+          <div className="lg-bug-card-container-new">
+            <div className="lg-bug-card-long-div card-bc1">
               <h1 className="lg-bug-card-long-div-text">DETAILED DESCRIPTION</h1>
-              <div className="lg-bug-card-long-div-divider div-bc2"></div>
+              <div className="lg-bug-card-long-div-divider div-bc1"></div>
               <input 
-              className="bc-input-form-text b2-details" 
-              value={bug.details}
-              placeholder={bug.details}
+              className="bc-input-form-text bug-input area b1-details" 
+              value={newBug.details}
+              placeholder="Type Description Here"
               type="textarea"
               name="details"
-              onChange={(e) => bug.details = e.target.value}
+              row={4}
+              onChange={(e) => newBug.details = e.target.value}
               />
             </div>
             <div className="lg-bug-card-image">
               img feature coming soon
             </div>
-            <div className="lg-bug-card-long-div card-bc3">
+            <div className="lg-bug-card-long-div card-bc2">
               <h1 className="lg-bug-card-long-div-text">STEPS TO REPLICATE</h1>
-              <div className="lg-bug-card-long-div-divider div-bc3"></div>
+              <div className="lg-bug-card-long-div-divider div-bc2"></div>
               <input 
-              className="bc-input-form-textarea b3-card" 
-              value={bug.steps}
-              placeholder={bug.steps}
+              className="bc-input-form-text bug-input area b2-card" 
+              value={newBug.steps}
+              placeholder="Type the steps to replicate bug"
               type="textarea"
               name="steps"
-              onChange={(e) => bug.steps = e.target.value}
+              onChange={(e) => newBug.steps = e.target.value}
               />
             </div>
-            <div className="lg-bug-card-long-half bc4">
+            <div className="lg-bug-card-long-half card-bc5">
               <h3 className="lg-bug-card-long-div-text">CREATED AT</h3>
-              <div className="lg-bug-card-long-div-divider div-bc4"></div>
-              <p className="bc-text bc4-txt">{bug.createdAt}</p>
-            </div>
-            <div className="lg-bug-card-long-half bc5">
-              <h3 className="lg-bug-card-long-div-text">CREATED BY</h3>
               <div className="lg-bug-card-long-div-divider div-bc5"></div>
-              <p className="bc-text bc5-txt">{createdBy.name}</p>
+              <p className="bc-text bc4-txt">{Date.UTC}</p>
             </div>
-            <div className="lg-bug-card-short-half bc6">
+            <div className="lg-bug-card-long-half card-bc4">
+              <h3 className="lg-bug-card-long-div-text">CREATED BY</h3>
+              <div className="lg-bug-card-long-div-divider div-bc4"></div>
+              <p className="bc-text bc5-txt">{props.currentUser.name}</p>
+            </div>
+            <div className="lg-bug-card-short-half card-bc3">
               <h3 className="lg-bug-card-long-div-text">ASSIGNED TO</h3>
-              <div className="lg-bug-card-long-div-divider div-bc6"></div>
+              <div className="lg-bug-card-long-div-divider div-bc3"></div>
+              <label for="assignedTo" className="select-dropdown-input assignedTo">Select User To Assign</label>
               <select 
               className="user-dropdown bug-input" 
               name="assignedTo" 
-              disabled={isAdmin}
               id="assignedTo"
               form="bugForm"
               >
                 {users.map((user)=>(
-                  <option key={user.id} value={user.name} onSelect={(e)=>bug.assignedTo = e.target.value}>{user.name}</option>
+                  <option key={user.id} className="select-option" value={user.name} onSelect={(e)=>newBug.assignedTo = e.target.value}>{user.name}</option>
                 ))}  
               </select>
             </div>
-            <div className="lg-bug-card-bottom">
-              <button type="submit" onClick={(e)=> handleSubmit(e)} className="lg-bug-card-btn-link ">
-                SUBMIT THIS BUG
-              </button>
-            </div>
-            <div className="lg-bug-card-short-half bc6">
+            <button type="submit" className="lg-bug-card-btn-link ">
+              SUBMIT THIS BUG
+            </button>
+            <div className="lg-bug-card-short-half card-bc6">
               <h3 className="lg-bug-card-long-div-text">OS VERSION</h3>
               <div className="lg-bug-card-long-div-divider div-bc6"></div>
-              <input className="bc-text bc6-txt"/>
+              <input 
+              className="bc-input-form-text bug-input b6-card" 
+              value={newBug.version}
+              placeholder="Version Here"
+              type="text"
+              name="version"
+              onChange={(e) => newBug.version = e.target.value}
+              />
             </div>
-            <div className="lg-bug-card-short-half bc7">
+            <div className="lg-bug-card-short-half card-bc7">
               <h3 className="lg-bug-card-long-div-text">PRIORITY</h3>
               <div className="lg-bug-card-long-div-divider div-bc7"></div>
-              <h3 className="bc-text bc7-txt" ></h3>
+              <div className="bug-icon-container">
+                <BugRadio index={1} priority={priority} setPriority={setPriority} />
+                <BugRadio index={2} priority={priority} setPriority={setPriority} />
+                <BugRadio index={3} priority={priority} setPriority={setPriority} />
+                <BugRadio index={4} priority={priority} setPriority={setPriority} />
+              </div>
             </div>
           </div>
-        </div>
-      </div>      
-    </form>
+        </form>
+      </div>
+    </div>
   )
 }

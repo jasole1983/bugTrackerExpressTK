@@ -70,6 +70,7 @@ input[type="textarea"]:hover {
 }
 
 
+
 input:focus {
     border-color: #BBE1FA;
     border-width: 5px;

@@ -3,36 +3,40 @@
     z-index: 10;
 }
 
+.login-buttons-container {
+    position: fixed;
+    display: flex;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;    
+}
+
 .log-page {
     display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
 }
 
 .login-button {
     z-index: 100;
-    position: relative;
-    left: 46vw;
-    right: 46vw;
-    top: 46vh;
-    bottom: 0;
-    min-width: 8vw;
-    min-height: 8vw;
+    width: 8vw;
+    height: 8vw;
     border-radius: 5rem;
     box-shadow: 3em;
     background-color: crimson;
     color: white;
     font-weight: 900;
     font-size: 2rem;
+    margin-right: 4rem;
 }
 
 .demo-button {
     z-index: 99;
-    position: relative;
-    left: 38vw;
-    right: 46vw;
-    top: 33vw;
-    bottom: 150px;
-    min-width: 8vw;
-    min-height: 8vw;
+    width: 8vw;
+    height: 8vw;
     border-radius: 5rem;
     box-shadow: 1px 1px white;
     background-color: crimson;
@@ -40,9 +44,9 @@
     font-weight: 900;
     font-size: 2rem;
     text-align: center;
+    text-decoration: none;  
     padding-top: 4rem;
-    text-decoration: none;
-
+    margin-left: 4rem;
 }
 
 .login-button:hover {
@@ -55,3 +59,4 @@
     transition: 0.4s;
     background-color: orange;
 }
+

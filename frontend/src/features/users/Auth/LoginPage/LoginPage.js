@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Modal } from 'reactstrap'
-import { Redirect } from 'react-router'
+import { Redirect, useHistory } from 'react-router'
 import ReactCardFlip from 'react-card-flip'
 import BackgroundSlider from 'react-background-slider'
 import LoginFormPage from '../LoginFormPage'
@@ -12,24 +12,25 @@ import './LoginPage.css'
 import { NavLink } from 'react-router-dom'
 
 
-export default function LoginPage() {
+export default function LoginPage({setIsLoggedIn}) {
+  const dispatch = useDispatch()
   const currentUser = useSelector((state) => state.session.user)
+  const history = useHistory()
   const [isFlipped, setIsFlipped] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const loginClick = () => {
-    setShowModal(true)
-  }
   const demoLogin = () => {
-    sessionActions.login()
-    return <Redirect to="/home" />
+    dispatch(sessionActions.login({name: "DevonStraight", email: "fake@email.com", id: 5, admin: true, password: 'password'}))
+    setIsLoggedIn(true)
+    history.push("/home")
+    return 
   }
   if (currentUser) {
-    return <Redirect to='/'/>
+    return <Redirect to='/home'/>
   }
   return (
     <div className="page-container log-page">
-      <button className="login-button" onClick={()=>loginClick()}>LOGIN</button>
-      <NavLink to="/home" className="demo-button">Demo</NavLink>
+      <button className="login-button" onClick={()=>setShowModal(!showModal)}>LOGIN</button>
+      <button className="login-button demo" onClick={demoLogin}>DEMO</button>
       <div className="bg-slider-container">
         <BackgroundSlider
           images={images}
@@ -37,12 +38,12 @@ export default function LoginPage() {
           transition={2}
           />
       </div>
-      <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} toggle={() => loginClick()} centered>
+      <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} toggle={() => setShowModal(!showModal)} centered>
         <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
           <LoginFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal} />
           <SignupFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal}/>
         </ReactCardFlip>
       </Modal>
-      </div>
+    </div>
     )
 }

@@ -9,10 +9,9 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.session.user)
   const [loginfo, setLoginfo] = useState({})
-  const handleLoginSubmit = async (e) => { 
-    e.target.preventDefault()
+  const handleLoginSubmit = async () => { 
     console.log("before dispatch")
-    const res = await dispatch(sessionActions.login(loginfo.email, loginfo.password ))
+    const res = await dispatch(sessionActions.login({email: loginfo.email, password: loginfo.password }))
     const data = await res.json();
     if (data.user){
       return <Redirect to='/' />;
@@ -31,7 +30,7 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
   return (
     <Card className="text-center login-form-container" body id="loginFormCard">
       <CardHeader className="login-card-header">LOGIN</CardHeader>
-        <Form onSubmit={handleLoginSubmit}>
+        <form onSubmit={handleLoginSubmit} method={'POST'}>
             <ListGroup className="login-card-error-container">    
               {loginfo.errors >= 1? loginfo.errors.map((error, idx) => <ListGroupItem key={idx}>{error}</ListGroupItem>):null}
             </ListGroup>
@@ -58,10 +57,11 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
                 />
             </div>
         <CardFooter className="login-card-footer">
-          <button type="submit" className="submit-card-btn">Submit</button>
-          <button type="button" className="login-card-btn-flip" onClick={()=>setIsFlipped(!isFlipped)}>Signup</button ></CardFooter>
+          <input type="submit" className="submit-card-btn login-card-btn" value="SUBMIT"/>
+          <button type="button" className="login-card-btn-flip login-card-btn" onClick={()=>setIsFlipped(!isFlipped)}>SIGNUP</button>
+        </CardFooter>
 
-        </Form>
+      </form>
     </Card>
 
  

@@ -11,7 +11,6 @@ import img11 from './mtCharlestonWide.jpg'
 import img12 from './las-vegas-cityscape-city-metropolitan-area-night-landmark-1592399-pxhere.com.jpg'
 import img13 from './wideSunset.jpg'
 import img16 from './sunsetSihlouette.jpg'
-import img17 from './straitOJuan.jpg'
 import img18 from './skyline-palace-city-skyscraper-cityscape-downtown-536696-pxhere.com.jpg'
 import img19 from './skyline-night-view-city-skyscraper-cityscape-1130204-pxhere.com.jpg'
 import img20 from './skyline-night-city-skyscraper-cityscape-downtown-895942-pxhere.com.jpg'
@@ -31,7 +30,6 @@ export const images = [
     img12,
     img13,
     img16,
-    img17,
     img18,
     img19,
     img20,

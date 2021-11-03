@@ -7,7 +7,7 @@ import BugPage from "./features/bugs/bugPage"
 import { fetchBugs } from "./features/bugs/bugSlice";
 import { fetchUsers } from "./features/users/userSlice"
 import BugForm from "./features/bugs/BugForm/BugForm"
-import BlockedRoute from "./features/users/Auth/BlockedRoute";
+import ProtectedRoute from "./features/users/Auth/ProtectedRoute";
 import { useSelector } from "react-redux";
 import DashBoard from "./features/DashBoard/DashBoard"
 import LoginPage from "./features/users/Auth/LoginPage/LoginPage";
@@ -17,16 +17,13 @@ import BugView from "./features/bugs/BugView/BugView";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const currentUser = useSelector(state=>state.session.currentuser)
+  const currentUser = useSelector(state=>state.session.user)
   const refreshState = () => {
     dispatch(fetchUsers())
     dispatch(fetchBugs())
   }
-  
-
-  console.log({isLoaded})
   useEffect(() => {
-    sessionActions.restoreUser()
+    dispatch(sessionActions.restoreUser())
     setIsLoaded(true)
     refreshState()
   }, []);
@@ -39,22 +36,24 @@ function App() {
         <Route exact path="/">
           <LoginPage currentUser={currentUser}/>
         </Route>
-        <Route exact path="/home">
+        <ProtectedRoute exact path="/home">
           <Home />
-        </Route>
-        <Route exact path="/dashboard">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/dashboard">
           <DashBoard />
-        </Route>
-        <Route exact path="/viewbugs">
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/viewbugs">
           <BugPage />
-        </Route>
-        <Route exact path="/createbug/:bId">
-          <BugForm />
-        </Route>
-        <Route exact path="/viewbug/:bugId">
+        </ProtectedRoute>
+        <ProtectedRoute path="/createbug">
+          <BugForm currentUser={currentUser} />
+        </ProtectedRoute>
+        <ProtectedRoute path="/editbug/:bugId">
+          {/* <BugEdit currentUser={currentUser} /> */}
+        </ProtectedRoute>
+        <ProtectedRoute exact path="/viewbug/:bugId">
           <BugView />
-        </Route>
-        <BlockedRoute path='/'/>
+        </ProtectedRoute>
       </Switch>
       
     </>

@@ -1,7 +1,9 @@
 'use strict';
 const { Validator } = require('sequelize');
 const bcrypt = require('bcryptjs');
-
+const sequelize = require('./db');
+const { STRING } = require('sequelize');
+const { picture, backgroundImage } = require('./attch.js')
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -54,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
   },
   );
   
+  picture.addTo(User);
+  backgroundImage.addTo(User);
+
   User.prototype.toSafeObject = function() { 
     const { id, name, email } = this;
     return { id, name, email };

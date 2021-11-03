@@ -2,8 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Input, Card, CardFooter, CardHeader } from "reactstrap";
+import { Input, Card, CardFooter, CardHeader, ListGroup, ListGroupItem } from "reactstrap";
 import * as sessionActions from '../../../../store/session'
+import './SignupFormPage.css'
 
 export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal, isFlipped }) {
   const dispatch = useDispatch();
@@ -32,14 +33,15 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
 
   return (
     <Card className="text-center login-form-container" body>
-      <CardHeader className="signup-card-header">SIGNUP</CardHeader>
-          <form onSubmit={handleSignupSubmit}>
-          <ul className="error-container">
-              {newUser.errors >=1 ? newUser.errors.map((error, idx) => <li key={idx}>{error}</li>):null}
-          </ul>
+      <CardHeader className="text-center signup-card-header">SIGNUP</CardHeader>
+        <ListGroup className="error-container">
+            {newUser.errors >=1 ? newUser.errors.map((error, idx) => <ListGroupItem key={idx}>{error}</ListGroupItem>):null}
+        </ListGroup>
+        <form onSubmit={handleSignupSubmit}>
+        <div className="signup-input-divs-container">  
           <div className="input-div email">
               <Input
-              className="signup-email-input"
+              className="signup-input"
               type="text"
               placeholder='Email'
               value={newUser.email}
@@ -50,7 +52,7 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
           <div className="input-div name">
               <Input
               type="text"
-              className='signup-name-input'
+              className='signup-input'
               placeholder='Name'
               value={newUser.name}
               onChange={(e) => setNewUser({name: e.target.value})}
@@ -60,7 +62,7 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
           <div className="input-div password">
               <Input
               type="password"
-              className="signup-password-input"
+              className="signup-input"
               placeholder="Password"
               value={newUser.password}
               onChange={(e) => setNewUser({password: e.target.value})}
@@ -70,7 +72,7 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
           <div className="input-div confirm">
               <Input
               type="password"
-              className="signup-confirm-input"
+              className="signup-input"
               placeholder="Confirm Password"
               value={newUser.confirm}
               onChange={(e) => setNewUser({confirm: e.target.value})}
@@ -78,9 +80,10 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               />
           </div>
           <CardFooter className="signup-card-footer">
-            <button className="signup-btn-submit" type="submit">Submit</button>
+            <button className="submit-card-btn" type="submit">Submit</button>
             
-            <button className="signup-btn-flip"type="button" onClick={()=>setIsFlipped(!isFlipped)}>Login</button></CardFooter>    
+            <button className="signup-btn-flip"type="button" onClick={()=>setIsFlipped(!isFlipped)}>Login</button></CardFooter> 
+          </div>   
           </form>
       </Card>
   );
