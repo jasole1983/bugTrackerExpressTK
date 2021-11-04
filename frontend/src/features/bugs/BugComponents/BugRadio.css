@@ -10,10 +10,13 @@
 
 .bug-icon-label {
     background-color: transparent;
-    width: 2rem;
     border: none;
     font-size: 2rem;
+
+
 }
+
+
 
 
 /* input[type="radio"]:checked + label{

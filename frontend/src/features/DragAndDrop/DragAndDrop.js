@@ -40,7 +40,7 @@ function DragAndDrop({ data, dispatch }) {
         onDragOver={(e) => handleDragOver(e)}  
         onDragEnter={(e) => handleDragEnter(e)}  
       >
-        <p>Drag your screenshot files here!</p>
+        <p className="drag-drop-zone-text">Drag your screenshot files here!</p>
         <ol className="dropped-files">
           {data.fileList.map((file) => {
             return (
@@ -82,8 +82,7 @@ export default function DragAndDropComp () {
 
   return (
     <div className="DragAndDropComp">
-      <DragAndDrop data={data} dispatch={dispatch} />
-      
+      <DragAndDrop data={data} dispatch={dispatch} />  
     </div>
   )
 

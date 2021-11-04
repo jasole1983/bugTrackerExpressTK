@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Bug = sequelize.define('Bug', {
     name: {
@@ -53,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     
     Bug.belongsTo( models.User, { foreignKey: 'assignedTo' })
     Bug.belongsTo( models.User, { foreignKey: 'createdBy' })
+    Bug.hasMany( models.Image, { foreignKey: 'bugId' })
     
   };
   return Bug;

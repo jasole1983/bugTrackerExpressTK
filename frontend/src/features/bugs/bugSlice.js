@@ -12,7 +12,7 @@ export const fetchBugs = createAsyncThunk(
 export const makeNewBug = createAsyncThunk(
     'bugs/newBug',
     async (bug, { dispatch }) => {
-        const res = await csrfFetch('/api/bugs/new', {
+        const res = await fetch('/api/bugs/new', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({bug})

@@ -1,10 +1,6 @@
 'use strict';
 const { Validator } = require('sequelize');
 const bcrypt = require('bcryptjs');
-const sequelize = require('./db');
-const { STRING } = require('sequelize');
-const { picture, backgroundImage } = require('./attch.js')
-
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -56,9 +52,6 @@ module.exports = (sequelize, DataTypes) => {
   },
   );
   
-  picture.addTo(User);
-  backgroundImage.addTo(User);
-
   User.prototype.toSafeObject = function() { 
     const { id, name, email } = this;
     return { id, name, email };
@@ -100,6 +93,8 @@ module.exports = (sequelize, DataTypes) => {
     
     User.hasMany( models.Bug, { foreignKey: 'assignedTo' })
     User.hasMany( models.Bug, { foreignKey: 'createdBy' })
+    User.hasMany( models.Image, { foreignKey: 'userId' })
+
   };
 
 return User;
