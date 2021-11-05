@@ -20,7 +20,7 @@ export const signup = createAsyncThunk(
 
 export const login = createAsyncThunk(
     'session/login',
-    async (user, { dispatch }) => {
+    async (user) => {
         const { email, password } = user;
         const res = await csrfFetch('/api/session', {
             method: 'POST',
@@ -28,31 +28,35 @@ export const login = createAsyncThunk(
                 email,
                 password,
             }),
-        }).then((result)=>result.json());
-      
-        dispatch(setSessionUser(res.user));
-        return res;
+        })
+        const data = await res.json()
+        return data.user;
+        
     }
 )
 
 
 export const restoreUser = createAsyncThunk(
     'session/restoreUser',
-    async (_, { dispatch }) => {
-        const res = await csrfFetch('/api/session').then((result)=>result.json())
-        dispatch(setSessionUser(res.user))
-        return res;
+    async (_, dispatch) => {
+        const res = await csrfFetch('/api/session');
+        const data = await res.json();
+        const { name, id, email, admin } = data.user
+        return { name, id, email, admin };
     }
-)
+);
 
 export const logout = createAsyncThunk(
     'session/logout',
     async (_, { dispatch }) => {
         const res = await csrfFetch('/api/session', {
             method: 'DELETE',
-        }).then((result)=>result.json())
-        dispatch(removeSessionUser());
-        return res;
+        })
+        const data = res.json()
+        if (data.ok)
+            return dispatch(removeSessionUser())
+
+        return dispatch(removeSessionUser());
 
     }
 )

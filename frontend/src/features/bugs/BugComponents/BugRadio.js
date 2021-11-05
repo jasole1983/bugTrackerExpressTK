@@ -4,7 +4,6 @@ import { getPriorities } from './priorityController'
 export default function BugRadio({ index, setPriority }) {
     const [checked, setChecked] = useState(false)
     const {color, level} = getPriorities(index)
-    const emptyBug = <i className="bi bi-bug" ></i>
     const fullBug = <i className="bi bi-bug-fill" ></i>
     const handleChange = (e) => {
         setChecked(e.target.checked || !checked)

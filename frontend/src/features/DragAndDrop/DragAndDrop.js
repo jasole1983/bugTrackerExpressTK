@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react'
-import { defaultMemoize } from 'reselect';
 import './DragAndDrop.css'
 
 function DragAndDrop({ data, dispatch }) {
@@ -24,6 +23,7 @@ function DragAndDrop({ data, dispatch }) {
     files.map((file) => {
       file["preview"] = URL.createObjectURL(file);
       files_with_preview.push(file);
+      return file
     })
 
     if (files) {
@@ -40,7 +40,7 @@ function DragAndDrop({ data, dispatch }) {
         onDragOver={(e) => handleDragOver(e)}  
         onDragEnter={(e) => handleDragEnter(e)}  
       >
-        <p className="drag-drop-zone-text">Drag your screenshot files here!</p>
+       {!data.fileList.length && <p className="drag-drop-zone-text">Drag your screenshot files here!</p>}
         <ol className="dropped-files">
           {data.fileList.map((file) => {
             return (

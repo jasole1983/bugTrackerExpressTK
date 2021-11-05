@@ -18,15 +18,13 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   const currentUser = useSelector(state=>state.session.user)
-  const refreshState = () => {
-    dispatch(fetchUsers())
-    dispatch(fetchBugs())
-  }
   useEffect(() => {
     dispatch(sessionActions.restoreUser())
     setIsLoaded(true)
-    refreshState()
-  }, []);
+    dispatch(fetchUsers())
+    dispatch(fetchBugs())
+    
+  }, [dispatch]);
 
   return isLoaded && (
     <>

@@ -1,5 +1,5 @@
 // frontend/src/components/SignupFormPage/index.js
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { Input, Card, CardFooter, CardHeader, ListGroup, ListGroupItem } from "reactstrap";
@@ -9,33 +9,38 @@ import './SignupFormPage.css'
 export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal, isFlipped }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [newUser, setNewUser] = useState({}) ;
-  const handleSignupSubmit = (newUser, setNewUser) => {
-    if (newUser.password === newUser.confirmPassword) {
-    setNewUser(newUser.errors = []);
-    return dispatch(sessionActions.signup(newUser))
+  const [errors, setErrors] = useState([]);
+  const [name, setName] = useState('') ;
+  const [email, setEmail] = useState('') ;
+  const [password, setPassword] = useState('') ;
+  const [confirmed, setConfirmed] = useState('') ;
+  const handleSignupSubmit = (e) => {
+    e.preventDefault()
+    if (password === confirmed) {
+    setErrors([]);
+    return dispatch(sessionActions.signup({
+      name, email, password, admin: false,
+    }))
       .catch(async (res) => {
         const data = await res.json();
         if (data.ok){
           setIsLoaded(true)
           setShowModal(false)
         }
-        if (data && data.errors) setNewUser(newUser.errors = data.errors);
+        if (data && data.errors) setErrors(data.errors);
       });
-  }
-  return setNewUser(newUser.errors = ['Confirm Password field must be the same as the Password field']);
-};
-  useEffect(()=> {
-      setNewUser(newUser.errors = [])
-  }, [])
+  } else {
+    return setErrors(['Confirm Password field must be the same as the Password field']);
 
+  }
+};
   if (sessionUser) return <Redirect to="/" />;
 
   return (
     <Card className="text-center login-form-container" body>
       <CardHeader className="text-center signup-card-header">SIGNUP</CardHeader>
         <ListGroup className="error-container">
-            {newUser.errors >=1 ? newUser.errors.map((error, idx) => <ListGroupItem key={idx}>{error}</ListGroupItem>):null}
+            {errors >=1 ? errors.map((error, idx) => <ListGroupItem key={idx}>{error}</ListGroupItem>):null}
         </ListGroup>
         <form onSubmit={handleSignupSubmit}>
         <div className="signup-input-divs-container">  
@@ -44,8 +49,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               className="signup-input"
               type="text"
               placeholder='Email'
-              value={newUser.email}
-              onChange={(e) => setNewUser({email: e.target.value})}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
               />
           </div>
@@ -54,8 +59,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               type="text"
               className='signup-input'
               placeholder='Name'
-              value={newUser.name}
-              onChange={(e) => setNewUser({name: e.target.value})}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
               />
           </div>
@@ -64,8 +69,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               type="password"
               className="signup-input"
               placeholder="Password"
-              value={newUser.password}
-              onChange={(e) => setNewUser({password: e.target.value})}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
               />
           </div>
@@ -74,8 +79,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               type="password"
               className="signup-input"
               placeholder="Confirm Password"
-              value={newUser.confirm}
-              onChange={(e) => setNewUser({confirm: e.target.value})}
+              value={confirmed}
+              onChange={(e) => setConfirmed(e.target.value)}
               required
               />
           </div>

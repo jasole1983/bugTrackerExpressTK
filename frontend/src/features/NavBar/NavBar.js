@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap'
 import { useHistory } from 'react-router'
@@ -7,11 +7,12 @@ import * as sessionActions from '../../store/session'
 import './NavBar.css'
 
 export default function NavBar({ setIsLoaded }) {
+  const dispatch = useDispatch()
   const currentUser = useSelector((state)=>state.session.user)
   const history = useHistory()
   const signOut = () => {
-    sessionActions.logout()
-    history.push('/')
+    dispatch(sessionActions.logout())
+      .then(()=> history.push('/'))
     setIsLoaded(false)
   }
     return (

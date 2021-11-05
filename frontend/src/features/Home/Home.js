@@ -1,5 +1,4 @@
 import React from 'react'
-import { Card, CardBody, CardFooter, CardHeader } from 'reactstrap'
 import './Home.css'
 
 export default function Home() {

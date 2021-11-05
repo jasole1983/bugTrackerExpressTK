@@ -50,9 +50,7 @@ const bugSlice = createSlice({
         addBug: bugAdapter.addOne,
         deleteBug: bugAdapter.removeOne,
         upsertBug: bugAdapter.upsertOne,
-        completeBug: (state, { payload }) => {
-            
-        },
+        
     },
     extraReducers: {
         [fetchBugs.pending](state){
@@ -70,9 +68,19 @@ const bugSlice = createSlice({
         },
         [delBug.fulfilled](state, { payload }){
             state.status = "Successful"
-            deleteBug(payload)
+            deleteBug(payload.bug)
         },
         [delBug.rejected](state){
+            state.status = "Failed"
+        },
+        [makeNewBug.pending](state){
+            state.status = "Loading"
+        },
+        [makeNewBug.fulfilled](state, { payload }){
+            state.status = "Successful"
+            addBug(payload.bug)
+        },
+        [makeNewBug.rejected](state){
             state.status = "Failed"
         },
     }
@@ -80,6 +88,6 @@ const bugSlice = createSlice({
 
 export default bugSlice.reducer
 
-export const { getBugs, addBug, upsertBug, completeBug, deleteBug } = bugSlice.actions
+export const { getBugs, addBug, upsertBug, deleteBug } = bugSlice.actions
 
 export const bugSelectors = bugAdapter.getSelectors((state) => state.bugs)
