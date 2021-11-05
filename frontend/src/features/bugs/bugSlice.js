@@ -4,7 +4,7 @@ import { csrfFetch } from "../../store/csrf";
 export const fetchBugs = createAsyncThunk(
     'bugs/fetchBugs',
     async (_, { dispatch }) => {
-        const res = await fetch('/api/bugs').then((result) => result.json())
+        const res = await csrfFetch('/api/bugs').then((result) => result.json())
         dispatch(getBugs(res.bugs))
     }
 )
@@ -12,12 +12,13 @@ export const fetchBugs = createAsyncThunk(
 export const makeNewBug = createAsyncThunk(
     'bugs/newBug',
     async (bug, { dispatch }) => {
-        const res = await fetch('/api/bugs/new', {
+        const { name, details, steps, priority, version, assignedTo, createdBy } = bug
+        console.log("bug = ", {bug})
+        const res = await csrfFetch('/api/bugs/new', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({bug})
+            body: JSON.stringify({name, details, steps, priority, version, createdBy, assignedTo})
         }).then((result) => result.json())
-        dispatch(upsertBug(res))
+        if(res.ok) dispatch(addBug(bug))
     }
 )
 
@@ -26,7 +27,6 @@ export const delBug = createAsyncThunk(
     async (bug, { dispatch }) => {
         const res = await csrfFetch(`/api/bugs/${bug.id}`, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
         }).then((result) => result.json())
         if (res.ok){
             dispatch(deleteBug(bug.id))
@@ -47,7 +47,7 @@ const bugSlice = createSlice({
     initialState: bugAdapter.getInitialState(),
     reducers: {
         getBugs: bugAdapter.setAll,
-        createBugs: bugAdapter.addMany,
+        addBug: bugAdapter.addOne,
         deleteBug: bugAdapter.removeOne,
         upsertBug: bugAdapter.upsertOne,
         completeBug: (state, { payload }) => {
@@ -80,6 +80,6 @@ const bugSlice = createSlice({
 
 export default bugSlice.reducer
 
-export const { getBugs, createBugs, upsertBug, completeBug, deleteBug } = bugSlice.actions
+export const { getBugs, addBug, upsertBug, completeBug, deleteBug } = bugSlice.actions
 
 export const bugSelectors = bugAdapter.getSelectors((state) => state.bugs)

@@ -16,9 +16,10 @@ router.get("/priority/:id", asyncHandler(async (req, res) => {
     return res.json({ priorityBugs })
 }))
 
-router.post("/new", csrfProtection, asyncHandler(async (req, res) => {
+router.post("/new", asyncHandler(async (req, res, next) => {
     const { name, details, steps, version, assignedTo, createdBy, priority } = req.body
-    const newBug = {
+    console.log( "request = ", {name, details, steps, version, assignedTo, createdBy, priority})
+    const newBug = await Bug.build({
                 name, 
                 details, 
                 steps, 
@@ -26,9 +27,11 @@ router.post("/new", csrfProtection, asyncHandler(async (req, res) => {
                 assignedTo, 
                 createdBy,
                 priority,
-                }
-    const makeNewBug = await Bug.build(newBug)
-    return res.json({ newBug })
+                })
+
+    await newBug.save();
+    
+    res.status(203)
 
 }))
 

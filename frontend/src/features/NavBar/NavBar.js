@@ -2,13 +2,16 @@ import React from 'react'
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Button } from 'reactstrap'
+import { useHistory } from 'react-router'
 import * as sessionActions from '../../store/session'
 import './NavBar.css'
 
 export default function NavBar({ setIsLoaded }) {
   const currentUser = useSelector((state)=>state.session.user)
+  const history = useHistory()
   const signOut = () => {
     sessionActions.logout()
+    history.push('/')
     setIsLoaded(false)
   }
     return (

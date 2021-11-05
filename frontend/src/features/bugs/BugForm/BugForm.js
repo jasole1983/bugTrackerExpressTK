@@ -1,21 +1,37 @@
 import React, { useEffect, useState, crea } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
 import DragAndDropComp from '../../DragAndDrop/DragAndDrop'
 import BugRadio from '../BugComponents/BugRadio'
 import { makeNewBug } from '../bugSlice'
 import './BugForm.css'
 
-export default function BugForm(props) {
-  const [ newBug, setNewBug ] = useState({})
-  const users = Object.values(useSelector(state=>state.users))
+export default function BugForm() {
+  const history = useHistory()
+  const currentUser = useSelector(state=>state.session.user)
+  const [ name, setName ] = useState('')
+  const [ details, setDetails ] = useState('')
+  const [ steps, setSteps ] = useState('')
+  const [ priority, setPriority ] = useState(0)
+  const [ assignedTo, setAssignedTo ] = useState(0)
+  const [ version, setVersion ] = useState('')
+  const currentTime = Date().toLocaleString().slice(0, 25)
+  const users = Object.values(useSelector(state=>state.users.entities))
   const dispatch = useDispatch()
-  const submitNewBug = (e) => {
-    e.target.preventDefault()
-    dispatch(makeNewBug(newBug))
+  const submitNewBug = async (e) => {
+    e.preventDefault()
+    console.log({name, details, steps, priority, assignedTo, version})
+    const res = await dispatch(makeNewBug({
+                          name,
+                          details,
+                          steps,
+                          priority,
+                          assignedTo,
+                          version,
+                          createdBy: currentUser.id,
+                        }))
+    if (res.ok) return history.push('/home')
   }
-  useEffect(() => {
-    setNewBug({name: '', details: '', steps: '', priority: '', createdBy: props.currentUser, createdAt: Date.UTC(), updatedAt: Date.UTC(), version: ''})
-  }, [props.currentUser])
   return (
     <div className="page-container create-bug">
         <div className="lg-bug-card">
@@ -26,9 +42,9 @@ export default function BugForm(props) {
                 className="bc-input-form-text name-input"
                 type="text"
                 name="name"
-                value={newBug.name}
+                value={name}
                 placeholder="Brief Description of the Bug"
-                onChange={(e) => setNewBug({name: e.target.value})}
+                onChange={(e) => setName(e.target.value)}
                 />
             </div>
             <div className="lg-bug-card-container-new">
@@ -37,12 +53,12 @@ export default function BugForm(props) {
                 <div className="lg-bug-card-long-div-divider div-bc1"></div>
                 <input 
                 className="bc-input-form-text bug-input area b1-details" 
-                value={newBug.details}
+                value={details}
                 placeholder="Type Description Here"
                 type="textarea"
                 name="details"
                 row={4}
-                onChange={(e) => setNewBug({details: e.target.value})}
+                onChange={(e) => setDetails(e.target.value)}
                 />
               </div>
               <div className="lg-bug-card-image">
@@ -53,22 +69,22 @@ export default function BugForm(props) {
                 <div className="lg-bug-card-long-div-divider div-bc2"></div>
                 <textarea 
                 className="bc-input-form-text bug-input area b2-card" 
-                value={newBug.steps}
+                value={steps}
                 placeholder="Type the steps to replicate bug"
                 type="textarea"
                 name="steps"
-                onChange={(e) => setNewBug({steps: e.target.value})}
+                onChange={(e) => setSteps(e.target.value)}
                 />
               </div>
               <div className="lg-bug-card-long-half card-bc5">
                 <h3 className="lg-bug-card-long-div-text">CREATED AT</h3>
                 <div className="lg-bug-card-long-div-divider div-bc5"></div>
-                <p className="bc-text bc4-txt">{newBug.createdAt}</p>
+                <p className="bc-text bc4-txt">{currentTime}</p>
               </div>
               <div className="lg-bug-card-long-half card-bc4">
                 <h3 className="lg-bug-card-long-div-text">CREATED BY</h3>
                 <div className="lg-bug-card-long-div-divider div-bc4"></div>
-                <p className="bc-text bc5-txt">{props.currentUser.name}</p>
+                <p className="bc-text bc5-txt">{currentUser.name}</p>
               </div>
               <div className="lg-bug-card-short-half card-bc3">
                 <h3 className="lg-bug-card-long-div-text">ASSIGNED TO</h3>
@@ -77,11 +93,14 @@ export default function BugForm(props) {
                 <select 
                 className="user-dropdown bug-input" 
                 name="assignedTo" 
+                value={assignedTo}
                 id="assignedTo"
                 form="bugForm"
+                onChange={(e)=>setAssignedTo(e.target.value)}
                 >
                   {users.map((user, idx)=>(
-                    <option key={idx} className="select-option" value={user.name} onSelect={(e)=>newBug.assignedTo = e.target.value}>{user.name}</option>
+                    <option key={idx} className="select-option" value={user.id}
+                    >{user.name}</option>
                   ))}  
                 </select>
               </div>
@@ -93,18 +112,18 @@ export default function BugForm(props) {
                 <div className="lg-bug-card-long-div-divider div-bc6"></div>
                 <input 
                 className="bc-input-form-text bug-input b6-card" 
-                value={newBug.version}
+                value={version}
                 placeholder="Version Here"
                 type="text"
                 name="version"
-                onChange={(e) => setNewBug(newBug.version = e.target.value)}
+                onChange={(e) => setVersion(e.target.value)}
                 />
               </div>
               <div className="lg-bug-card-short-half card-bc7" id="divbc7">
-                <BugRadio index={1} key={1}/>
-                <BugRadio index={2} key={2}/>
-                <BugRadio index={3} key={3}/>
-                <BugRadio index={4} key={4}/>
+                <BugRadio index={1} key={1} setPriority={setPriority}/>
+                <BugRadio index={2} key={2} setPriority={setPriority}/>
+                <BugRadio index={3} key={3} setPriority={setPriority}/>
+                <BugRadio index={4} key={4} setPriority={setPriority}/>
               </div>
             </div>
         </form>

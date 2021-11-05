@@ -13,7 +13,7 @@ export const signup = createAsyncThunk(
                 password,
             })
         }).then((result)=>result.json())
-        dispatch(setSessionUser(res))
+        dispatch(setSessionUser(res.user))
         return res
     }
 )
@@ -22,15 +22,15 @@ export const login = createAsyncThunk(
     'session/login',
     async (user, { dispatch }) => {
         const { email, password } = user;
-        const res = await fetch('/api/session', {
+        const res = await csrfFetch('/api/session', {
             method: 'POST',
             body: JSON.stringify({
                 email,
                 password,
             }),
         }).then((result)=>result.json());
-        console.log(res)
-        dispatch(setSessionUser(user));
+      
+        dispatch(setSessionUser(res.user));
         return res;
     }
 )
@@ -38,9 +38,9 @@ export const login = createAsyncThunk(
 
 export const restoreUser = createAsyncThunk(
     'session/restoreUser',
-    async () => {
-        const res = await fetch('/api/session').then((result)=>result.json())
-        console.log(res)
+    async (_, { dispatch }) => {
+        const res = await csrfFetch('/api/session').then((result)=>result.json())
+        dispatch(setSessionUser(res.user))
         return res;
     }
 )
@@ -48,7 +48,7 @@ export const restoreUser = createAsyncThunk(
 export const logout = createAsyncThunk(
     'session/logout',
     async (_, { dispatch }) => {
-        const res = await fetch('/api/session', {
+        const res = await csrfFetch('/api/session', {
             method: 'DELETE',
         }).then((result)=>result.json())
         dispatch(removeSessionUser());
@@ -73,7 +73,7 @@ export const logout = createAsyncThunk(
 const sessionsSlice = createSlice({
     name: 'session',
     initialState: {
-        user: {name: "Devon Straight", email: "fake@email.com", id: 99, admin: true},
+        user: null,
     },
     reducers: {
         setSessionUser: (state, { payload }) => {

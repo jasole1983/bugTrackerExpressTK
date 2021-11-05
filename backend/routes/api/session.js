@@ -9,7 +9,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 const validateLogin = [
-  check('name')
+  check('email')
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Please provide a valid email or name.'),

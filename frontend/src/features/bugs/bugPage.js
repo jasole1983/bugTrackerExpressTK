@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux'
 import BugCard from './BugCard/BugCard'
 // import { bugs } from '../../store'
 import './bugs.css'
-import BugForm from './BugForm/BugForm'
-import { Modal } from 'reactstrap'
 import { NavLink } from 'react-router-dom'
 
 export default function BugPage() {
@@ -35,15 +33,7 @@ export default function BugPage() {
                   </NavLink>
 
                 ))}
-            </div>
-              <Modal isOpen={showModal} 
-              toggle={() => closingFunc()} 
-              centered={true}
-              modalClassName="bug-card-large-view" 
-              scrollable={true}>
-                <BugForm bug={modalBug} setShowModal={setShowModal}/>
-              </Modal>
-              
+            </div>              
         </div>
     )
 }

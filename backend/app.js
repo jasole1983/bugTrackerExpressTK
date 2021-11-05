@@ -19,7 +19,7 @@ if (!isProduction) {
     app.use(cors());
 }
 app.use(helmet({
-    contentSecurityPolicy: false
+    contentSecurityPolicy: true
 }));
 app.use(
     csurf({
