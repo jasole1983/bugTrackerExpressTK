@@ -1,0 +1,14 @@
+.bug-card-container {
+    margin-top: 5rem;
+}
+
+.page-header.bugs {
+    
+    font-family: 'Spicy Rice', cursive;
+    text-shadow: 5px 5px;
+}
+
+.page-header-text {
+    text-shadow: 3px 3px black;
+    font-size: 7rem;
+}
