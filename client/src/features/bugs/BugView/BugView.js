@@ -83,7 +83,7 @@ export default function BugView() {
             <img
              src={staticImage} 
              alt="demo screenshot"
-             style={{ height: "500px", paddingRight: "30px" }}
+             style={{ height: "400px", paddingRight: "10px" }}
              />
           </div>
           <div className="lg-bug-card-long-div bc2">
