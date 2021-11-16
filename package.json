@@ -1,14 +1,19 @@
 {
-  "name": "backend",
+  "name": "yerbugginme",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "sequelize": "sequelize",
     "sequelize-cli": "sequelize-cli",
+    "server": "nodemon",
     "start": "per-env",
-    "start:development": "nodemon -r dotenv/config ./bin/www",
-    "start:production": "node ./bin/www"
+    "start:dev": "nodemon -r dotenv/config ./bin/www",
+    "start:pro": "node ./bin/www",
+    "build": "npm run --prefix ./frontend build",
+    "frontend": "npm --prefix ./frontend start",
+    "backend": "npm install",
+    "heroku-postbuild": "npm run frontend"
   },
   "keywords": [],
   "author": "",
@@ -40,6 +45,7 @@
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {
+    "concurrently": "^6.4.0",
     "dotenv-cli": "^4.0.0",
     "node-env-run": "^4.0.2",
     "nodemon": "^2.0.7"
