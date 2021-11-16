@@ -8,22 +8,22 @@ module.exports = {
     return queryInterface.bulkInsert('Images', [
       {
         name: "demo-screen-shot", 
-        bugId: 2, 
+        bugId: 141, 
         image: img1
       },
       {
         name: "demo-screen-shot-2", 
-        bugId: 3, 
+        bugId: 142, 
         image: img2
       },
       {
         name: "demo-SS-3",
-        bugId: 4,
+        bugId: 143,
         image: img3,
       },
       {
         name: "demo-SS-4",
-        bugId: 1,
+        bugId: 144,
         image: img4,
       },
        
