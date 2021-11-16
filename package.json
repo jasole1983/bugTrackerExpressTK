@@ -11,9 +11,9 @@
     "start:dev": "nodemon -r dotenv/config ./bin/www",
     "start:pro": "node ./bin/www",
     "build": "npm run --prefix ./frontend build",
-    "frontend": "npm --prefix ./frontend start",
+    "frontend": "npm --prefix ./frontend install",
     "backend": "npm install",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm frontend"
   },
   "keywords": [],
   "author": "",
