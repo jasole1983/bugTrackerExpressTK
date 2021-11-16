@@ -7,7 +7,7 @@
     "sequelize": "sequelize",
     "sequelize-cli": "sequelize-cli",
     "server": "nodemon",
-    "start": "per-env",
+    "start": "node ./bin/www",
     "start:dev": "nodemon -r dotenv/config ./bin/www",
     "start:pro": "node ./bin/www",
     "build": "npm run --prefix ./frontend build",
