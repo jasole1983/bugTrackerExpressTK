@@ -1,7 +1,7 @@
 'use strict';
 const img1 = require('../../assets/demoSSbase64.js')
-const img2 = require('../../assets/blue-screen-of-death.png')
-const img3 = require('../../assets/bluescreen.png')
+const img2 = require('../../assets/blue-screen-of-death')
+const img3 = require('../../assets/bluescreen')
 const img4 = require('../../assets/error_screenshot.gif')
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -14,17 +14,17 @@ module.exports = {
       {
         name: "demo-screen-shot-2", 
         bugId: 3, 
-        image: img2
+        image: img2.src
       },
       {
         name: "demo-SS-3",
         bugId: 4,
-        image: img3,
+        image: img3.src,
       },
       {
         name: "demo-SS-4",
         bugId: 1,
-        image: img4,
+        image: img4.src,
       },
        
       ], {});
