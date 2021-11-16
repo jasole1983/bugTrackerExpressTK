@@ -1,19 +1,31 @@
 
-*,*::before,*::after {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
-    box-sizing: inherit;
+    box-sizing: border-box;
 }
 
-#root {
+html {
     box-sizing: border-box;
+    
     --prime-color: #1B262C;
     --second-color: #0F4C75;
     --third-color: #3282B8;
     --fourth-color: #BBE1FA;
+    --contrast-color: #35cb46;
+    
+    --ff-spicy: "Spicy Rice", cursive;
+    --ff-sigmar: "Sigmar One", cursive;
+    --ff-note: "Notable", sans-serif;
+    --ff-econ: "Economico", sans-serif;
+    --ff-script: "Lobster Two", cursive;
+    --ff-dong: "Dongle", sans-serif;
+    
+    font-family: "Lucida Console", "Courier New", monospace;
     color: black;
     background-color: white;
-    font-family: "Lucida Console", "Courier New", monospace;
 }
 
 a {
@@ -32,7 +44,7 @@ ul {
     border-radius: 5px;
     padding: 5px 20px;
     color: white;
-    font: normal bold 18px "Open Sans",sans-serif;
+    font-family: var(--ff-sigmar);
     text-align: center;
 }
 

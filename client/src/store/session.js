@@ -14,11 +14,9 @@ export const login = createAsyncThunk(
         })
         const data = await res.json()
         dispatch(setSessionUser(data.user))
-        return data.user;
-        
+        return data.user;       
     }
 )
-
 
 export const restoreUser = createAsyncThunk(
     'session/restoreUser',
@@ -26,7 +24,7 @@ export const restoreUser = createAsyncThunk(
         const res = await fetch('/api/session');
         const data = await res.json();
         const { name, id, username, admin } = data.user
-        setSessionUser({ name, id, username, admin });
+        dispatch(setSessionUser({ name, id, username, admin }));
     }
 );
 
@@ -39,25 +37,10 @@ export const logout = createAsyncThunk(
         const data = res.json()
         if (data.ok)
             return dispatch(removeSessionUser())
-
         return dispatch(removeSessionUser());
-
     }
 )
 
-
-// export const login = createAsyncThunk(
-//     'session/login', 
-//     async (user, { dispatch }) => {
-
-//         return dispatch(setSessionUser(user))        
-//     })
-
-// export const restoreUser = createAsyncThunk(
-//     'session/restoreUser', 
-//     async (user, { dispatch }) => {
-//         return dispatch(setSessionUser(user))  
-//     })
 const sessionsSlice = createSlice({
     name: 'session',
     initialState: {
@@ -92,9 +75,7 @@ const sessionsSlice = createSlice({
         [logout.rejected](state){
             state.status = "Rejected"
         },
-    
     }
-
 })
 
 export const { setSessionUser, removeSessionUser } = sessionsSlice.actions

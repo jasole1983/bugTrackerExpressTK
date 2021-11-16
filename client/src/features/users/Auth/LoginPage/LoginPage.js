@@ -20,6 +20,10 @@ export default function LoginPage({setIsLoggedIn}) {
     dispatch(sessionActions.login({name: "Devon Straight", email: "fake@email.com", id: 5, admin: true, password: 'password'}))
     if (currentUser) return history.push('/home')
   }
+  const onClose = () => {
+    setShowModal(false)
+    setIsFlipped(false)
+  }
   if (currentUser) {
     return <Redirect to='/home'/>
   }
@@ -31,7 +35,7 @@ export default function LoginPage({setIsLoggedIn}) {
       </div>
       <div className="modal-container" >
         {showModal && 
-          <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} toggle={() => setShowModal(!showModal)} centered>
+          <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} onClose={onClose} centered>
             <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
               <LoginFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal} />
               <SignupFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal}/>
