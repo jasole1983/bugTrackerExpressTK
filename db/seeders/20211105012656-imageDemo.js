@@ -1,8 +1,8 @@
 'use strict';
 const img1 = require('../../assets/demoSSbase64.js')
-const img2 = require('../../assets/blue-screen-of-death')
-const img3 = require('../../assets/bluescreen')
-const img4 = require('../../assets/error_screenshot')
+const img2 = require('../../assets/blue-screen-of-death.js')
+const img3 = require('../../assets/bluescreen.js')
+const img4 = require('../../assets/error_screenshot.js')
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Images', [
