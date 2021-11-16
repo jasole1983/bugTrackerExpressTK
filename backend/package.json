@@ -10,10 +10,10 @@
     "start": "node ./bin/www",
     "start:dev": "nodemon -r dotenv/config ./bin/www",
     "start:pro": "node ./bin/www",
-    "build": "npm run --prefix ./frontend build",
-    "frontend": "npm --prefix ./frontend install",
+    "build": "npm run --prefix ../frontend build",
+    "frontend": "npm --prefix ../frontend install",
     "backend": "npm install",
-    "heroku-postbuild": "npm --prefix ./frontend install && npm --prefix ./frontend build"
+    "heroku-postbuild": "npm --prefix ../frontend install && npm --prefix ../frontend build"
   },
   "keywords": [],
   "author": "",
