@@ -2,29 +2,27 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { Input, Card, CardFooter, CardHeader, ListGroup, ListGroupItem } from "reactstrap";
-import * as sessionActions from '../../../../store/session'
+import { signup } from "../../userSlice";
 import './SignupFormPage.css'
 
 export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal, isFlipped }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
-  const [name, setName] = useState('') ;
-  const [email, setEmail] = useState('') ;
-  const [password, setPassword] = useState('') ;
-  const [confirmed, setConfirmed] = useState('') ;
+  const name = useInputForm('')
+  const email = useInputForm('')
+  const password = useInputForm('')
+  const confirmed = useInputForm('')
   const handleSignupSubmit = (e) => {
     e.preventDefault()
-    if (password === confirmed) {
+    if (password.value === confirmed.value) {
     setErrors([]);
-    return dispatch(sessionActions.signup({
-      name, email, password, admin: false,
+    return dispatch(signup({
+      name: name.value, email: email.value, password: password.value, admin: false,
     }))
       .catch(async (res) => {
         const data = await res.json();
         if (data.ok){
-          setIsLoaded(true)
           setShowModal(false)
         }
         if (data && data.errors) setErrors(data.errors);
@@ -34,63 +32,69 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
 
   }
 };
-  if (sessionUser) return <Redirect to="/" />;
+  if (sessionUser) return <Redirect to="/home" />;
 
   return (
-    <Card className="text-center login-form-container" body>
-      <CardHeader className="text-center signup-card-header">SIGNUP</CardHeader>
-        <ListGroup className="error-container">
-            {errors >=1 ? errors.map((error, idx) => <ListGroupItem key={idx}>{error}</ListGroupItem>):null}
-        </ListGroup>
-        <form onSubmit={handleSignupSubmit}>
-        <div className="signup-input-divs-container">  
-          <div className="input-div email">
-              <Input
+    <div className="login-form-container" id="submitFormCard">
+      <h1 className="signup card-header">SIGNUP</h1>
+      <ul className="signup card-error-container">
+          {errors >=1 ? errors.map((error, idx) => <li key={idx}>{error}</li>):null}
+      </ul>
+      <form onSubmit={handleSignupSubmit}> 
+          <div className="card-input email">
+              <input
               className="signup-input"
               type="text"
               placeholder='Email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...email}
               required
               />
           </div>
-          <div className="input-div name">
-              <Input
+          <div className="card-input name">
+              <input
               type="text"
               className='signup-input'
               placeholder='Name'
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              {...name}
               required
               />
           </div>
-          <div className="input-div password">
-              <Input
+          <div className="card-input password">
+              <input
               type="password"
               className="signup-input"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              {...password}
               required
               />
           </div>
-          <div className="input-div confirm">
-              <Input
+          <div className="card-input confirm">
+              <input
               type="password"
               className="signup-input"
               placeholder="Confirm Password"
-              value={confirmed}
-              onChange={(e) => setConfirmed(e.target.value)}
+              {...confirmed}
               required
               />
           </div>
-          <CardFooter className="signup-card-footer">
-            <button className="submit-card-btn" type="submit">Submit</button>
+          <div className="signup-card-footer">
+            <button className="submit-card-btn submit card-btn" type="submit">SUBMIT</button>
             
-            <button className="signup-btn-flip"type="button" onClick={()=>setIsFlipped(!isFlipped)}>Login</button></CardFooter> 
-          </div>   
-          </form>
-      </Card>
+            <button className="signup-card-btn-flip card-btn"type="button" onClick={()=>setIsFlipped(!isFlipped)}>LOGIN</button>
+          </div>    
+        </form>
+      </div>
   );
 }
 
+const useInputForm = initialValue => {
+  const [ value, setValue ] = useState(initialValue);
+
+  const handleChange = e => {
+    setValue(e.target.value);
+  }
+  return {
+    value, 
+    onChange: handleChange
+  }
+}

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'reactstrap'
 import { useHistory } from 'react-router'
 import * as sessionActions from '../../store/session'
 import './NavBar.css'
@@ -37,14 +36,14 @@ export default function NavBar({ setIsLoaded }) {
             </div>
           </div>
           <div className="navbar-user-control">
-            <Button className="navbar-usr-ctrl-btn user-page" id="userhistory">
+            <button className="navbar-usr-ctrl-btn user-page" id="userhistory">
               <NavLink exact to={`/user/${currentUser? currentUser.id:999}`} className="usr-hstry-lnk">
                 {currentUser? currentUser.name:"Default User"}
               </NavLink>
-            </Button>
-            <Button className="navbar-usr-ctrl-btn logout-btn" onClick={()=> signOut()} id="logoutbtn">
+            </button>
+            <button className="navbar-usr-ctrl-btn logout-btn" onClick={()=> signOut()} id="logoutbtn">
               Logout
-            </Button>
+            </button>
           </div>       
         </div>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Modal } from 'reactstrap'
+import { Modal } from '../../../../store/modal/Modal'
 import { Redirect, useHistory } from 'react-router'
 import ReactCardFlip from 'react-card-flip'
 import LoginFormPage from '../LoginFormPage'
@@ -25,14 +25,19 @@ export default function LoginPage({setIsLoggedIn}) {
   }
   return (
     <div className="page-container log-page">
-      <button className="login-button" onClick={()=>setShowModal(!showModal)}>LOGIN</button>
-      <button className="login-button demo" onClick={demoLogin}>DEMO</button>
-      <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} toggle={() => setShowModal(!showModal)} centered>
-        <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-          <LoginFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal} />
-          <SignupFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal}/>
-        </ReactCardFlip>
-      </Modal>
+      <div className="button-container">
+        <button className="login-button" onClick={()=>setShowModal(!showModal)}>LOGIN</button>
+        <button className="login-button demo" onClick={demoLogin}>DEMO</button>
+      </div>
+      <div className="modal-container" >
+        {showModal && 
+          <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} toggle={() => setShowModal(!showModal)} centered>
+            <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+              <LoginFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal} />
+              <SignupFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal}/>
+            </ReactCardFlip>
+          </Modal>}
+      </div>
     </div>
     )
 }

@@ -9,7 +9,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const router = express.Router();
 
 const validateLogin = [
-  check('email')
+  check('credential')
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Please provide a valid email or name.'),
@@ -23,9 +23,9 @@ router.post(
   '/',
   validateLogin,
   asyncHandler(async (req, res, next) => {
-    const { email, password } = req.body;
+    const { credential, password } = req.body;
 
-    const user = await User.login({ email, password });
+    const user = await User.login({ credential, password });
 
     if (!user) {
       const err = new Error('Login failed');

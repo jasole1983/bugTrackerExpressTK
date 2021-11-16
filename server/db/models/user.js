@@ -23,6 +23,13 @@ module.exports = (sequelize, DataTypes) => {
         len: [3, 256]
       },
     },
+    userName: {
+      type: DataTypes.STRING(35),
+      allowNull: false,
+      validate: {
+        len: [3, 35]
+      },
+    },
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
@@ -53,8 +60,8 @@ module.exports = (sequelize, DataTypes) => {
   );
   
   User.prototype.toSafeObject = function() { 
-    const { id, name, email } = this;
-    return { id, name, email };
+    const { id, name, email, userName } = this;
+    return { id, name, email, userName };
   };
 
   User.prototype.validatePassword = function (password) {
@@ -65,12 +72,14 @@ module.exports = (sequelize, DataTypes) => {
     return await User.scope('currentUser').findByPk(id);
   };
 
-  User.login = async function ({ email, password }) {
+  User.login = async function ({ credential, password }) {
     const { Op } = require('sequelize');
     const user = await User.scope('loginUser').findOne({
       where: {
-                
-          email: email,
+        [Op.or]: [
+          { userName: credential },
+          { email: credential }
+        ]        
         },
       },
     );
@@ -79,13 +88,26 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+  User.generate = function (name) {
+    const names = name.toLowerCase().split(' ')
+    const first = names[0].slice(0, 30)
+    const mid = (names[2])? names[1][0]:null
+    const last = (names[2])? names[2][0]:names[1][0]
+    const un = `${first}${last}${mid?mid:""}`
+    return un
+  }
+
   User.signup = async function ({ name, email, password }) {
     const hashedPassword = bcrypt.hashSync(password);
+    const userName = User.generate(name)
     const user = await User.create({
       name,
       email,
       hashedPassword,
+      userName,
+      admin: false,
     });
+    
     return await User.scope('currentUser').findByPk(user.id);
   };
 
