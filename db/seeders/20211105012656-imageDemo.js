@@ -2,7 +2,7 @@
 const img1 = require('../../assets/demoSSbase64.js')
 const img2 = require('../../assets/blue-screen-of-death')
 const img3 = require('../../assets/bluescreen')
-const img4 = require('../../assets/error_screenshot.gif')
+const img4 = require('../../assets/error_screenshot')
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Images', [
@@ -14,17 +14,17 @@ module.exports = {
       {
         name: "demo-screen-shot-2", 
         bugId: 3, 
-        image: img2.src
+        image: img2
       },
       {
         name: "demo-SS-3",
         bugId: 4,
-        image: img3.src,
+        image: img3,
       },
       {
         name: "demo-SS-4",
         bugId: 1,
-        image: img4.src,
+        image: img4,
       },
        
       ], {});
