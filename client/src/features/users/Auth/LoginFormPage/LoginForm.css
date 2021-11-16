@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     min-width: 500px;
-    min-height: 400px;
+    min-height: 300px;
     background-color: var(--third-color);
     border-color: black;
     border-width: 5px;
@@ -12,12 +12,11 @@
 div.card-input {
     display: flex;
     line-height: 2.5;
-    width: 100%;
     font-size: 1rem;
 }
 
 .card-header {
-    margin: .5em auto;
+    margin: .25em auto;
     font-family: 'Spicy Rice', cursive;
     color: var(--fourth-color);
     font-size: 3.5rem;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
+import { Redirect } from "react-router"
 import * as sessionActions from "./store/session";
 import NavBar from "./features/NavBar/NavBar";
 import BugPage from "./features/bugs/bugPage"
@@ -28,10 +29,12 @@ function App() {
 
   return isLoaded && (
     <>
-      
       <NavBar currentUser={currentUser} setIsLoaded={setIsLoaded}/>
       <Switch>
         <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route exact path="/login">
           <LoginPage currentUser={currentUser}/>
         </Route>
         <ProtectedRoute exact path="/home">
@@ -53,7 +56,6 @@ function App() {
           <BugView />
         </ProtectedRoute>
       </Switch>
-      
     </>
   );
 }
