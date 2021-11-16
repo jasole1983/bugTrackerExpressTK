@@ -12,7 +12,7 @@
     "start:pro": "node ./backend/bin/www",
     "build": "npm run --prefix ./frontend build",
     "frontend": "npm --prefix ./frontend install",
-    "backend": "npm install",
+    "backend": "npm --prefix ./backend install",
     "heroku-postbuild": "npm --prefix ./frontend install && npm --prefix ./frontend build"
   },
   "keywords": [],
