@@ -1,35 +1,19 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { csrfFetch } from "./csrf";
 
-export const signup = createAsyncThunk(
-    'session/signup',
-    async (user, { dispatch }) => {
-        const { name, email, password } = user;
-        const res = await fetch("/api/users", {
-            method: "POST",
-            body: JSON.stringify({
-                name,
-                email,
-                password,
-            })
-        }).then((result)=>result.json())
-        dispatch(setSessionUser(res.user))
-        return res
-    }
-)
-
 export const login = createAsyncThunk(
     'session/login',
-    async (user) => {
-        const { email, password } = user;
+    async (user, { dispatch }) => {
+        const { credential, password } = user;
         const res = await csrfFetch('/api/session', {
             method: 'POST',
             body: JSON.stringify({
-                email,
+                credential,
                 password,
             }),
         })
         const data = await res.json()
+        dispatch(setSessionUser(data.user))
         return data.user;
         
     }
@@ -38,11 +22,11 @@ export const login = createAsyncThunk(
 
 export const restoreUser = createAsyncThunk(
     'session/restoreUser',
-    async (_, dispatch) => {
-        const res = await csrfFetch('/api/session');
+    async (_, { dispatch }) => {
+        const res = await fetch('/api/session');
         const data = await res.json();
-        const { name, id, email, admin } = data.user
-        return { name, id, email, admin };
+        const { name, id, username, admin } = data.user
+        setSessionUser({ name, id, username, admin });
     }
 );
 
@@ -77,7 +61,7 @@ export const logout = createAsyncThunk(
 const sessionsSlice = createSlice({
     name: 'session',
     initialState: {
-        user: null,
+        sessionUser: null,
     },
     reducers: {
         setSessionUser: (state, { payload }) => {
@@ -108,16 +92,7 @@ const sessionsSlice = createSlice({
         [logout.rejected](state){
             state.status = "Rejected"
         },
-        [signup.pending](state){
-            state.status = "Loading"
-        },
-        [signup.fulfilled](state, { payload }){
-            state.status = "Successful"
-            state.user = payload
-        },
-        [signup.rejected](state){
-            state.status = "Rejected"
-        },
+    
     }
 
 })

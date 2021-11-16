@@ -8,8 +8,7 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 import store from './store';
 import * as sessionActions from './store/session';
 import { ModalProvider } from './store/modal/Modal.js';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 
 
 

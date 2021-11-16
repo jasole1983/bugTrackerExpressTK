@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { Redirect, useHistory, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
-import { Alert } from 'reactstrap'
 import { getPriorities, priorityLevel } from '../BugComponents/priorityController'
 import { delBug } from '../bugSlice'
 import staticImage from '../../../images/demoSS.jpg'
@@ -50,7 +49,7 @@ export default function BugView() {
 
   const handleErrors = (errs) => {
     return (errs.map((error, idx)=> (
-      <Alert color="danger" toggle={alerts} key={idx}>{error.error}</Alert>
+      <alert color="danger" toggle={alerts} key={idx}>{error.error}</alert>
     ))).then((res) => {
       setAlerts(true)
       return res

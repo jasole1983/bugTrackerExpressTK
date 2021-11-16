@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: yerbuggin_db
+    image: "postgres:12"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=bug_tracker_app
+      - POSTGRES_PASSWORD=8U67r4Ck3RpW0rD
+      - POSTGRES_DB=bug_tracker
+    volumes:
+      - nps_data:/var/lib/postgresql/data
+  server:
+    container_name: yerbuggin_server
+    image: ybm_svr:0.0.1
+    build:
+      context: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://bug_tracker_app:8U67r4Ck3RpW0rD@:5432/dbname
+  ui:
+    container_name: yerbuggin_ui
+    image: ybm_ui:0.0.1
+    build:
+      context: ./client
+
+volumes:
+  nps_data
