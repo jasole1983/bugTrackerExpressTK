@@ -1,0 +1,46 @@
+language: node_js
+node_js:
+  - "14"
+sudo: false
+
+branches:
+  only:
+  - master
+
+cache:
+  directories:
+    - node_modules
+  
+install:
+  - npm install
+
+deploy:
+  provider: heroku
+  skip_cleanup: true
+  keep-history: true
+  api-key:
+    secure: $HEROKU_API_KEY
+  app: yerbugginme
+
+setup:
+  addons:
+    - plan: heroku-postgresql
+      as: DATABASE
+build:
+  docker:
+    web: Dockerfile
+  config:
+    NODE_ENV: production
+run:
+  web: 
+release:
+  command:
+    - ./deployment-tasks.sh
+  image: worker
+run:
+  web: bundle exec puma -C config/puma.rb
+  worker: python myworker.py
+  asset-syncer:
+    command:
+      - python asset-syncer.py
+    image: worker
