@@ -3,23 +3,6 @@ FROM node:14.0-alpine
 RUN mkdir dockerBuild
 WORKDIR /dockerBuild
 
-RUN mkdir frontend 
-WORKDIR /dockerBuild/frontend
-
-COPY /frontend/package.json /
-COPY /frontend/package-lock.json /
-
-RUN npm install
-
-WORKDIR /
-
-COPY /frontend/public /dockerBuild/frontend/public
-COPY /frontend/src /dockerBuild/frontend/src
-
-WORKDIR /dockerBuild/frontend
-
-RUN npm build
-
 COPY /package.json /dockerBuild/package.json
 COPY /package-lock.json /dockerBuild/package-lock.json
 
