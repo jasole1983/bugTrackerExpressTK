@@ -18,5 +18,7 @@ COPY /utils /dockerBuild/utils
 COPY /app.js /dockerBuild/app.js
 COPY .sequelizerc /dockerBuild/.sequelizerc
 
+EXPOSE 5000
+
 CMD [ node app.js ]
 

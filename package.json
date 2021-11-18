@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "web": "frontend/build/index.html",
   "scripts": {
     "sequelize": "sequelize",
     "sequelize-cli": "sequelize-cli",
     "start": "node ./bin/www",
-    "start:dev": "nodemon -r dotenv/config ./bin/www",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
     "build": "npm run --prefix ./frontend build",
-    "frontend": "npm --prefix ./frontend install",
     "start:production": "node ./bin/www",
     "heroku-postbuild": "npm --prefix ./frontend install && npm --prefix ./frontend build"
   },
