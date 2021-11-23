@@ -1,50 +1,19 @@
 {
   "name": "yerbugginme",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "bug tracker",
+  "main": "index.js",
   "scripts": {
-    "sequelize": "sequelize",
-    "sequelize-cli": "sequelize-cli",
-    "start": "per-env",
-    "start:development": "nodemon -r dotenv/config ./bin/www",
-    "build": "npm install",
-    "start:production": "node ./bin/www",
-    "heroku-postbuild": "npm --prefix ./frontend install && npm --prefix ./frontend build"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasole1983/bugTrackerExpressTK.git"
+  },
+  "author": "Jason Solipo Leatiota",
   "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.19.0",
-    "cookie-parser": "^1.4.5",
-    "cors": "^2.8.5",
-    "csurf": "^1.11.0",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "express-async-handler": "^1.1.4",
-    "express-validator": "^6.12.0",
-    "faker": "^5.5.3",
-    "helmet": "^4.6.0",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.29.1",
-    "morgan": "^1.10.0",
-    "node-env": "^0.1.6",
-    "nodenv": "^0.1.0",
-    "per-env": "^1.0.2",
-    "pg": "^8.7.1",
-    "pg-hstore": "^2.3.4",
-    "rand-token": "^1.0.1",
-    "sequelize": "^5.22.4",
-    "sequelize-cli": "^5.5.1",
-    "sequelize-file": "^0.3.0",
-    "sqlite3": "^5.0.2"
+  "bugs": {
+    "url": "https://github.com/jasole1983/bugTrackerExpressTK/issues"
   },
-  "devDependencies": {
-    "concurrently": "^6.4.0",
-    "dotenv-cli": "^4.0.0",
-    "node-env-run": "^4.0.2",
-    "nodemon": "^2.0.7"
-  }
+  "homepage": "https://github.com/jasole1983/bugTrackerExpressTK#readme"
 }

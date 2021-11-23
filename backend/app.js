@@ -4,7 +4,7 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-const routes = require('./routes');
+const routes = require('./backend/routes');
 
 
 const { environment } = require('./config');
