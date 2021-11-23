@@ -7,11 +7,11 @@
     "node": "^14.0.0"
   },
   "scripts": {
-    "heroku-postbuild": "serve -s build && cd react-ui/ && npm install && npm run build",
+    "heroku-postbuild": "cd react-ui/ && npm install && npm run build",
     "install": "cd server/ && npm install",
     "sequelize": "npm run sequelize",
     "sequelize-cli": "npm run sequelize-cli",
-    "start": "cd server/ && node app"
+    "start": "serve -s build && cd server/ && node app"
   },
   "cacheDirectories": [
     "server/node_modules",
