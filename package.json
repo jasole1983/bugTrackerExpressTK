@@ -2,27 +2,35 @@
   "name": "yerbugginme",
   "version": "1.0.0",
   "description": "bug tracker",
-  "main": "index.js",
+  "main": "server/app.js",
+  "engines": {
+    "node": "10.x"
+  },
+  "scripts": {
+    "start": "node server/app.js",
+    "install": "cd server/ && npm install",
+    "sequelize": "cd server/ && npm run sequelize",
+    "sequelize-cli": "cd server/ && npm run sequelize-cli",
+    "build": "cd react-ui/ && npm install && npm run build"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "build": "^0.1.4",
     "immer": "^9.0.6",
-    "reselect": "^4.0.0"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "heroku-postbuild": "npm run build --prefix frontend",
-    "install": "npm --prefix backend install backend && npm --prefix frontend install frontend",
-    "sequelize": "npm run --prefix backend sequelize",
-    "sequelize-cli": "npm run --prefix backend sequelize-cli",
-    "start": "npm start --prefix backend"
+    "reselect": "^4.0.0",
+    "express": "^4.17.1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jasole1983/bugTrackerExpressTK.git"
   },
   "author": "Jason Solipo Leatiota",
-  "license": "ISC",
+  "license": "JSL",
+  "devDependencies": {},
   "bugs": {
     "url": "https://github.com/jasole1983/bugTrackerExpressTK/issues"
   },
