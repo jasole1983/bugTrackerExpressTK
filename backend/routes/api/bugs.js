@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db/models")
 const { Bug } = db
-const { csrfProtection, asyncHandler } = require("../../utils/asynccsurf")
+const { asyncHandler } = require("express-async-handler");
 
 
 router.get("/", asyncHandler(async (req, res) => {
