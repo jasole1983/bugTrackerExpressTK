@@ -7,7 +7,7 @@
     "node": "10.x"
   },
   "scripts": {
-    "start": "node server/app.js",
+    "start": "node app.js",
     "install": "cd server/ && npm install",
     "sequelize": "cd server/ && npm run sequelize",
     "sequelize-cli": "cd server/ && npm run sequelize-cli",
