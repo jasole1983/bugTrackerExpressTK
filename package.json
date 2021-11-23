@@ -2,7 +2,7 @@
   "name": "yerbugginme",
   "version": "1.0.0",
   "description": "bug tracker",
-  "main": "server/app.js",
+  "main": "index.js",
   "engines": {
     "node": "10.x"
   },
