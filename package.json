@@ -3,8 +3,19 @@
   "version": "1.0.0",
   "description": "bug tracker",
   "main": "index.js",
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.6.2",
+    "build": "^0.1.4",
+    "immer": "^9.0.6",
+    "reselect": "^4.0.0"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "heroku-postbuild": "npm run build --prefix frontend",
+    "install": "npm --prefix backend install backend && npm --prefix frontend install frontend",
+    "sequelize": "npm run --prefix backend sequelize",
+    "sequelize-cli": "npm run --prefix backend sequelize-cli",
+    "start": "npm start --prefix backend"
   },
   "repository": {
     "type": "git",
@@ -15,5 +26,5 @@
   "bugs": {
     "url": "https://github.com/jasole1983/bugTrackerExpressTK/issues"
   },
-  "homepage": "https://github.com/jasole1983/bugTrackerExpressTK#readme"
+  "homepage": "https://yerbugginme.herokuapp.com"
 }
