@@ -14,7 +14,7 @@ app.use(morgan(morgOpt));
 app.use(cookieParser());
 app.use(express.json());
 if (!isProduction) {
-    app.use(cors());
+  app.use(cors());
 }
 app.use(helmet({
     contentSecurityPolicy: true
@@ -30,7 +30,9 @@ app.use(
     })
 );  
 app.use(routes);
-
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, '..', '..', 'react-ui', 'build', 'index.html'));
+});
 app.use((_req, _res, next) => {
     const err = new Error("OOPS! Something went wrong! ERROR: 404");
     err.title = "UH-OH!! Resource Not Found";
