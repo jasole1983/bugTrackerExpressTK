@@ -2,7 +2,7 @@
   "name": "yerbugginme",
   "version": "1.0.0",
   "description": "bug tracker",
-  "main": "index.js",
+  "main": "server.js",
   "engines": {
     "node": "^14.0.0"
   },
@@ -11,7 +11,7 @@
     "install": "cd server/ && npm install",
     "sequelize": "npm run sequelize",
     "sequelize-cli": "npm run sequelize-cli",
-    "start": "cd react-ui/ && serve -s build && cd server/ && node app"
+    "start": "cd server/ && node app"
   },
   "cacheDirectories": [
     "server/node_modules",
