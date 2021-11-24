@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "sequelize": "sequelize",
     "sequelize-cli": "sequelize-cli",
@@ -34,7 +34,6 @@
     "sequelize": "^5.22.4",
     "sequelize-cli": "^5.5.1",
     "sequelize-file": "^0.3.0",
-    "serve": "^13.0.2",
     "sqlite3": "^5.0.2"
   },
   "devDependencies": {

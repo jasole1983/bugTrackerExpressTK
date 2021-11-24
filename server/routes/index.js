@@ -10,16 +10,16 @@ if (process.env.NODE_ENV === 'production') {
   router.get('/', (req, res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken());
     return res.sendFile(
-      path.resolve(__dirname, 'build', 'index.html')
+      path.join(__dirname, '../../react-ui/build/index.html')
     );
   });
 
-  router.use(express.static(path.resolve(__dirname, 'build')));
+  router.use(express.static(path.join(__dirname, '../../react-ui/build')));
 
   router.get(/^(?!\/?api).*/, (req, res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken());
     return res.sendFile(
-      path.resolve(__dirname, 'build', 'index.html')
+      path.join(__dirname, '../../react-ui/build/index.html')
     );
   });
 }
