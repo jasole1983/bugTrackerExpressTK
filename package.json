@@ -8,21 +8,42 @@
   },
   "scripts": {
     "heroku-postbuild": "cd react-ui/ && npm install && npm run build",
-    "install": "cd server/ && npm install",
     "sequelize": "npm run sequelize",
     "sequelize-cli": "npm run sequelize-cli",
-    "start": "cd server/ && node server.js"
+    "start": "per-env",
+    "start:development": "nodemon -r dotenv/config ./bin/www",
+    "start:production": "node ./bin/www"
   },
   "cacheDirectories": [
-    "server/node_modules",
+    "node_modules",
     "react-ui/node_modules"
   ],
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "build": "^0.1.4",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "csurf": "^1.11.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "express-validator": "^6.12.0",
+    "faker": "^5.5.3",
+    "helmet": "^4.6.0",
     "immer": "^9.0.6",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "per-env": "^1.0.2",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "rand-token": "^1.0.1",
     "reselect": "^4.0.0",
-    "express": "^4.17.1"
+    "sequelize": "^5.22.4",
+    "sequelize-cli": "^5.5.1",
+    "sequelize-file": "^0.3.0",
+    "sqlite3": "^5.0.2"
   },
   "repository": {
     "type": "git",
@@ -30,10 +51,13 @@
   },
   "author": "Jason Solipo Leatiota",
   "license": "JSL",
-  "devDependencies": {},
+  "devDependencies": {
+    "dotenv-cli": "^4.0.0",
+    "nodemon": "^2.0.7"
+  },
   "bugs": {
     "url": "https://github.com/jasole1983/bugTrackerExpressTK/issues"
   },
   "homepage": "https://yerbugginme.herokuapp.com",
-  "start_url": "."
+  "start_url": "/"
 }
