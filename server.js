@@ -4,8 +4,8 @@ const cors = require('cors');
 const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
-const routes = require('./routes');
-const { environment } = require('./config');
+const routes = require('./server/routes');
+const { environment } = require('./server/config');
 const isProduction = environment === 'production';
 const morgOpt = isProduction? 'tiny':'dev';
 const app = express();
@@ -30,9 +30,7 @@ app.use(
     })
 );  
 app.use(routes);
-app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, '..', '..', 'react-ui', 'build', 'index.html'));
-});
+
 app.use((_req, _res, next) => {
     const err = new Error("OOPS! Something went wrong! ERROR: 404");
     err.title = "UH-OH!! Resource Not Found";
