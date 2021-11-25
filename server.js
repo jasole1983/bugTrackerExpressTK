@@ -17,7 +17,7 @@ if (!isProduction) {
   app.use(cors());
 }
 app.use(helmet({
-    contentSecurityPolicy: true
+    contentSecurityPolicy: false
 }));
 app.use(
     csurf({
