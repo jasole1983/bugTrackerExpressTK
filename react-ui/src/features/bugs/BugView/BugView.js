@@ -5,7 +5,6 @@ import { Redirect, useHistory, useParams } from 'react-router'
 import { NavLink } from 'react-router-dom'
 import { getPriorities, priorityLevel } from '../BugComponents/priorityController'
 import { delBug } from '../bugSlice'
-import staticImage from '../../../images/demoSS.jpg'
 import './BugView.css'
 
 export default function BugView() {
@@ -79,11 +78,6 @@ export default function BugView() {
             <p className="bc-text bc1-txt">{bug.details}</p>
           </div>
           <div className="lg-bug-card-image">
-            <img
-             src={staticImage} 
-             alt="demo screenshot"
-             style={{ height: "400px", paddingRight: "10px" }}
-             />
           </div>
           <div className="lg-bug-card-long-div bc2">
             <h1 className="lg-bug-card-long-div-text">STEPS TO REPLICATE</h1>
