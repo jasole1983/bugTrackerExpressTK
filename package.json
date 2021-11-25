@@ -14,10 +14,6 @@
     "start:development": "nodemon -r dotenv/config ./bin/www",
     "start:production": "node ./bin/www"
   },
-  "cacheDirectories": [
-    "node_modules",
-    "react-ui/node_modules"
-  ],
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.2",
     "build": "^0.1.4",
