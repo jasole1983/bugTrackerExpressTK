@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// server/bin/www
+// bin/www
 const { port } = require('../config');
 
-const app = require('../app');
+const app = require('../server');
 const db = require('../db/models');
 
 // Check the database connection before starting the app
