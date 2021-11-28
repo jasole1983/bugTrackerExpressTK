@@ -76,10 +76,10 @@ module.exports = (sequelize, DataTypes) => {
     const { Op } = require('sequelize');
     const user = await User.scope('loginUser').findOne({
       where: {
-        [Op.or]: [
-          { userName: credential },
-          { email: credential }
-        ]        
+        [Op.or]: {
+           userName: credential,
+           email: credential
+        }
         },
       },
     );

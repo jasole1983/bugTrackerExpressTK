@@ -13,20 +13,24 @@ export default function BugView() {
   const [errors, setErrors] = useState([])
   const [alerts, setAlerts] = useState(false)
   const bugs = Object.values(useSelector(state=>state.bugs.entities))
+  const bugIds = Object.values(useSelector(state=>state.bugs.ids))
   const users = Object.values(useSelector(state=>state.users.entities))
+  const userIds = Object.values(useSelector(state=>state.users.ids))
   const { bugId } = useParams()
-  const bug = bugs[bugId-1]
-  const assignedTo = users[bug.assignedTo-1]
-  const createdBy = users[bug.createdBy-1]
-  const {color, level} = getPriorities(bug.priority)
-  const bugIcons = priorityLevel(bug.priority)
+  const bugIdx = bugIds.indexOf(Number(bugId))
+  const currentBug = bugs[bugIdx]
+  console.log(currentBug)
+  const assignedTo = users[userIds.indexOf(currentBug.assignedTo)]
+  const createdBy = users[userIds.indexOf(currentBug.createdBy)]
+  const {color, level} = getPriorities(currentBug.priority)
+  const bugIcons = priorityLevel(currentBug.priority)
   const createdAt = () => {
-    const time = new Date(bug.createdAt)
+    const time = new Date(currentBug.createdAt)
     return time.toLocaleDateString() + ' ' + time.toLocaleTimeString()
   }
   const editBug = () => {
     
-    return <Redirect to={`/createBug/${bugId}`} />
+    return <Redirect to={`/editBug/${bugId}`} />
   }
 
   const closeView = () => {
@@ -36,7 +40,7 @@ export default function BugView() {
 
   const deleteThisBug = async () => {
     
-    const res = await dispatch(delBug(bug))
+    const res = await dispatch(delBug(currentBug))
     if (res.message){
       return history.goBack()
     }
@@ -67,7 +71,7 @@ export default function BugView() {
             NAME: 
           </h1>
           <h1 className="lg-bug-card-header-title" style={{color}}>
-            {bug.name}
+            {currentBug.name}
           </h1>
           <button className="lg-bug-card-hdr-close bug-view-btn" onClick={(e) => closeView(e)}>X</button>
         </div>
@@ -75,14 +79,14 @@ export default function BugView() {
           <div className="lg-bug-card-long-div bc1">
             <h1 className="lg-bug-card-long-div-text">DETAILED DESCRIPTION</h1>
             <div className="lg-bug-card-long-div-divider div-bc1"></div>
-            <p className="bc-text bc1-txt">{bug.details}</p>
+            <p className="bc-text bc1-txt">{currentBug.details}</p>
           </div>
           <div className="lg-bug-card-image">
           </div>
           <div className="lg-bug-card-long-div bc2">
             <h1 className="lg-bug-card-long-div-text">STEPS TO REPLICATE</h1>
             <div className="lg-bug-card-long-div-divider div-bc2"></div>
-            <p className="bc-text bc2-txt">{bug.steps}</p>
+            <p className="bc-text bc2-txt">{currentBug.steps}</p>
           </div>
           <div className="lg-bug-card-long-half bc3">
             <h3 className="lg-bug-card-long-div-text">CREATED AT</h3>
@@ -100,14 +104,14 @@ export default function BugView() {
             <p className="bc-text bc5-txt">{assignedTo.name}</p>
           </div>
           <div className="lg-bug-card-bottom">
-            <NavLink to={`/complete/${bug.id}`} className="lg-bug-card-btn-link nav-link navlink">
+            <NavLink to={`/complete/${currentBug.id}`} className="lg-bug-card-btn-link nav-link navlink">
               COMPLETE THIS BUG
             </NavLink>
           </div>
           <div className="lg-bug-card-short-half bc6">
             <h3 className="lg-bug-card-long-div-text">OS VERSION</h3>
             <div className="lg-bug-card-long-div-divider div-bc6"></div>
-            <p className="bc-text bc6-txt">{bug.version}</p>
+            <p className="bc-text bc6-txt">{currentBug.version}</p>
           </div>
           <div className="lg-bug-card-short-half bc7">
             <h3 className="lg-bug-card-long-div-text">PRIORITY</h3>
