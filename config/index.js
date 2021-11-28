@@ -1,5 +1,5 @@
 module.exports = {
-    environment: 'production',
+    environment: process.env.NODE_ENV || 'development',
     // process.env.NODE_ENV || 'development',
     port: process.env.PORT || 5000,
     db: {

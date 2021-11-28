@@ -15,16 +15,24 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
     console.log("before dispatch")
     e.preventDefault();
     setErrors([])
-    return dispatch(sessionActions.login({credential, password }))
+    if (credential && password) {
+      const user = { credential, password }
+      return dispatch(sessionActions.login(user))
       .catch(async (res) => {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       })
+    } else {
+      return (
+        <Redirect to='/noauth' />
+      )
+    }
     }     
 
-  if (currentUser) {
-    return <Redirect to='/' />;
-  }
+  if (currentUser) return (
+    <Redirect to='/home' />
+  )
+  
 
   return (
     <div className="login-form-container" body id="loginFormCard">
@@ -32,7 +40,7 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
       <ul className="login card-error-container">    
         {errors >= 1? errors.map((error, idx) => <li key={idx}>{error}</li>):null}
       </ul>
-      <form onSubmit={handleLoginSubmit} method={'POST'}>
+      <form onSubmit={handleLoginSubmit}>
         <div className="login card-input cred">            
           <input 
           className="login-input"
@@ -40,7 +48,7 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
           placeholder="Email or Username"
           name="credential"
           {...credential}
-          autoComplete="new-password"
+          autoComplete="new-username"
           required
           />
         </div>
@@ -56,7 +64,7 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
           />
         </div>
         <div className="login card-footer" id="login-card-footer">
-          <input type="submit" className="submit-card-btn login card-btn" value="SUBMIT"/>
+          <button type="submit" className="submit-card-btn login card-btn">LOGIN</button>
           <button type="button" className="login-card-btn-flip login card-btn" onClick={()=>setIsFlipped(!isFlipped)}>SIGNUP</button>
         </div>
       </form>

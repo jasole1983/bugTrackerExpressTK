@@ -44,7 +44,7 @@ export const logout = createAsyncThunk(
 const sessionsSlice = createSlice({
     name: 'session',
     initialState: {
-        sessionUser: null,
+        user: null,
     },
     reducers: {
         setSessionUser: (state, { payload }) => {

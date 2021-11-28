@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const { environment } = require('./config');
 const isProduction = environment === 'production';
-const morgOpt = isProduction? 'tiny':'dev';
+let morgOpt = isProduction? 'tiny':'dev';
 const app = express();
 
 app.use(morgan(morgOpt));

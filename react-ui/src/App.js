@@ -13,6 +13,7 @@ import DashBoard from "./features/DashBoard/DashBoard"
 import LoginPage from "./features/users/Auth/LoginPage/LoginPage";
 import Home from "./features/Home/Home";
 import BugView from "./features/bugs/BugView/BugView";
+import Noauth from "./features/users/Auth/Noauth";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,11 +30,11 @@ function App() {
     <>
       <NavBar currentUser={currentUser} setIsLoaded={setIsLoaded}/>
       <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
+        <Route exact path="/noauth">
+          <Noauth />
         </Route>
         <Route exact path="/login">
-          <LoginPage currentUser={currentUser}/>
+          <LoginPage />
         </Route>
         <ProtectedRoute exact path="/home">
           <Home />
@@ -53,6 +54,9 @@ function App() {
         <ProtectedRoute exact path="/viewbug/:bugId">
           <BugView />
         </ProtectedRoute>
+        <Route path="/">
+          <Redirect to="/login" />
+        </Route>
       </Switch>
     </>
   );
