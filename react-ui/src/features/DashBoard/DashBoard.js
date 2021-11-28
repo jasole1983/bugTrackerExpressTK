@@ -18,7 +18,9 @@ export default function DashBoard() {
    
   return (
     <div className="page-container dashboard">
-      <h1 className="page-header dashboard">{currentUser.name}'s Dashboard</h1>
+      <div className="page-header dashboard">
+        <h1 className="page-header-txt">{currentUser.name}'s Dashboard</h1>
+      </div>
       <div className="dashboard-card-container">
         <div className="bug-card dashboard-bc db-bc1" id='low' onClick={(e)=>handleClick(e)}>
           <h1 className="db-bug-card-title db-bc1">LOW PRIORITY</h1>

@@ -22,6 +22,12 @@
         3px 8px 1px var(--third-color);
 }
 
+.user-control {
+    margin-right: .75rem;
+    margin-left: .75rem;
+    font-family: var(--ff-dong)
+}
+
 .navbar-link:hover {
     color: var(--contrast-color);
     font-size: 1.5rem;
