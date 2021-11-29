@@ -8,13 +8,13 @@
 }
 
 html {
-    box-sizing: border-box;
-    
     --prime-color: #1B262C;
     --second-color: #0F4C75;
     --third-color: #3282B8;
     --fourth-color: #BBE1FA;
     --contrast-color: #35cb46;
+    --header-color: rgb(29, 29, 170);
+    --header-colortwo: rgb(127, 14, 202);
     
     --ff-spicy: "Spicy Rice", cursive;
     --ff-sigmar: "Sigmar One", cursive;
@@ -22,15 +22,21 @@ html {
     --ff-econ: "Economico", sans-serif;
     --ff-script: "Lobster Two", cursive;
     --ff-dong: "Dongle", sans-serif;
+    --ff-mono: "Lucida Console", "Courier New", monospace;
     
-    font-family: "Lucida Console", "Courier New", monospace;
-    color: black;
-    background-color: white;
+    --fs-header: 5rem;
+    --fs-input: 2rem;
+    --fs-card: 1.5rem;
+    --fs-focus: 3rem;
+
+    --bg-grad: linear-gradient(55deg, var(--prime-color) 15%, var(--second-color) 55%, var(--prime-color) 100% );
+
+    --bs-norm: 2px 2px 4px 1px,
+                4px 4px 4px 2px;
 }
 
 a {
     text-decoration: none;
-    color: var(--prime-color)
 }
 
 ul {
@@ -39,36 +45,40 @@ ul {
     padding: 0;
 }
 
-.btn {
-    background: var(--prime-color);
-    border-radius: 5px;
-    padding: 5px 20px;
-    color: white;
-    font-family: var(--ff-sigmar);
-    text-align: center;
-}
-
-.btn-link {
-    text-decoration: none;
-    color: var(--prime-color)
-}
-
 .page-header {
-    display: flex;
-    font: 5rem bolder;
-    color: purple;
-    text-shadow: black;
-    width: 100vw;
-    justify-content: center;
-    align-items: center;
-    margin-top: 50px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    
+}
+
+.page-header-txt {
+    font-family: var(--ff-spicy);
+    color: var(--header-color);
+    text-shadow: 1px 1px 2px white, 0 0 1em var(--header-colortwo), 0 0 0.2em var(--header-colortwo);
+    font-size: var(--fs-header);
+    margin: 0 auto;
 }
 
 .page-container {
     display: grid;
     background-color: white;
     width: 100vw;
-    grid-template-rows: 50px 1fr;   
+    grid-template-rows: 50px 1fr;
+    height: max-content;   
+}
+
+.bug-card {
+    width: 20em;
+    height: 15em; 
+    background: var(--bg-grad);
+    border-radius: 3rem;
+    padding: 1rem;
+    justify-content: space-between;
+}
+
+.bug-card > * {
+    margin: 0 auto;
 }
 
 input:hover {

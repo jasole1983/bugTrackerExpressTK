@@ -21,7 +21,7 @@ export const login = createAsyncThunk(
 export const restoreUser = createAsyncThunk(
     'session/restoreUser',
     async (_, { dispatch }) => {
-        const res = await fetch('/api/session');
+        const res = await csrfFetch('/api/session');
         const data = await res.json();
         const { name, id, username, admin } = data.user
         dispatch(setSessionUser({ name, id, username, admin }));

@@ -45,7 +45,7 @@ export default function NavBar({ setIsLoaded }) {
             </div>
             <div className="navbar-user-control">
               <NavLink exact to={`/user/${currentUser? currentUser.id:'1'}`} className="usr-hstry-lnk navbar-link user-control">
-                {currentUser? currentUser.name:""}
+                {currentUser? currentUser.userName:""}
               </NavLink>
               <button className="navbar-usr-ctrl-btn logout-btn navbar-link user-control" onClick={()=> signOut()} id="logoutbtn">
                 Logout
