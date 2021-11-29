@@ -1,4 +1,4 @@
-const colors = ["white", "green", "yellow", "orange", "red"]
+const colors = ["white", "lime", "yellow", "orange", "red"]
 const levels = ["", "LOW", "MED", "HIGH", "CRIT"]
 
 export function getPriorities(priority){

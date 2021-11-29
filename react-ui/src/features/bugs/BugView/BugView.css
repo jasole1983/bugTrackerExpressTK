@@ -1,9 +1,3 @@
-.page-container.lg-bug {
-    width: 100vw;
-    height: 100vw;
-    display: flex;
-    justify-content: center;
-}
 .lg-bug-card {
     margin-top: 30px;
     padding: 35px;
