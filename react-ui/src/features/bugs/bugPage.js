@@ -17,7 +17,7 @@ export default function BugPage() {
             
             <div className="bug-card-container">
                 {bugs.map((bug) => (
-                  <NavLink to={`/viewbug/${bug.id}`} key={bug.id}className="nav-link">
+                  <NavLink to={`/viewbug/${bug.id}`} key={bug.id} className="nav-link">
                     <BugCard bug={bug} />
                   </NavLink>
                 ))}

@@ -8,9 +8,7 @@ export default function BugCard({ bug }) {
 
     const {color, level} = getPriorities(bug.priority)
     const bugList = priorityLevel(bug.priority)
-    const bugCardText = {
-        color
-    }
+    const bugCardText = { color }
     const users = Object.values(useSelector((state)=>state.users.entities))
     const userIds = Object.values(useSelector((state)=>state.users.ids))
     const idx = userIds.indexOf(bug.assignedTo)

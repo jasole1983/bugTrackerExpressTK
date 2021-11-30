@@ -22,13 +22,12 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       })
-    }}     
+    }
+  }     
 
   if (currentUser) return (
     <Redirect to='/home' />
   )
-  
-
   return (
     <div className="login-form-container" id="loginFormCard">
       <h1 className="login card-header">LOGIN</h1>
