@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === 'production') {
     );
   });
 
-  router.use(express.static(path.join(__dirname, "react-ui/build")));
+  router.use(express.static(path.join(__dirname, "build")));
 
   router.get(/^(?!\/?api).*/, (req, res) => {
     res.cookie('XSRF-TOKEN', req.csrfToken());
