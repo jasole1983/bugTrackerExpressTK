@@ -1,28 +1,21 @@
-.page-container.home { 
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 100px;
-    bottom: 0; 
-    font-size: large;
+.page-cont {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100vw;
+    height: 100vh;
 }
 
-.motd-card {
-    width: 500px;
-    height: 400px;
+.motd-card-cont {
+    width: 33vw;
+    height: max-content;
     border-color: var(--third-color);
     border-radius: 3rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     background-color: var(--prime-color);
     color: var(--fourth-color);
     font-size: 1.5rem;
-    
+    margin: auto auto;
+    padding-bottom: 2rem;
 }
 
 .motd-card.hdr {
