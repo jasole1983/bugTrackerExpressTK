@@ -14,8 +14,6 @@ if (process.env.NODE_ENV === 'production') {
     );
   });
 
-  router.use(express.static(__dirname));
-  router.use(express.static("public"));
   router.use(express.static(path.resolve('../react-ui/build')));
 
   router.get(/^(?!\/?api).*/, (req, res) => {
