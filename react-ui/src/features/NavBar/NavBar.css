@@ -13,6 +13,7 @@
     color: var(--fourth-color);
     font-family: var(--ff-sigmar);
     font-size: 1.75rem;
+    text-decoration: none;
     text-shadow: 1px 2px 1px var(--third-color),
         1px 3px 1px var(--third-color),
         1px 4px 1px var(--third-color),
