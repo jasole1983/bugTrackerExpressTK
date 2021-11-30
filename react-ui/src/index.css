@@ -82,13 +82,8 @@ p {
     background: var(--bg-grad);
     border-radius: 3rem;
     padding: 1rem;
-    /* justify-content: space-between; */
     box-shadow: var(--bs-norm);
 }
-
-/* .bug-card > * {
-    margin: 0 auto;
-} */
 
 .bug-card:hover {
     transform: scale(1.05);

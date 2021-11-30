@@ -4,17 +4,6 @@
     display: flex;
     justify-content: center;
 }
-/* .lg-bug-card {
-    margin-top: 30px;
-    padding: 35px;
-    width: 80vw;
-    height: 82vh;
-    display: grid;
-    background-color: var(--prime-color);
-    border-radius: 3rem;
-    box-shadow: 7px 7px black;
-    color: var(--fourth-color)
-} */
 
 .lg-bug-card-header.input-card {
     display: flex;
