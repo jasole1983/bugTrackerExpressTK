@@ -98,7 +98,7 @@
     font-size: var(--fs-card);
     color: black;
     text-align: center;
-    text-shadow: -2px 0 gray, 0 2px gray, 2px 0 gray, 0 -2px gray;;
+    text-shadow: -2px 0 gray, 0 2px gray, 2px 0 gray, 0 -2px gray;
 }
 
 .bc-body-txt {
@@ -140,7 +140,7 @@
     box-shadow: var(--bs-norm);
     font-family: var(--ff-note);
     text-shadow: var(--ts-outline);
-    color: var(--fourth-color)
+    color: var(--fourth-color);
 }
 
 .priority-txt {

@@ -79,7 +79,7 @@ export default function SignupFormPage({ setIsFlipped, isFlipped }) {
           <div className="signup-card-footer">
             <button className="submit-card-btn submit card-btn" type="submit">SUBMIT</button>
             
-            <button className="signup-card-btn-flip card-btn"type="button" onClick={()=>setIsFlipped(!isFlipped)}>LOGIN</button>
+            <button className="signup-card-btn-flip card-btn" type="button" onClick={()=>setIsFlipped(!isFlipped)}>LOGIN</button>
           </div>    
         </form>
       </div>
