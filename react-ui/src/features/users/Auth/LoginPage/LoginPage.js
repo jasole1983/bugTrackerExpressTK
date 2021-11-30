@@ -34,10 +34,10 @@ export default function LoginPage({setIsLoggedIn}) {
       </div>
       <div className="modal-container" >
         {showModal && 
-          <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} onClose={onClose} centered>
+          <Modal backdropClassName="login-modal-backdrop" isOpen={showModal} onClose={onClose} >
             <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-              <LoginFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal} />
-              <SignupFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} setShowModal={setShowModal}/>
+              <LoginFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} />
+              <SignupFormPage setIsFlipped={setIsFlipped} isFlipped={isFlipped} />
             </ReactCardFlip>
           </Modal>}
       </div>

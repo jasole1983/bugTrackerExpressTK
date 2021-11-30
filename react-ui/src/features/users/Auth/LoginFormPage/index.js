@@ -8,8 +8,8 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
   const dispatch = useDispatch()
   const currentUser = useSelector(state => state.session.user)
   const [ errors, setErrors ] = useState([])
-  const credential = useInputForm('');
-  const password = useInputForm('');
+  const [ credential, setCredential ] = useState('');
+  const [ password, setPassword ] = useState('');
 
   const handleLoginSubmit = (e) => { 
     console.log("before dispatch")
@@ -22,12 +22,7 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
         const data = await res.json();
         if (data && data.errors) setErrors(data.errors);
       })
-    } else {
-      return (
-        <Redirect to='/noauth' />
-      )
-    }
-    }     
+    }}     
 
   if (currentUser) return (
     <Redirect to='/home' />
@@ -35,7 +30,7 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
   
 
   return (
-    <div className="login-form-container" body id="loginFormCard">
+    <div className="login-form-container" id="loginFormCard">
       <h1 className="login card-header">LOGIN</h1>
       <ul className="login card-error-container">    
         {errors >= 1? errors.map((error, idx) => <li key={idx}>{error}</li>):null}
@@ -47,9 +42,9 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
           type="text"
           placeholder="Email or Username"
           name="credential"
-          {...credential}
+          value={credential}
+          onChange={(e) => setCredential(e.target.value)}
           autoComplete="new-username"
-          required
           />
         </div>
         <div className="login card-input pw">
@@ -58,9 +53,9 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
           type="password"
           placeholder="Password"
           name="password"
-          {...password}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           autoComplete="new-password"
-          required
           />
         </div>
         <div className="login card-footer" id="login-card-footer">
@@ -70,16 +65,4 @@ export default function LoginFormPage({ setIsFlipped, isFlipped }) {
       </form>
     </div>
   )
-}
-
-const useInputForm = initialValue => {
-  const [ value, setValue ] = useState(initialValue);
-
-  const handleChange = e => {
-    setValue(e.target.value);
-  }
-  return {
-    value, 
-    onChange: handleChange
-  }
 }

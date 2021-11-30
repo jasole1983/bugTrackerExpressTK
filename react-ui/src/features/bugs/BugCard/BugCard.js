@@ -12,14 +12,24 @@ export default function BugCard({ bug }) {
         color
     }
     const users = Object.values(useSelector((state)=>state.users.entities))
-    const user = users[bug.assignedTo - 1].name
+    const userIds = Object.values(useSelector((state)=>state.users.ids))
+    const idx = userIds.indexOf(bug.assignedTo)
+    const user = users[idx].name
 
     return (
         <div className="bug-card">
-            <div className="bug-card-text card-title" style={bugCardText}>{bug.name}</div>
-            <div className="bug-card-text card-priority-lvl" style={bugCardText}>{level}</div>
-            <div className="bug-card-text card-priority" style={bugCardText}>{bugList}</div>
-            <div className="bug-card-text card-assignedto" style={bugCardText}>{user}</div>
+            <div className="bug-card-div card-title" style={bugCardText}>
+                <p className="bug-card-text card-title-text">{bug.name}</p>
+            </div>
+            <div className="bug-card-div card-priority-lvl" style={bugCardText}>
+                <p className="bug-card-text card-priority-lvl-text">{level}</p>
+            </div>
+            <div className="bug-card-div card-priority" style={bugCardText}>
+                <p className="bug-card-text card-priority-text">{bugList}</p>
+            </div>
+            <div className="bug-card-div card-assignedto" style={bugCardText}>
+                <p className="bug-card-text card-assignedto-text">{user}</p>
+            </div>
         </div>
     )
 }

@@ -1,38 +1,158 @@
-.page-container.lg-bug {
-    width: 100vw;
-    height: 100vw;
-    display: flex;
-    justify-content: center;
-}
 .lg-bug-card {
+    margin: 0 auto;
     margin-top: 30px;
-    padding: 35px;
-    width: 80vw;
+    padding: 15px;
+    padding-left: 30px;
+    padding-right: 30px;
+    width: 90vw;
     height: 82vh;
     display: block;
     background-color: var(--prime-color);
-    border-radius: 3rem;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+    border-bottom-left-radius: 40em 5em;
+    border-bottom-right-radius: 40em 5em;
     box-shadow: 7px 7px black;
-    color: var(--fourth-color)
+    contain: content;
 }
 
-.lg-bug-card-header {
+.lg-bc-top-cont {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.lg-bc-hdr-btns {
+    display: flex;
+}
+
+.lg-bc-hdr-div {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.lg-bug-card-header-title {
-    font-family: 'Spicy Rice', cursive;
+.lg-bc-hdr-ttl-label {
+    font-family: var(--ff-sigmar);
     font-size: 3rem;
-    text-shadow: 2px 2px white;
+    text-shadow: 2px 2px black;
+    color: var(--second-color);
 }
 
-.lg-bug-card-container {
-    margin-top: 20px;
+.lg-bug-card-header-title-var {
+    font-family: var(--ff-econ);
+    font-size: 3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: var(--ts-outline);
+}
+
+.lg-bc-vert-cont {
+    width: 60%;
+    display: flex;
+    height: 60%;
+    gap: 2em;
+    contain: content;
+}
+
+.lg-bc-vert-div {
+    width: 45%;
+    height: 18rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-top: .5rem;
+    border-radius: 3rem;
+    background-color: var(--fourth-color);
+    box-shadow: 4px 4px black;
+}
+
+.below-sub-ttl-bar {
+    width: 95%;
+    height: 4px;
+    border-color: black;
+    border-width: 1rem;
+    background-color: black;
+    margin: 0 auto;
+}
+
+.lg-bc-wide-div {
+    width: 100%;
+    margin-top: 1.75rem;
+    display: flex;
+    gap: .25rem;
+}
+
+.lg-bc-wd-mini-div {
+    width: 19%;
+    height: 6rem;
+    margin: 0 auto;
+    padding-left: .75rem;
+    padding-right: .75rem;
+    background-color: var(--fourth-color);
+    border-radius: 1.5rem;
+    box-shadow: 4px 4px black;
+}
+
+.sub-ttl {
+    font-family: var(--ff-spicy);
+    font-size: var(--fs-card);
+    color: black;
+    text-align: center;
+    text-shadow: -2px 0 gray, 0 2px gray, 2px 0 gray, 0 -2px gray;;
+}
+
+.bc-body-txt {
+    font-size: 1.25rem;
+    color: black;
+    font-family: var(--ff-econ);
+    padding-top: .5rem;
+    text-align: center;
+}
+
+.lg-bc-img-cont {
+    display: flex;
+    width: 40%;
+    height: 18rem;
+    background-color: black;
+}
+
+.img-txt {
+    margin: auto;
+    font-size: var(--fs-focus);
+}
+
+.lg-bc-btm-div {
+    display: flex;
+    width: 100%;
+    margin: 1rem auto;
+
+}
+
+.complete-btn {
+    width: fit-content;
+    font-size: 2rem;
+    margin: 0 auto;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: .5rem;
+    border-radius: .75rem;
+    background-color: var(--second-color);
+    box-shadow: var(--bs-norm);
+    font-family: var(--ff-note);
+    text-shadow: var(--ts-outline);
+    color: var(--fourth-color)
+}
+
+.priority-txt {
+    text-shadow: var(--ts-outline);
+}
+
+
+/* .lg-bug-card-container {
+    margin-top: 5px;
     display: grid;
     height: 30vw;
-    width: 74vw;
+    width: 95%;
     grid-template-rows: 33% 33% 17% 17%;
     grid-template-columns: 30% 30% 20% 20%;
     gap: 20px;
@@ -137,9 +257,7 @@
     transition: 0.3s;
 }
 
-.lg-bug-card-hdr-btns {
-    display: flex;
-}
+
 
 .lg-bug-card-long-div, .lg-bug-card-short-div, .lg-bug-card-long-half  {
     width: 100%;
@@ -151,6 +269,8 @@
 
 .lg-bug-card-long-div-text {
     margin-top: 3px;
+    font-family: var(--ff-sigmar);
+    font-size: var(--fs-card);
     color: black;
 }
 
@@ -194,17 +314,17 @@ div.lg-bug-card-long-half.bc3, div.lg-bug-card-long-half.bc4 {
     box-shadow: 5px 5px black;
 }
 
-/* .lg-bug-card-long-div-divider.div-bc5, .lg-bug-card-long-div-divider.div-bc6{
+.lg-bug-card-long-div-divider.div-bc5, .lg-bug-card-long-div-divider.div-bc6{
     font-size: 3.9rem;
     margin-top: -75px;
-} */
+}
 
-/* .lg-bug-card-short-half.bc7 {
+.lg-bug-card-short-half.bc7 {
     display: flex;
     flex-direction: row;
     
     
-} */
+}
 
 .lg-bug-card-bottom {
     grid-row: 4;
@@ -233,4 +353,4 @@ div.lg-bug-card-long-half.bc3, div.lg-bug-card-long-half.bc4 {
 
 .lg-bug-card-header-title.lg-bug-label {
     color: black;
-}
+} */

@@ -14,7 +14,7 @@ export default function NavBar({ setIsLoaded }) {
   const isDesktop = useMediaQuery('(min-width: 600px)')
   const signOut = () => {
     dispatch(sessionActions.logout())
-      .then(()=> history.push('/'))
+    history.push('/')
     setIsLoaded(false)
   }
     return (

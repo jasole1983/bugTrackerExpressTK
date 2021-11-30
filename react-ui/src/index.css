@@ -31,8 +31,10 @@ html {
 
     --bg-grad: linear-gradient(55deg, var(--prime-color) 15%, var(--second-color) 55%, var(--prime-color) 100% );
 
-    --bs-norm: 2px 2px 4px 1px,
-                4px 4px 4px 2px;
+    --bs-norm: 2px 2px 4px 1px black,
+                4px 4px 4px 2px rgba(0, 0, 0, 0.76);
+
+    --ts-outline: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
 a {
@@ -45,11 +47,15 @@ ul {
     padding: 0;
 }
 
+p {
+    margin: 0;
+}
+
 .page-header {
     width: 100%;
     margin: 0 auto;
     margin-top: 1rem;
-    
+    display: flex; 
 }
 
 .page-header-txt {
@@ -69,16 +75,24 @@ ul {
 }
 
 .bug-card {
+    display: flex;
+    flex-direction: column;
     width: 20em;
     height: 15em; 
     background: var(--bg-grad);
     border-radius: 3rem;
     padding: 1rem;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    box-shadow: var(--bs-norm);
 }
 
-.bug-card > * {
+/* .bug-card > * {
     margin: 0 auto;
+} */
+
+.bug-card:hover {
+    transform: scale(1.05);
+    transition: 0.25s;
 }
 
 input:hover {
@@ -90,8 +104,6 @@ input[type="textarea"]:hover {
     transform: scale(1.05);
     transition: 0.25s;
 }
-
-
 
 input:focus {
     border-color: #BBE1FA;

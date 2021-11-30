@@ -4,40 +4,40 @@ import { Redirect } from "react-router-dom";
 import { signup } from "../../userSlice";
 import './SignupFormPage.css'
 
-export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal, isFlipped }) {
+export default function SignupFormPage({ setIsFlipped, isFlipped }) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [errors, setErrors] = useState([]);
-  const name = useInputForm('')
-  const email = useInputForm('')
-  const password = useInputForm('')
-  const confirmed = useInputForm('')
+  const [ errors, setErrors ] = useState([]);
+  const [ name, setName ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const [ password, setPassword ] = useState('')
+  const [ confirmed, setConfirmed ] = useState('')
   const handleSignupSubmit = (e) => {
     e.preventDefault()
-    if (password.value === confirmed.value) {
+    if (password === confirmed) {
     setErrors([]);
     return dispatch(signup({
-      name: name.value, email: email.value, password: password.value, admin: false,
+      name, email, password
     }))
       .catch(async (res) => {
         const data = await res.json();
-        if (data.ok){
-          setShowModal(false)
-        }
-        if (data && data.errors) setErrors(data.errors);
+        if (data && data.errors) {
+          setErrors(data.errors)
+        };
       });
   } else {
     return setErrors(['Confirm Password field must be the same as the Password field']);
-
-  }
-};
-  if (sessionUser) return <Redirect to="/home" />;
+    }
+  };
+  if (sessionUser) return (
+    <Redirect to="/home" />
+    )
 
   return (
     <div className="login-form-container" id="submitFormCard">
       <h1 className="signup card-header">SIGNUP</h1>
       <ul className="signup card-error-container">
-          {errors >=1 ? errors.map((error, idx) => <li key={idx}>{error}</li>):null}
+          {errors.length >=1 ? errors.map((error, idx) => <li key={idx}>{error}</li>):null}
       </ul>
       <form onSubmit={handleSignupSubmit}> 
           <div className="card-input email">
@@ -45,8 +45,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               className="signup-input"
               type="text"
               placeholder='Email'
-              {...email}
-              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               />
           </div>
           <div className="card-input name">
@@ -54,8 +54,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               type="text"
               className='signup-input'
               placeholder='Name'
-              {...name}
-              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               />
           </div>
           <div className="card-input password">
@@ -63,8 +63,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               type="password"
               className="signup-input"
               placeholder="Password"
-              {...password}
-              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               />
           </div>
           <div className="card-input confirm">
@@ -72,8 +72,8 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
               type="password"
               className="signup-input"
               placeholder="Confirm Password"
-              {...confirmed}
-              required
+              value={confirmed}
+              onChange={(e) => setConfirmed(e.target.value)}
               />
           </div>
           <div className="signup-card-footer">
@@ -84,16 +84,4 @@ export default function SignupFormPage({ setIsFlipped, setIsLoaded, setShowModal
         </form>
       </div>
   );
-}
-
-const useInputForm = initialValue => {
-  const [ value, setValue ] = useState(initialValue);
-
-  const handleChange = e => {
-    setValue(e.target.value);
-  }
-  return {
-    value, 
-    onChange: handleChange
-  }
 }

@@ -62,62 +62,67 @@ export default function BugView() {
     <div className="page-container lg-bug">
       <div className="lg-bug-card">
         {(errors.length >= 1) && handleErrors(errors)}
-        <div className="lg-bug-card-header">
-          <div className="lg-bug-card-hdr-btns">
+        <div className="lg-bc-hdr-div">
+          <div className="lg-bc-hdr-btns">
             <button className="lg-bug-card-hdr-edit bug-view-btn" onClick={ editBug}>EDIT</button>
             <button className="lg-bug-card-hdr-del bug-view-btn" onClick={deleteThisBug}>DELETE</button>
           </div>
-          <h1 className="lg-bug-card-header-title lg-bug-label">
+          <p className="lg-bc-hdr-ttl-label">
             NAME: 
-          </h1>
-          <h1 className="lg-bug-card-header-title" style={{color}}>
+          </p>
+          <p className="lg-bug-card-header-title-var" style={{color}}>
             {currentBug.name}
-          </h1>
+          </p>
           <button className="lg-bug-card-hdr-close bug-view-btn" onClick={(e) => closeView(e)}>X</button>
         </div>
-        <div className="lg-bug-card-container">
-          <div className="lg-bug-card-long-div bc1">
-            <h1 className="lg-bug-card-long-div-text">DETAILED DESCRIPTION</h1>
-            <div className="lg-bug-card-long-div-divider div-bc1"></div>
-            <p className="bc-text bc1-txt">{currentBug.details}</p>
+        <div className="lg-bc-top-cont">
+          <div className="lg-bc-vert-cont">
+            <div className="lg-bc-vert-div left">
+              <p className="sub-ttl">DETAILED DESCRIPTION</p>
+              <div className="below-sub-ttl-bar"></div>
+              <p className="bc-body-txt">{currentBug.details}</p>
+            </div>
+            <div className="lg-bc-vert-div right">
+              <p className="sub-ttl">STEPS TO REPLICATE</p>
+              <div className="below-sub-ttl-bar"></div>
+              <p className="bc-body-txt">{currentBug.steps}</p>
+            </div>
           </div>
-          <div className="lg-bug-card-image">
+          <div className="lg-bc-img-cont">
+            <p className="img-txt">Image Placeholder</p>
           </div>
-          <div className="lg-bug-card-long-div bc2">
-            <h1 className="lg-bug-card-long-div-text">STEPS TO REPLICATE</h1>
-            <div className="lg-bug-card-long-div-divider div-bc2"></div>
-            <p className="bc-text bc2-txt">{currentBug.steps}</p>
+        </div>
+        <div className="lg-bc-wide-div">
+          <div className="lg-bc-wd-mini-div">
+            <p className="sub-ttl">CREATED AT</p>
+            <div className="below-sub-ttl-bar"></div>
+            <p className="bc-body-txt">{createdAt()}</p>
           </div>
-          <div className="lg-bug-card-long-half bc3">
-            <h3 className="lg-bug-card-long-div-text">CREATED AT</h3>
-            <div className="lg-bug-card-long-div-divider div-bc3"></div>
-            <p className="bc-text bc3-txt">{createdAt()}</p>
+          <div className="lg-bc-wd-mini-div">
+            <p className="sub-ttl">CREATED BY</p>
+            <div className="below-sub-ttl-bar"></div>
+            <p className="bc-body-txt">{createdBy.name}</p>
           </div>
-          <div className="lg-bug-card-long-half bc4">
-            <h3 className="lg-bug-card-long-div-text">CREATED BY</h3>
-            <div className="lg-bug-card-long-div-divider div-bc4"></div>
-            <p className="bc-text bc4-txt">{createdBy.name}</p>
+          <div className="lg-bc-wd-mini-div">
+            <p className="sub-ttl">ASSIGNED TO</p>
+            <div className="below-sub-ttl-bar"></div>
+            <p className="bc-body-txt">{assignedTo.name}</p>
           </div>
-          <div className="lg-bug-card-short-half bc5">
-            <h3 className="lg-bug-card-long-div-text">ASSIGNED TO</h3>
-            <div className="lg-bug-card-long-div-divider div-bc5"></div>
-            <p className="bc-text bc5-txt">{assignedTo.name}</p>
+          <div className="lg-bc-wd-mini-div">
+            <p className="sub-ttl">OS VERSION</p>
+            <div className="below-sub-ttl-bar"></div>
+            <p className="bc-body-txt">{currentBug.version}</p>
           </div>
-          <div className="lg-bug-card-bottom">
-            <NavLink to={`/complete/${currentBug.id}`} className="lg-bug-card-btn-link nav-link navlink">
-              COMPLETE THIS BUG
-            </NavLink>
+          <div className="lg-bc-wd-mini-div">
+            <p className="sub-ttl">PRIORITY</p>
+            <div className="below-sub-ttl-bar"></div>
+            <p className="bc-body-txt priority-txt" style={{color}}>{level}  {bugIcons}</p>
           </div>
-          <div className="lg-bug-card-short-half bc6">
-            <h3 className="lg-bug-card-long-div-text">OS VERSION</h3>
-            <div className="lg-bug-card-long-div-divider div-bc6"></div>
-            <p className="bc-text bc6-txt">{currentBug.version}</p>
-          </div>
-          <div className="lg-bug-card-short-half bc7">
-            <h3 className="lg-bug-card-long-div-text">PRIORITY</h3>
-            <div className="lg-bug-card-long-div-divider div-bc7"></div>
-            <h3 className="bc-text bc7-txt" style={{color}}>{level}  {bugIcons}</h3>
-          </div>
+        </div>
+        <div className="lg-bc-btm-div">
+          <NavLink to={`/complete/${currentBug.id}`} className="complete-btn">
+            COMPLETE THIS BUG
+          </NavLink> 
         </div>
       </div>
       

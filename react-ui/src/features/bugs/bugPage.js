@@ -10,14 +10,16 @@ export default function BugPage() {
     return (
         <div className="page-container bugs">
             <div className="page-header bugs">
-                <h1 className="page-header-text">LIVE BUGS</h1>
+                <h1 className="page-header-txt">
+                    LIVE BUGS
+                </h1>
             </div>
+            
             <div className="bug-card-container">
                 {bugs.map((bug) => (
                   <NavLink to={`/viewbug/${bug.id}`} key={bug.id}className="nav-link">
                     <BugCard bug={bug} />
                   </NavLink>
-
                 ))}
             </div>              
         </div>
