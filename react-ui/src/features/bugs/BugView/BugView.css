@@ -35,7 +35,7 @@
     font-family: var(--ff-sigmar);
     font-size: 3rem;
     text-shadow: 2px 2px black;
-    color: var(--second-color);
+    color: var(--fourth-color);
 }
 
 .lg-bug-card-header-title-var {
