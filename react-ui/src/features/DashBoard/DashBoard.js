@@ -12,8 +12,8 @@ export default function DashBoard() {
   const med = () => bugs.filter((bug)=>bug.priority === 2)
   const high = () => bugs.filter((bug)=>bug.priority === 3)
   const crit = () => bugs.filter((bug)=>bug.priority === 4)
-  const handleClick = (event) => {
-    setList(event.target.id)
+  const handleClick = (e) => {
+    setList(e.target.id)
   }
    
   return (
@@ -23,7 +23,7 @@ export default function DashBoard() {
       </div>
       <div className="dashboard-card-container">
         <div className="bug-card dashboard-bc db-bc1" id='low' onClick={(e)=>handleClick(e)}>
-          <h1 className="db-bug-card-title db-bc1">LOW PRIORITY</h1>
+          <p className="db-bug-card-title db-bc1">LOW PRIORITY</p>
           <div className="db-bug-card-icon-container bug-icons db-bc1">
             <i className="bi bi-bug-fill"></i>
           </div>
@@ -32,19 +32,19 @@ export default function DashBoard() {
           </p>
         </div>
         
-        <div className="bug-card dashboard-bc db-bc2" id='med' onClick={(e)=>handleClick(e)}>
-          <h1 className="db-bug-card-title db-bc2">MED PRIORITY</h1>
+        <div className="bug-card dashboard-bc db-bc2" id='med' onClick={handleClick}>
+          <p className="db-bug-card-title db-bc2">MED PRIORITY</p>
           <div className="db-bug-card-icon-container bug-icons db-bc2">
             <i className="bi bi-bug-fill"></i>
             <i className="bi bi-bug-fill"></i>
           </div>
           <p className="db-bug-card-body db-bc2">
-          COUNT: {med().length}
-            </p>
+            COUNT: {med().length}
+          </p>
         </div>
         
         <div className="bug-card dashboard-bc db-bc3" id='high' onClick={(e)=>handleClick(e)}>
-          <h1 className="db-bug-card-title db-bc3">HIGH PRIORITY</h1>
+          <p className="db-bug-card-title db-bc3">HIGH PRIORITY</p>
           <div className="db-bug-card-icon-container bug-icons db-bc3">
             <i className="bi bi-bug-fill"></i>
             <i className="bi bi-bug-fill"></i>
@@ -56,7 +56,7 @@ export default function DashBoard() {
         </div>
        
         <div className="bug-card dashboard-bc db-bc4" id='crit' onClick={(e)=>handleClick(e)}>
-          <h1 className="db-bug-card-title db-bc4">CRIT PRIORITY</h1>
+          <p className="db-bug-card-title db-bc4">CRIT PRIORITY</p>
           <div className="db-bug-card-icon-container bug-icons db-bc4">
             <i className="bi bi-bug-fill"></i>
             <i className="bi bi-bug-fill"></i>

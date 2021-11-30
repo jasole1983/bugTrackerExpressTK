@@ -50,9 +50,9 @@ router.delete("/:id", asyncHandler(async (req, res) => {
         }
         returnObj['message']= "Successfully removed Bug record from system";
         returnObj['ok']= true;
-        return returnObj
+        
     })
-    return res.json(rObj)
+    return res.json(returnObj)
 }))
 
 module.exports = router
