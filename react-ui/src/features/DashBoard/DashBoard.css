@@ -7,6 +7,12 @@
     gap: 35px;
 }
 
+.dashboard-bc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .dashboard-bc-bottom-container {
     display: flex;
     flex-direction: row;
@@ -34,16 +40,21 @@
 }
 
 .db-bug-card-body {
- 
-    margin-top: 1.5rem;
-    font-size: 3rem;
-}
-.db-bug-card-body .bi.bi-bug-fill {
-    font-size: 3rem;
-    margin-top: 1.5rem;
+    font-size: var(--fs-focus);
+    font-family: var(--ff-sigmar);
+    text-shadow: var(--ts-outline);
 }
 
-.db-bug-card-icon-container.bug-icons {
+.db-bug-card-icon-container {
     display: flex;
+    font-size: 3rem;
     flex-direction: row;
+    text-shadow: var(--ts-outline)
+}
+
+.db-bug-card-title {
+    font-family: var(--ff-note);
+    font-size: 1.75rem;
+    text-shadow: var(--ts-outline);
+    
 }
