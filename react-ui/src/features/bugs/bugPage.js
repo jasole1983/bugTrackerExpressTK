@@ -25,9 +25,9 @@ export default function BugPage() {
         setIsFlipped(false)
     }
     return (
-        <div className="page-container bugs">
-            <div className="page-header bugs">
-                <h1 className="page-header-txt">
+        <div className="page-container bug-page-cont bugs">
+            <div className="page-header bug-page-hdr bugs">
+                <h1 className="page-header-txt bug-page-hdr-txt">
                     LIVE BUGS
                 </h1>
             </div>
@@ -35,7 +35,7 @@ export default function BugPage() {
             <div className="bug-card-container">
                 {bugs.map((bugg) => (
                   <button key={bugg.id} className="bug-card-btn" onClick={setBugContext} id={bugg.id}>
-                    <BugCard bug={bugg} />
+                    <BugCard bug={bugg} key={bugg.id} />
                   </button>
                 ))}
             </div>

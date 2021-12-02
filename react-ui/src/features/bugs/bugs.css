@@ -10,3 +10,25 @@
     background-color: transparent;
 }
 
+/* .page-container.bug-page-cont {
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 1rem;
+    display: flex; 
+}
+
+.page-header.bug-page-hdr {
+    font-family: var(--ff-spicy);
+    color: var(--header-color);
+    text-shadow: 1px 1px 2px white, 0 0 1em var(--header-colortwo), 0 0 0.2em var(--header-colortwo);
+    font-size: var(--fs-header);
+    margin: 0 auto;
+}
+
+.page-header-txt.bug-page-hdr-txt {
+    display: grid;
+    background-color: white;
+    width: 100vw;
+    grid-template-rows: 50px 1fr;
+    height: max-content;   
+} */
