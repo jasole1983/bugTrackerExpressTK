@@ -4,3 +4,9 @@
     margin-top: 5rem;
 }
 
+.bug-card-btn {
+    display: block;
+    border: none;
+    background-color: transparent;
+}
+

@@ -38,7 +38,7 @@ export default function NavBar({ setIsLoaded }) {
                 </NavLink>
               </div>
               <div className="navbar-link main-item create-bug">
-                <NavLink to={`/createbug`} className="btn-link navbar-link">
+                <NavLink to={`/editbug/new`} className="btn-link navbar-link">
                   Create Bug
                 </NavLink>
               </div>

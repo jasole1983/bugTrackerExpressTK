@@ -1,133 +1,180 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
 import DragAndDropComp from '../../DragAndDrop/DragAndDrop'
 import BugRadio from '../BugComponents/BugRadio'
-import { makeNewBug } from '../bugSlice'
+import { updateBug } from '../bugSlice'
+import useFormInput from '../../../store/hooks/FormInput'
 import './BugForm.css'
+import { BugContext } from '../../../BugContext'
 
-export default function BugForm() {
-  const history = useHistory()
+export default function BugForm({setShowModal, isFlipped, setIsFlipped}) {
+  // eslint-disable-next-line no-unused-vars
   const currentUser = useSelector(state=>state.session.user)
-  const [ name, setName ] = useState('')
-  const [ details, setDetails ] = useState('')
-  const [ steps, setSteps ] = useState('')
-  const [ priority, setPriority ] = useState(0)
-  const [ assignedTo, setAssignedTo ] = useState(0)
-  const [ version, setVersion ] = useState('')
-  const currentTime = Date().toLocaleString().slice(0, 25)
+  // eslint-disable-next-line no-unused-vars
+  const [bug, setBug] = useContext(BugContext)
+  const stpz = bug.steps.split('>')
+  // eslint-disable-next-line
+  const stepObj = {
+    one: useFormInput(stpz[0] || ''), 
+    two: useFormInput(stpz[1] || ''), 
+    thr: useFormInput(stpz[2] || ''), 
+    for: useFormInput(stpz[3] || ''), 
+    fiv: useFormInput(stpz[4] || ''), 
+    six: useFormInput(stpz[5] || '')
+  }
+
+  const [ isLoaded, setIsLoaded ] = useState(false)
+  const [ name, setName ] = useState(bug.name)
+  const [ details, setDetails ] = useState(bug.details)
+  const [ steps, setSteps ] = useState(bug.steps)
+  const [ priority, setPriority ] = useState(bug.priority)
+  const [ assignedTo, setAssignedTo ] = useState(bug.assignedTo)
+  const [ version, setVersion ] = useState(bug.version)
+  const stepsList = Object.entries(stepObj)
+  const joinSteps = (sObj) => {
+    return Object.entries(sObj).map(step => step.value).join(' > ')
+  }
+  // eslint-disable-next-line no-unused-vars
+  const [ createdBy, setCreatedBy ] = useState(bug.createdBy)
   const users = Object.values(useSelector(state=>state.users.entities))
   const dispatch = useDispatch()
+  const getSteps = useCallback(
+    () => {
+    setSteps(joinSteps(stepObj))
+  }, [stepObj])
   const submitNewBug = async (e) => {
     e.preventDefault()
-    console.log({name, details, steps, priority, assignedTo, version})
-    const res = await dispatch(makeNewBug({
+    await getSteps()
+    console.log({ steps })
+    const res = await dispatch(updateBug({
+                          id: bug.id,
                           name,
                           details,
                           steps,
                           priority,
                           assignedTo,
                           version,
-                          createdBy: currentUser.id,
+                          createdBy
                         }))
-    if (res.ok) return history.push('/home')
+    console.log({res})
+    setIsFlipped(!isFlipped)
   }
-  return (
-    <div className="page-container create-bug">
-        <div className="lg-bug-card">
-          <form onSubmit={submitNewBug} method='POST'>
-            <div className="lg-bug-card-header input-card">
-              <h1 className="lg-bug-card-header-title input-card">NAME</h1>
-                <input
-                className="bc-input-form-text name-input"
-                type="text"
-                name="name"
-                value={name}
-                placeholder="Brief Description of the Bug"
-                onChange={(e) => setName(e.target.value)}
-                />
+  useEffect(()=>{
+    setIsLoaded(true)
+    getSteps()
+  }, [getSteps, stepObj])
+
+  return isLoaded && (
+    
+    <div className="bug-form">
+      <button className="bfc-flip-btn" onClick={() => setIsFlipped(!isFlipped)}><i className="bi bi-arrow-left-square-fill"></i></button>
+      <button className="bfc-close-btn" onClick={() => setShowModal(false)}><i className="bi bi-x-lg"></i></button>
+      <div className="bug-form-card">
+        <form onSubmit={submitNewBug}>
+          <div className="bfc-sec one name long">
+            <label className="bfc-lbl one name" htmlFor="name">
+              Name:
+            </label>
+            <input
+              className="bfc-inp one name long"
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Brief description of problem"
+              name="name"
+              id="name"
+              />
+          </div>
+          <div className="bfc-sec two details long">
+            <label className="bfc-lbl two details" htmlFor="details">
+              Details:
+            </label>
+            <textarea
+              className="bfc-inp two details long"
+              type="textarea"
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              placeholder="A detailed description of the issue"
+              name="details"
+              id="details"
+              />
+          </div>
+          <div className="bfc-sec-vert-cont">
+            <div className="bfc-sec-vert three steps vert">
+              <label className="bfc-lbl three steps" htmlFor="steps">
+                Steps:
+              </label>
+              <div className="bfc-inp-vert-cont" id="steps">
+                
+                {stepsList.map((stp) => {
+                  const k = stp[0]
+                  const v = stp[1]
+                  return (
+                    <input
+                    className={`sub-step ss-${k}`}
+                    id={`sub-step-${k}`}
+                    type="text"
+                    key={`${k}`}
+                    name={`${k}`}
+                    {...v}
+                    />
+                  )
+                })}
+              </div>
             </div>
-            <div className="lg-bug-card-container-new">
-              <div className="lg-bug-card-long-div card-bc1">
-                <h1 className="lg-bug-card-long-div-text">DETAILED DESCRIPTION</h1>
-                <div className="lg-bug-card-long-div-divider div-bc1"></div>
-                <input 
-                className="bc-input-form-text bug-input area b1-details" 
-                value={details}
-                placeholder="Type Description Here"
-                type="textarea"
-                name="details"
-                row={4}
-                onChange={(e) => setDetails(e.target.value)}
-                />
-              </div>
-              <div className="lg-bug-card-image">
-                <DragAndDropComp />
-              </div>
-              <div className="lg-bug-card-long-div card-bc2">
-                <h1 className="lg-bug-card-long-div-text">STEPS TO REPLICATE</h1>
-                <div className="lg-bug-card-long-div-divider div-bc2"></div>
-                <textarea 
-                className="bc-input-form-text bug-input area b2-card" 
-                value={steps}
-                placeholder="Type the steps to replicate bug"
-                type="textarea"
-                name="steps"
-                onChange={(e) => setSteps(e.target.value)}
-                />
-              </div>
-              <div className="lg-bug-card-long-half card-bc5">
-                <h3 className="lg-bug-card-long-div-text">CREATED AT</h3>
-                <div className="lg-bug-card-long-div-divider div-bc5"></div>
-                <p className="bc-text bc4-txt">{currentTime}</p>
-              </div>
-              <div className="lg-bug-card-long-half card-bc4">
-                <h3 className="lg-bug-card-long-div-text">CREATED BY</h3>
-                <div className="lg-bug-card-long-div-divider div-bc4"></div>
-                <p className="bc-text bc5-txt">{currentUser.name}</p>
-              </div>
-              <div className="lg-bug-card-short-half card-bc3">
-                <h3 className="lg-bug-card-long-div-text">ASSIGNED TO</h3>
-                <div className="lg-bug-card-long-div-divider div-bc3"></div>
-                <label for="assignedTo" className="select-dropdown-input assignedTo">Select User To Assign</label>
-                <select 
-                className="user-dropdown bug-input" 
-                name="assignedTo" 
-                value={assignedTo}
-                id="assignedTo"
-                form="bugForm"
-                onChange={(e)=>setAssignedTo(e.target.value)}
-                >
-                  {users.map((user, idx)=>(
-                    <option key={idx} className="select-option" value={user.id}
-                    >{user.name}</option>
-                  ))}  
+            <div className="bfc-sec-col-two cont vert">
+              <div className="bfc-sec-assigned four">
+                <label className="bfc-lbl four assign" htmlFor="assigned">
+                  Assigned To:
+                </label>
+                <select className="bfc-sel four assign" id="assigned" onChange={(e) => setAssignedTo(e.target.value)}>
+                  {users.map(user=>(<option key={user.id.toString()} value={user.id}>{user.name}</option>))}
                 </select>
               </div>
-              <button type="submit" className="lg-bug-card-btn-link-edit ">
-                SUBMIT THIS BUG
-              </button>
-              <div className="lg-bug-card-short-half card-bc6">
-                <h3 className="lg-bug-card-long-div-text">OS VERSION</h3>
-                <div className="lg-bug-card-long-div-divider div-bc6"></div>
+              <div className="bfc-sec-created five">
+                <label className="bfc-lbl five created" htmlFor="created">
+                  Version:
+                </label>
                 <input 
-                className="bc-input-form-text bug-input b6-card" 
-                value={version}
-                placeholder="Version Here"
+                className="bfc-inp version"
                 type="text"
-                name="version"
+                placeholder="Version used"
+                value={version}
                 onChange={(e) => setVersion(e.target.value)}
+                name="version"
+                id="version"
                 />
               </div>
-              <div className="lg-bug-card-short-half card-bc7" id="divbc7">
-                <BugRadio index={1} key={1} setPriority={setPriority}/>
-                <BugRadio index={2} key={2} setPriority={setPriority}/>
-                <BugRadio index={3} key={3} setPriority={setPriority}/>
-                <BugRadio index={4} key={4} setPriority={setPriority}/>
+              <div className="bfc-sec-priority">
+                <label className="bfc-lbl six priority" htmlFor="priority">
+                  Priority:
+                </label>
+                <div className="bug-icon-card-cont">
+                  <BugRadio index={1}priority={priority}setPriority={setPriority}/>
+                  <BugRadio index={2}priority={priority}setPriority={setPriority}/>
+                  <BugRadio index={3}priority={priority}setPriority={setPriority}/>
+                  <BugRadio index={4}priority={priority}setPriority={setPriority}/>
+                </div>
+              <button className="bfc-btn-sbt" type="submit">
+                COMMIT BUG
+              </button>
               </div>
             </div>
+            <div className="bfc-img-cont">
+              <DragAndDropComp />
+            </div>
+          </div>
         </form>
       </div>
-    </div>
+    </div>         
   )
+}
+
+
+
+export function useCombineSteps(stepsObject){
+  const stepz = Object.values(stepsObject)
+  const mapped = stepz.map(step => step.value)
+  const stepsStr = mapped.join(' > ')
+  return stepsStr
 }

@@ -16,29 +16,46 @@ router.get("/priority/:id", asyncHandler(async (req, res) => {
     return res.json({ priorityBugs })
 }))
 
-router.post("/new", asyncHandler(async (req, res, next) => {
+router.post("/update/:id", asyncHandler(async (req, res, next) => {
+    const paramId = parseInt(req.params.id, 10);
+    const { id, name, details, steps, version, assignedTo, createdBy, priority } = req.body
+    const editBug = await Bug.findByPk(paramId)
+    await editBug.update({
+            name, 
+            details, 
+            steps, 
+            version, 
+            assignedTo, 
+            priority,
+        })
+
+    await editBug.save();
+    
+    return res.json({ editBug })
+
+}))
+
+router.post("/create", asyncHandler(async (req, res) => {
     const { name, details, steps, version, assignedTo, createdBy, priority } = req.body
-    console.log( "request = ", {name, details, steps, version, assignedTo, createdBy, priority})
     const newBug = await Bug.build({
-                name, 
-                details, 
-                steps, 
-                version, 
-                assignedTo, 
-                createdBy,
-                priority,
-                })
+        name,
+        details,
+        steps,
+        version,
+        assignedTo,
+        priority,
+        createdBy,
+    })
 
     await newBug.save();
-    
-    res.status(203)
 
+    return res.json({ newBug })
 }))
 
 router.delete("/:id", asyncHandler(async (req, res) => {
     const bugId = parseInt(req.params.id, 10);
         
-    const rObj = await Bug.destroy({
+    await Bug.destroy({
         where: {
             id: bugId
         }

@@ -16,6 +16,20 @@
     contain: content;
 }
 
+.bug-view-btn {
+    font-family: var(--ff-note);
+    font-size: var(--fs-card);
+    border: 1rem black;
+    background-color: var(--second-color);
+    box-shadow: var(--bs-norm);
+    text-shadow: var(--ts-outline);
+    border-radius: .85rem;
+    margin-left: .25rem;
+    margin-right: .25rem;
+    padding: .5rem;
+    color: var(--fourth-color)
+}
+
 .lg-bc-top-cont {
     display: flex;
     margin-top: 1rem;
