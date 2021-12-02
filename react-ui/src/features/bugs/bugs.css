@@ -1,4 +1,12 @@
 .bug-card-container {
+    display: flex;
+    flex-flow: wrap;
     margin-top: 5rem;
+}
+
+.bug-card-btn {
+    display: block;
+    border: none;
+    background-color: transparent;
 }
 

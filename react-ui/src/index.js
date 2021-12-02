@@ -8,6 +8,7 @@ import { restoreCSRF, csrfFetch } from './store/csrf';
 import store from './store';
 import * as sessionActions from './store/session';
 import { ModalProvider } from './store/modal/Modal.js';
+import { BugProvider } from './BugContext';
 
 if (process.env.NODE_ENV !== 'production') {
   restoreCSRF();
@@ -21,9 +22,11 @@ function Root() {
   return (
     <Provider store={store}>
       <ModalProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <BugProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </BugProvider>
       </ModalProvider>
     </Provider>
   );

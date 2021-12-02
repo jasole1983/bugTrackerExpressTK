@@ -15,10 +15,13 @@ import Home from "./features/Home/Home";
 import BugView from "./features/bugs/BugView/BugView";
 import Noauth from "./features/users/Auth/Noauth";
 
+
+
 function App() {
   const dispatch = useDispatch();
   const currentUser = useSelector(state=>state.session.user)
   const [isLoaded, setIsLoaded] = useState(false);
+
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true))
     dispatch(fetchUsers())
@@ -45,11 +48,8 @@ function App() {
         <ProtectedRoute exact path="/viewbugs">
           <BugPage />
         </ProtectedRoute>
-        <ProtectedRoute path="/createbug">
-          <BugForm currentUser={currentUser} />
-        </ProtectedRoute>
-        <ProtectedRoute path="/editbug/:bugId">
-          {/* <BugEdit currentUser={currentUser} /> */}
+        <ProtectedRoute path="/editBug/:bugId">
+          <BugForm /> 
         </ProtectedRoute>
         <ProtectedRoute exact path="/viewbug/:bugId">
           <BugView />

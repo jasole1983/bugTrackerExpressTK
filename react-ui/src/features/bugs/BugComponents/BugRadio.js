@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './BugRadio.css'
 import { getPriorities } from './priorityController'
-export default function BugRadio({ index, setPriority }) {
-    const [checked, setChecked] = useState(false)
+export default function BugRadio({ index, priority, setPriority }) {
+    const [checked, setChecked] = useState(priority===index)
     const {color, level} = getPriorities(index)
     const fullBug = <i className="bi bi-bug-fill" ></i>
     const handleChange = (e) => {
@@ -12,7 +12,7 @@ export default function BugRadio({ index, setPriority }) {
     return (
         <div className="bug-radio-btn" style={{color}}>
             <div className="bug-radio-btn-header tooltip"><span className="tooltiptext"></span></div>
-            <label for={level} className="bug-icon-label">
+            <label htmlFor={level} className="bug-icon-label">
                 <input 
                 className="bug-icon-btn" 
                 type="radio" 

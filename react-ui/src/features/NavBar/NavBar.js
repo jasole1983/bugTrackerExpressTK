@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { useHistory } from 'react-router'
+import { NavLink, Redirect } from 'react-router-dom';
 import * as sessionActions from '../../store/session'
 import useMediaQuery from '../../store/hooks/MediaQuery';
 import './NavBar.css'
@@ -9,15 +8,16 @@ import './NavBar.css'
 export default function NavBar({ setIsLoaded }) {
   const dispatch = useDispatch()
   const currentUser = useSelector((state)=>state.session.user)
-  const history = useHistory()
   const [ showMenu, setShowMenu ] = useState(false)
   const isDesktop = useMediaQuery('(min-width: 600px)')
   const signOut = () => {
     dispatch(sessionActions.logout())
-    history.push('/')
     setIsLoaded(false)
   }
-    return (
+  if(!currentUser) return (
+    <Redirect to="/login" />
+  )
+  return (
         <div className="navbar">
           <div className="navbar-logo">
             <NavLink exact to="/home" className="navbar-link">
@@ -38,7 +38,7 @@ export default function NavBar({ setIsLoaded }) {
                 </NavLink>
               </div>
               <div className="navbar-link main-item create-bug">
-                <NavLink to={`/createbug`} className="btn-link navbar-link">
+                <NavLink to={`/editbug/new`} className="btn-link navbar-link">
                   Create Bug
                 </NavLink>
               </div>

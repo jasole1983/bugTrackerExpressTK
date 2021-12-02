@@ -1,18 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import './BugCard.css'
 import { getPriorities, priorityLevel } from '../BugComponents/priorityController'
+import useGetUser from '../../users/useGetUser'
 
-
-export default function BugCard({ bug }) {
-
+export default function BugCard({bug}) {
     const {color, level} = getPriorities(bug.priority)
     const bugList = priorityLevel(bug.priority)
     const bugCardText = { color }
-    const users = Object.values(useSelector((state)=>state.users.entities))
-    const userIds = Object.values(useSelector((state)=>state.users.ids))
-    const idx = userIds.indexOf(bug.assignedTo)
-    const user = users[idx].name
+    const assignedTo = useGetUser(bug.assignedTo)
 
     return (
         <div className="bug-card">
@@ -26,7 +21,7 @@ export default function BugCard({ bug }) {
                 <p className="bug-card-text card-priority-text">{bugList}</p>
             </div>
             <div className="bug-card-div card-assignedto" style={bugCardText}>
-                <p className="bug-card-text card-assignedto-text">{user}</p>
+                <p className="bug-card-text card-assignedto-text">{assignedTo.name}</p>
             </div>
         </div>
     )

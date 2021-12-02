@@ -9,27 +9,40 @@ export const fetchBugs = createAsyncThunk(
     }
 )
 
-export const makeNewBug = createAsyncThunk(
-    'bugs/newBug',
+export const updateBug = createAsyncThunk(
+    'bugs/updateBug',
     async (bug, { dispatch }) => {
-        const { name, details, steps, priority, version, assignedTo, createdBy } = bug
-        console.log("bug = ", {bug})
-        const res = await csrfFetch('/api/bugs/new', {
+        const { id, name, details, steps, priority, version, assignedTo, createdBy } = bug
+        console.log({ bug })
+        const res = await csrfFetch(`/api/bugs/update/${id}`, {
             method: 'POST',
-            body: JSON.stringify({name, details, steps, priority, version, createdBy, assignedTo})
-        }).then((result) => result.json())
-        if(res.ok) dispatch(addBug(bug))
+            body: JSON.stringify({id, name, details, steps, priority, version, createdBy, assignedTo})
+        }).then((result)=>result.json());
+        dispatch(updBug(res.editBug))
+    }
+)
+
+export const createBug = createAsyncThunk(
+    'bugs/createBug',
+    async (bug, { dispatch }) => {
+        const { id, name, details, steps, priority, version, assignedTo, createdBy } = bug
+        console.log({ bug })
+        const res = await csrfFetch(`/api/bugs/create`, {
+            method: 'POST',
+            body: JSON.stringify({id, name, details, steps, priority, version, createdBy, assignedTo})
+        }).then((result)=>result.json());
+        dispatch(addBug(res.newBug))
     }
 )
 
 export const delBug = createAsyncThunk(
     'bugs/delBug',
-    async (bug, { dispatch }) => {
-        const res = await csrfFetch(`/api/bugs/${bug.id}`, {
+    async (bugId, { dispatch }) => {
+        const res = await csrfFetch(`/api/bugs/${bugId}`, {
             method: 'DELETE',
         }).then((result) => result.json())
         if (res.ok){
-            dispatch(deleteBug(bug.id))
+            dispatch(deleteBug(bugId))
             return { message: res.message }
         } else {
             return { errors: res.errors }
@@ -38,8 +51,7 @@ export const delBug = createAsyncThunk(
 )
 
 const bugAdapter = createEntityAdapter({
-    selectId: (bug) => bug.id,
-    sortComparer: (a, b) => b.priority - a.priority
+    selectId: (bug) => bug.id
 })
 
 const bugSlice = createSlice({
@@ -49,8 +61,7 @@ const bugSlice = createSlice({
         getBugs: bugAdapter.setAll,
         addBug: bugAdapter.addOne,
         deleteBug: bugAdapter.removeOne,
-        upsertBug: bugAdapter.upsertOne,
-        
+        updBug: bugAdapter.updateOne,
     },
     extraReducers: {
         [fetchBugs.pending](state){
@@ -68,26 +79,37 @@ const bugSlice = createSlice({
         },
         [delBug.fulfilled](state, { payload }){
             state.status = "Successful"
-            deleteBug(payload.bug)
+            deleteBug(payload)
         },
         [delBug.rejected](state){
             state.status = "Failed"
         },
-        [makeNewBug.pending](state){
+        [updateBug.pending](state){
             state.status = "Loading"
         },
-        [makeNewBug.fulfilled](state, { payload }){
+        [updateBug.fulfilled](state, { payload }){
             state.status = "Successful"
-            addBug(payload.bug)
+            updBug(payload)
         },
-        [makeNewBug.rejected](state){
+        [updateBug.rejected](state){
             state.status = "Failed"
         },
+        [createBug.pending](state){
+            state.status = "Loading"
+        },
+        [createBug.fulfilled](state, { payload }){
+            state.status = "Successful"
+            addBug(payload)
+        },
+        [createBug.rejected](state){
+            state.status = "Failed"
+        },
+
     }
 })
 
 export default bugSlice.reducer
 
-export const { getBugs, addBug, upsertBug, deleteBug } = bugSlice.actions
+export const { getBugs, addBug, updBug, deleteBug } = bugSlice.actions
 
 export const bugSelectors = bugAdapter.getSelectors((state) => state.bugs)
