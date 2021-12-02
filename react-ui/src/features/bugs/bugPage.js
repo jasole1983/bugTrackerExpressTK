@@ -35,7 +35,7 @@ export default function BugPage() {
             <div className="bug-card-container">
                 {bugs.map((bugg) => (
                   <button key={bugg.id} className="bug-card-btn" onClick={setBugContext} id={bugg.id}>
-                    <BugCard bug={bugg} />
+                    <BugCard bug={bugg} key={bugg.id} />
                   </button>
                 ))}
             </div>
