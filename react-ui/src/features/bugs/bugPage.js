@@ -25,9 +25,9 @@ export default function BugPage() {
         setIsFlipped(false)
     }
     return (
-        <div className="page-container bugs">
-            <div className="page-header bugs">
-                <h1 className="page-header-txt">
+        <div className="page-container bug-page-cont bugs">
+            <div className="page-header bug-page-hdr bugs">
+                <h1 className="page-header-txt bug-page-hdr-txt">
                     LIVE BUGS
                 </h1>
             </div>
