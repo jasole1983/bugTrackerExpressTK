@@ -38,15 +38,11 @@ export const createBug = createAsyncThunk(
 export const delBug = createAsyncThunk(
     'bugs/delBug',
     async (bugId, { dispatch }) => {
+        // eslint-disable-next-line no-unused-vars
         const res = await csrfFetch(`/api/bugs/${bugId}`, {
             method: 'DELETE',
         }).then((result) => result.json())
-        if (res.ok){
             dispatch(deleteBug(bugId))
-            return { message: res.message }
-        } else {
-            return { errors: res.errors }
-        }
     }
 )
 

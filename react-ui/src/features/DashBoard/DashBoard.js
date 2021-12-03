@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import './DashBoard.css'
-import BugCard from '../bugs/BugCard/BugCard'
+import ClickBugCard from '../bugs/BugComponents/ClickBugCard'
+import BugModal from '../bugs/BugComponents/BugModal'
 
 export default function DashBoard() {
   const [ list, setList ] = useState('')
@@ -15,14 +16,15 @@ export default function DashBoard() {
   const handleClick = (e) => {
     setList(e.target.id)
   }
-   
+  const [ showModal, setShowModal ] = useState(false)
+
   return (
     <div className="page-container dashboard">
       <div className="page-header dashboard">
         <h1 className="page-header-txt">{currentUser.name}'s Dashboard</h1>
       </div>
       <div className="dashboard-card-container">
-        <div className="bug-card dashboard-bc db-bc1" id='low' onClick={(e)=>handleClick(e)}>
+        <div className="bug-card dashboard-bc db-bc1" id='low' onClick={handleClick}>
           <p className="db-bug-card-title db-bc1">LOW PRIORITY</p>
           <div className="db-bug-card-icon-container bug-icons db-bc1">
             <i className="bi bi-bug-fill"></i>
@@ -43,7 +45,7 @@ export default function DashBoard() {
           </p>
         </div>
         
-        <div className="bug-card dashboard-bc db-bc3" id='high' onClick={(e)=>handleClick(e)}>
+        <div className="bug-card dashboard-bc db-bc3" id='high' onClick={handleClick}>
           <p className="db-bug-card-title db-bc3">HIGH PRIORITY</p>
           <div className="db-bug-card-icon-container bug-icons db-bc3">
             <i className="bi bi-bug-fill"></i>
@@ -55,7 +57,7 @@ export default function DashBoard() {
           </p>
         </div>
        
-        <div className="bug-card dashboard-bc db-bc4" id='crit' onClick={(e)=>handleClick(e)}>
+        <div className="bug-card dashboard-bc db-bc4" id='crit' onClick={handleClick}>
           <p className="db-bug-card-title db-bc4">CRIT PRIORITY</p>
           <div className="db-bug-card-icon-container bug-icons db-bc4">
             <i className="bi bi-bug-fill"></i>
@@ -70,11 +72,12 @@ export default function DashBoard() {
 
       </div>
       <div className="dashboard-bc-bottom-container">
-        {(list === 'low') && low().map((bug) => <BugCard bug={bug}  key={bug.id}/>)}
-        {(list === 'med') && med().map((bug) => <BugCard bug={bug}  key={bug.id}/>)}
-        {(list === 'high') && high().map((bug) => <BugCard bug={bug}  key={bug.id}/>)}
-        {(list === 'crit') && crit().map((bug) => <BugCard bug={bug}  key={bug.id}/>)}
+        {(list === 'low') && low().map((bugg) => <ClickBugCard bugg={bugg} setShowModal={ setShowModal } key={bugg.id}/>)}
+        {(list === 'med') && med().map((bugg) => <ClickBugCard bugg={bugg} setShowModal={ setShowModal } key={bugg.id}/>)}
+        {(list === 'high') && high().map((bugg) => <ClickBugCard bugg={bugg} setShowModal={ setShowModal } key={bugg.id}/>)}
+        {(list === 'crit') && crit().map((bugg) => <ClickBugCard bugg={bugg} setShowModal={ setShowModal } key={bugg.id}/>)}
       </div>
+      {showModal && <BugModal setShowModal={setShowModal} showModal={showModal} />}
     </div>
   )
 }
