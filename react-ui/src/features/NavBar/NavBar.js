@@ -1,18 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, Redirect } from 'react-router-dom';
+import { NavLink, Redirect, useHistory } from 'react-router-dom';
 import * as sessionActions from '../../store/session'
 import useMediaQuery from '../../store/hooks/MediaQuery';
+import { BugContext } from '../../BugContext';
 import './NavBar.css'
+import BlankBug from '../bugs/BugComponents/blankBug'
 
 export default function NavBar({ setIsLoaded }) {
   const dispatch = useDispatch()
+  const history = useHistory()
   const currentUser = useSelector((state)=>state.session.user)
   const [ showMenu, setShowMenu ] = useState(false)
+  // eslint-disable-next-line no-unused-vars
+  const [ bug, setBug ] = useContext(BugContext)
   const isDesktop = useMediaQuery('(min-width: 600px)')
+  const setCont = () => {
+    setBug({...BlankBug})
+  }
   const signOut = () => {
     dispatch(sessionActions.logout())
-    setIsLoaded(false)
+    history.push("/login")
   }
   if(!currentUser) return (
     <Redirect to="/login" />
@@ -38,8 +46,10 @@ export default function NavBar({ setIsLoaded }) {
                 </NavLink>
               </div>
               <div className="navbar-link main-item create-bug">
-                <NavLink to={`/editbug/new`} className="btn-link navbar-link">
-                  Create Bug
+                <NavLink to={`/createbug`} className="btn-link navbar-link">
+                  <button className="btn-link-navbar btn-link navbar-link" onClick={setCont} >
+                    Create Bug
+                  </button>
                 </NavLink>
               </div>
             </div>

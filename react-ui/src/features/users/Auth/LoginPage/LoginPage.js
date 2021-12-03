@@ -16,7 +16,7 @@ export default function LoginPage({setIsLoggedIn}) {
   const [showModal, setShowModal] = useState(false);
   const demoLogin = () => {
     console.log('demo button pushed')
-    const user = { credential: 'straightd', password: 'password' }
+    const user = { credential: 'jl@gmail.com', password: 'password' }
     dispatch(sessionActions.login(user))
   }
   const onClose = () => {

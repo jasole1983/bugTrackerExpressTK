@@ -48,7 +48,7 @@ function App() {
         <ProtectedRoute exact path="/viewbugs">
           <BugPage />
         </ProtectedRoute>
-        <ProtectedRoute path="/editBug/:bugId">
+        <ProtectedRoute exact path="/createbug">
           <BugForm /> 
         </ProtectedRoute>
         <ProtectedRoute exact path="/viewbug/:bugId">
